@@ -344,6 +344,8 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
         //we draw Cuphead in the window        
         Cuphead cuphead = new Cuphead();
+        KingDice kingdice = new KingDice();
+        DrawPingu pingu = new DrawPingu();
 
         //We draw Cactus in the window
         Obstaculos obstaculos = new Obstaculos();
@@ -917,6 +919,19 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 gl.glPushMatrix();
                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
                 cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true);
+                gl.glPopMatrix();
+                
+                
+                /*gl.glPushMatrix();
+                gl.glTranslatef(-0.3f, 0.7f, -1.0f);
+                gl.glScalef(0.4f, 0.4f, 0.4f);
+                kingdice.draw_KingDice(gl, keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+                gl.glPopMatrix();*/
+                
+                gl.glPushMatrix();
+                gl.glTranslatef(0.0f, 0.0f, -2.1f);
+                gl.glScalef(0.7f, 0.7f, 0.7f);
+                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'],keys['F'],keys['G'],keys['H'],keys['J'],keys['Q'],keys['W'],keys['E'],keys['R'],keys['T'],keys['Y'],keys['U']);
                 gl.glPopMatrix();
 
                 if (cz1 == 0.1f) {
