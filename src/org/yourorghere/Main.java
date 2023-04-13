@@ -929,8 +929,8 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 gl.glPopMatrix();*/
                 
                 gl.glPushMatrix();
-                gl.glTranslatef(0.0f, 0.0f, -2.1f);
-                gl.glScalef(0.7f, 0.7f, 0.7f);
+                gl.glTranslatef(0.0f, 0.008f, -2.09f);
+                gl.glScalef(0.65f, 0.65f, 0.65f);
                 pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'],keys['F'],keys['G'],keys['H'],keys['J'],keys['Q'],keys['W'],keys['E'],keys['R'],keys['T'],keys['Y'],keys['U']);
                 gl.glPopMatrix();
 

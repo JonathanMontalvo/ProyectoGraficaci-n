@@ -18,7 +18,6 @@ public class DrawPingu
 {
 
     //precision and global variables
-
     private static final int SLICES = 40;
     private static final int STACKS = 40;
     private GLUquadric q = null;
@@ -76,8 +75,8 @@ public class DrawPingu
             dibujar_brazos(gl, glu, ' ', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
         } //Pingu is jumping
-        else if (jump && mvt % 20 + 10 > 20) {
-            gl.glTranslatef(0f, 0.35f, 0f);
+        else if (jump && mvt % 18 + 9 <= 17) {
+            gl.glTranslatef(0f, 0.75f, 0f);
             dibujar_pierna(gl, glu, 'S', true);
             dibujar_pierna(gl, glu, 'S', false);
             dibujar_patas(gl, glu, 'S', true);
@@ -187,13 +186,30 @@ public class DrawPingu
             dibujar_brazos(gl, glu, ' ', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, true);
         } else {
-            dibujar_pierna(gl, glu, ' ', true);
-            dibujar_pierna(gl, glu, ' ', false);
-            dibujar_patas(gl, glu, ' ', true);
-            dibujar_patas(gl, glu, ' ', false);
-            dibujar_brazos(gl, glu, ' ', true);
-            dibujar_brazos(gl, glu, ' ', false);
-            dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
+            /*dibujar_pierna(gl, glu, ' ', true);
+             dibujar_pierna(gl, glu, ' ', false);
+             dibujar_patas(gl, glu, ' ', true);
+             dibujar_patas(gl, glu, ' ', false);
+             dibujar_brazos(gl, glu, ' ', true);
+             dibujar_brazos(gl, glu, ' ', false);
+             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);*/
+            if (mvt % 8 + 3 > 7) {
+                dibujar_pierna(gl, glu, 'A', true);
+                dibujar_pierna(gl, glu, ' ', false);
+                dibujar_patas(gl, glu, 'A', true);
+                dibujar_patas(gl, glu, ' ', false);
+                dibujar_brazos(gl, glu, 'A', true);
+                dibujar_brazos(gl, glu, ' ', false);
+                dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
+            } else if (mvt % 8 + 3 <= 7) {
+                dibujar_pierna(gl, glu, ' ', true);
+                dibujar_pierna(gl, glu, 'A', false);
+                dibujar_patas(gl, glu, ' ', true);
+                dibujar_patas(gl, glu, 'A', false);
+                dibujar_brazos(gl, glu, ' ', true);
+                dibujar_brazos(gl, glu, 'A', false);
+                dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
+            }
         }
         dibujar_hombro(gl, glu);
         mvt++;
