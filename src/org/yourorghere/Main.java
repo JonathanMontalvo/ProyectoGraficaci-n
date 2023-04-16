@@ -40,11 +40,17 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     //Prueba de Comentario
     int prueba;
     
+    //Prueba de Comentario editar val
+    int prueba1=1;
+    
+    //Prueba Eliminar 
+    int prueba2=2;
+    
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
     private int oldMouseY;
-    boolean[] keys = new boolean[256]; //to know which key is pressed y edito este coment
+    boolean[] keys = new boolean[256]; //to know which key is pressed
 
     //position of stan in the window
     private static final float X_POSITION = 0f;
