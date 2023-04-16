@@ -36,7 +36,7 @@ import javax.swing.JOptionPane;
 
 public class Main implements GLEventListener, MouseListener, MouseMotionListener, /*MouseWheelListener,*/ KeyListener
 {
-    //Se hace este com
+    //Se hace este com//
     int elim;
     
     
@@ -44,11 +44,19 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     int edit = 3;
     
     //Agregue desde github
-    int pss = 5;
+    int pss = 58;
     
     //Prueba eliminar esto
     int ght;
     
+    //Agregue esto desde netbeans
+    int net1=15;
+    
+    //Agregue esto desde netbeans
+    int net2=27;
+    
+    //Agregue esto desde netbeans
+    int net3=39;
     
     
     private float view_rotx = 0.01f;
