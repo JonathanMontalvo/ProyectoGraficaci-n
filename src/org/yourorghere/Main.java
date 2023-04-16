@@ -41,10 +41,8 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     int prueba;
     
     //Prueba de Comentario editar val
-    int prueba1=1;
+    int prueba1=4;
     
-    //Prueba Eliminar 
-    int prueba2=2;
     
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
@@ -133,7 +131,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     public static void main(String[] args)
     {
 
-        Frame frame = new Frame("Cuphead: Presiona \"H\" para saber las instrucciones de Cuphead ó Presiona \"A\" para saber quien desarrolló Cuphead");
+        Frame frame = new Frame("Cuphead: Presiona \"H\" para saber las instrucciones de Cuphead Presiona \"A\" para saber quien desarrollo Cuphead");
         GLCanvas canvas = new GLCanvas();
         canvas.addGLEventListener(new Main());
         frame.add(canvas);
