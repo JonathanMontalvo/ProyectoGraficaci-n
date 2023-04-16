@@ -44,7 +44,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     int prueba1=1;
     
     //Prueba Eliminar 
-    int prueba2=2;
+    int prueba2=3;
     
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
@@ -166,7 +166,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     public void init(GLAutoDrawable drawable)
     {
-
+prueba2=5;
         GL gl = drawable.getGL();
         System.err.println("INIT GL IS: " + gl.getClass().getName());
         gl.setSwapInterval(1);
