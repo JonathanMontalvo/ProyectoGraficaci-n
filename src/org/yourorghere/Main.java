@@ -35,32 +35,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 
 public class Main implements GLEventListener, MouseListener, MouseMotionListener, /*MouseWheelListener,*/ KeyListener
-{
-    //Se hace este com//
-    int elim;
-    
-    
-    //Prueba edit valor
-    int edit = 36;
-    
-    //Agregue desde github
-    int pss = 58;
-    
-    //Agregue desde github
-    int pss1 = 7;
-    
-    //Agregue desde github
-    int pss2 = 9;
-    //Agregue esto desde netbeans
-    int net1=15;
-    
-    //Agregue esto desde netbeans
-    int net2=27;
-    
-    //Agregue esto desde netbeans
-    int net3=39;
-    
-    
+{    
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
