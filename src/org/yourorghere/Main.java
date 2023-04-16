@@ -36,11 +36,7 @@ import javax.swing.JOptionPane;
 
 public class Main implements GLEventListener, MouseListener, MouseMotionListener, /*MouseWheelListener,*/ KeyListener
 {
-    
-    //Prueba de Comentario editar val
-    int prueba1=4;
-    
-    
+
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
@@ -161,7 +157,6 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     public void init(GLAutoDrawable drawable)
     {
-prueba2=5;
         GL gl = drawable.getGL();
         System.err.println("INIT GL IS: " + gl.getClass().getName());
         gl.setSwapInterval(1);
@@ -447,7 +442,7 @@ prueba2=5;
         }
         gl.glPopMatrix();
         gl.glFlush();
-        
+
         //Dibujamos la texturas del piso 2
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 4.0f, -1.0f);
@@ -470,7 +465,7 @@ prueba2=5;
         }
         gl.glPopMatrix();
         gl.glFlush();
-        
+
         //Dibujamos la texturas de la casa
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 4.0f, -1.0f);
