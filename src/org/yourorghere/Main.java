@@ -37,9 +37,6 @@ import javax.swing.JOptionPane;
 public class Main implements GLEventListener, MouseListener, MouseMotionListener, /*MouseWheelListener,*/ KeyListener
 {
     
-    //Prueba de Comentario
-    int prueba;
-    
     //Prueba de Comentario editar val
     int prueba1=1;
     
