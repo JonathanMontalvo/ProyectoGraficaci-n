@@ -37,9 +37,6 @@ import javax.swing.JOptionPane;
 public class Main implements GLEventListener, MouseListener, MouseMotionListener, /*MouseWheelListener,*/ KeyListener
 {
     
-    //Prueba de Comentario
-    int prueba;
-    
     //Prueba de Comentario editar val
     int prueba1=4;
     
@@ -164,7 +161,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     public void init(GLAutoDrawable drawable)
     {
-
+prueba2=5;
         GL gl = drawable.getGL();
         System.err.println("INIT GL IS: " + gl.getClass().getName());
         gl.setSwapInterval(1);
