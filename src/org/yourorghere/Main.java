@@ -7,7 +7,7 @@ package org.yourorghere;
 
 /**
  *
- * @author Jonathan Montalvo PÈrez
+ * @author Jonathan Montalvo P√©rez
  */
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.texture.Texture;
@@ -36,12 +36,15 @@ import javax.swing.JOptionPane;
 
 public class Main implements GLEventListener, MouseListener, MouseMotionListener, /*MouseWheelListener,*/ KeyListener
 {
-
+    
+    //Prueba de Comentario
+    int prueba;
+    
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
     private int oldMouseY;
-    boolean[] keys = new boolean[256]; //to know which key is pressed
+    boolean[] keys = new boolean[256]; //to know which key is pressed y edito este coment
 
     //position of stan in the window
     private static final float X_POSITION = 0f;
@@ -110,7 +113,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     cBoxObj cajaCactus2;
     cBoxObj cajaCactus3;
 
-    //Bandera de colisiÛn
+    //Bandera de colisi√≥n
     boolean colision = false;
     boolean finT = false;
 
@@ -124,7 +127,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     public static void main(String[] args)
     {
 
-        Frame frame = new Frame("Cuphead: Presiona \"H\" para saber las instrucciones de Cuphead Û Presiona \"A\" para saber quien desarrollÛ Cuphead");
+        Frame frame = new Frame("Cuphead: Presiona \"H\" para saber las instrucciones de Cuphead √≥ Presiona \"A\" para saber quien desarroll√≥ Cuphead");
         GLCanvas canvas = new GLCanvas();
         canvas.addGLEventListener(new Main());
         frame.add(canvas);
@@ -253,7 +256,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             tPiso7 = TextureIO.newTexture(iPiso, true);
 
         } catch (IOException iOE) {
-            System.out.println("Error en carga de im·gen");
+            System.out.println("Error en carga de im√°gen");
         }
 
         drawable.addMouseListener(this);
@@ -519,7 +522,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                     cajaPieDerecho = new cBoxObj(0.23f, 0.3f, 0.5f, centroPieDerecho);
                 }
             } else {
-                //Se asignan en la posicion est·tica de los pies, pero con una altura mayor. Esto para evitar colisiones
+                //Se asignan en la posicion est√°tica de los pies, pero con una altura mayor. Esto para evitar colisiones
                 centroPieIzquierdo[1] = 3.26f;
                 centroPieIzquierdo[2] = -3.075f;
                 cajaPieIzquierdo = new cBoxObj(0.23f, 0.3f, 0.74f, centroPieIzquierdo);
@@ -573,7 +576,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             }
             //Cactus 1 0:
             gl.glPushMatrix();
-            gl.glTranslatef(0.0f, 0.0f, c1 - ((float) velocidadP2 / 10));//Rango m·ximo 6.0f Rango mÌnimo 4.0f
+            gl.glTranslatef(0.0f, 0.0f, c1 - ((float) velocidadP2 / 10));//Rango m√°ximo 6.0f Rango m√≠nimo 4.0f
             obstaculos.draw_obstacles(gl);
             gl.glPopMatrix();
             gl.glFlush();
@@ -584,7 +587,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
             //Cactus 2 0:
             gl.glPushMatrix();
-            gl.glTranslatef(0.0f, 0.0f, c2 - ((float) velocidadP2 / 10));//Rango m·ximo 12.0f Rango mÌnimo 10.0f
+            gl.glTranslatef(0.0f, 0.0f, c2 - ((float) velocidadP2 / 10));//Rango m√°ximo 12.0f Rango m√≠nimo 10.0f
             obstaculos.draw_obstacles(gl);
             gl.glPopMatrix();
             gl.glFlush();
@@ -595,7 +598,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
             //Cactus 3 0:
             gl.glPushMatrix();
-            gl.glTranslatef(0.0f, 0.0f, c3 - ((float) velocidadP2 / 10));//Rango m·ximo 17.0f Rango mÌnimo 15.0f
+            gl.glTranslatef(0.0f, 0.0f, c3 - ((float) velocidadP2 / 10));//Rango m√°ximo 17.0f Rango m√≠nimo 15.0f
             obstaculos.draw_obstacles(gl);
             gl.glPopMatrix();
             gl.glFlush();
@@ -607,18 +610,18 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             //Control fondo primera parte
             if ((velocidadP1 % 120) == 0) //Cuando llega a 120 va a cambiar la posicion del fondo
             {
-                if ((control1 % 2) == 0) //Controlamos a que posiciÛn se debe colocar para que de el efecto de continuidad
+                if ((control1 % 2) == 0) //Controlamos a que posici√≥n se debe colocar para que de el efecto de continuidad
                 {
-                    parte1 = -1.0f;//Esto es en la parte m·s cercana
+                    parte1 = -1.0f;//Esto es en la parte m√°s cercana
                 } else {
-                    parte1 = 11.0f;//En la parte m·s alejada
+                    parte1 = 11.0f;//En la parte m√°s alejada
                 }
                 velocidadP1 = 0;//Reiniciamos la velocidad
-                control1++;//Es una bandera para controlar la posiciÛn
+                control1++;//Es una bandera para controlar la posici√≥n
             }
 
             //Control fondo segunda parte
-            if ((velocidadP2 % 240) == 0) //Cuando llegamos a 240 reinicia la velocidad, lo que altera la posiciÛn
+            if ((velocidadP2 % 240) == 0) //Cuando llegamos a 240 reinicia la velocidad, lo que altera la posici√≥n
             {
                 velocidadP2 = 0;
             }
@@ -790,7 +793,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             }
             if (!colision) {
 
-                if (velocidadP3 >= 123) {//En cada if hacer el mÈtodo aleatorio de nuevo para el primero evalua con p3=1
+                if (velocidadP3 >= 123) {//En cada if hacer el m√©todo aleatorio de nuevo para el primero evalua con p3=1
                     velocidadP1 += 2;
                     velocidadP2 += 2;
                     velocidadHitBox += 0.513f;
@@ -822,7 +825,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
         } else {
             if (!fin) {
-                //Si hay colisiÛn
+                //Si hay colisi√≥n
                 gl.glPushMatrix();
                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
                 cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true);
@@ -893,14 +896,14 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
                 if (!most) {
                     most = true;
-                    Ventanas ventanaN1 = new Ventanas("°Felicidades terminÛ el nivel 1!", 800, 400, false);
+                    Ventanas ventanaN1 = new Ventanas("¬°Felicidades termin√≥ el nivel 1!", 800, 400, false);
                     ventanaN1.ventanaFinNivel1_2();
                 }
             }
         }
     }
 
-    // FunciÛn para verificar si hay intersecciÛn entre dos cajas de colisiÛn
+    // Funci√≥n para verificar si hay intersecci√≥n entre dos cajas de colisi√≥n
     public boolean interseccion(cBoxObj caja1, cBoxObj caja2, float c1, float c2)
     {
 
@@ -923,17 +926,17 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         float adelanteCaja2 = caja2.centro[2] - caja2.extend[2];
         float atrasCaja2 = caja2.centro[2] + caja2.extend[2];
 
-        // Verificar colisiÛn en el eje X
+        // Verificar colisi√≥n en el eje X
         if (izquierdaCaja1 >= derechaCaja2 && derechaCaja1 <= izquierdaCaja2) {
             hayColisionX = true;
         }
 
-        // Verificar colisiÛn en el eje Y
+        // Verificar colisi√≥n en el eje Y
         if (arribaCaja1 >= abajoCaja2 && abajoCaja1 <= arribaCaja2) {
             hayColisionY = true;
         }
 
-        // Verificar colisiÛn en el eje Z
+        // Verificar colisi√≥n en el eje Z
         if (adelanteCaja2 <= adelanteCaja1 - c1 && atrasCaja2 >= adelanteCaja1 - c2)//-2.6390127+adelanteCaja1 da -6.779013
         {
             hayColisionZ = true;
@@ -1067,18 +1070,18 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                     + "Presiona \"Q\" para poner las manos en la cintura.\n"
                     + "Presiona \"F\" para poner la mano en la cara.\n"
                     + "\nPresiona del \"1-7\" para cambiar de escenario\n"
-                    + "\nPresiona \"N\" para dejar la c·mara normal.\n"
+                    + "\nPresiona \"N\" para dejar la c√°mara normal.\n"
                     + "Presiona \"I\" para hacer zoom in.\n"
                     + "Presiona \"O\" para hacer zoom out.\n"
-                    + "Presiona \"Flecha Arriba\" para mover la c·mara a arriba.\n"
-                    + "Presiona \"Flecha Abajo\" para mover la c·mara a abajo.\n"
-                    + "Presiona \"Flecha Izquierda\" para mover la c·mara a la izquierda.\n"
-                    + "Presiona \"Flecha Derecha\" para mover la c·mara a la derecha.",
+                    + "Presiona \"Flecha Arriba\" para mover la c√°mara a arriba.\n"
+                    + "Presiona \"Flecha Abajo\" para mover la c√°mara a abajo.\n"
+                    + "Presiona \"Flecha Izquierda\" para mover la c√°mara a la izquierda.\n"
+                    + "Presiona \"Flecha Derecha\" para mover la c√°mara a la derecha.",
                     "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
         } else if (e.getKeyChar() == 'A' || e.getKeyChar() == 'a') {
-            JOptionPane.showMessageDialog(null, "Desarrollado por: \nHern·ndez V·zquez Bryan."
-                    + "\nMontalvo PÈrez Jonathan."
-                    + "\nSalinas DÌaz JosÈ Guillermo.",
+            JOptionPane.showMessageDialog(null, "Desarrollado por: \nHern√°ndez V√°zquez Bryan."
+                    + "\nMontalvo P√©rez Jonathan."
+                    + "\nSalinas D√≠az Jos√© Guillermo.",
                     "Desarrollador", JOptionPane.INFORMATION_MESSAGE);
         }
         if (e.getKeyChar() == 'W' || e.getKeyChar() == 'w') {
