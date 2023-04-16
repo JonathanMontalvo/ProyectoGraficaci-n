@@ -65,13 +65,13 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     static String cara = "src/Sonidos/cara.wav";
 
     //Texture
-    Texture tAtras1, tFrente1, tDerecha1, TIzquierda1, tTecho1, tPiso1,
-            tAtras2, tFrente2, tDerecha2, TIzquierda2, tTecho2, tPiso2,
-            tAtras3, tFrente3, tDerecha3, TIzquierda3, tTecho3, tPiso3,
-            tAtras4, tFrente4, tDerecha4, TIzquierda4, tTecho4, tPiso4,
-            tAtras5, tFrente5, tDerecha5, TIzquierda5, tTecho5, tPiso5,
-            tAtras6, tFrente6, tDerecha6, TIzquierda6, tTecho6, tPiso6,
-            tAtras7, tFrente7, tDerecha7, TIzquierda7, tTecho7, tPiso7;
+    Texture tAtras1, tDerecha1, TIzquierda1, tPiso1,
+            tAtras2, tDerecha2, TIzquierda2, tPiso2,
+            tAtras3, tDerecha3, TIzquierda3, tPiso3,
+            tAtras4, tDerecha4, TIzquierda4, tPiso4,
+            tAtras5, tDerecha5, TIzquierda5, tPiso5,
+            tAtras6, tDerecha6, TIzquierda6, tPiso6,
+            tAtras7, tDerecha7, TIzquierda7, tPiso7;
 
     //velocidad
     int velocidadP1 = 2;
@@ -185,98 +185,70 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             //Escenario 1
             File iAtras = new File("src/Fondos/casa.jpg");
             tAtras1 = TextureIO.newTexture(iAtras, true);
-            File iFrente = new File("src/Fondos/feria.jpg");
-            tFrente1 = TextureIO.newTexture(iFrente, true);
             File iDerecha = new File("src/Fondos/bosque.jpg");
             tDerecha1 = TextureIO.newTexture(iDerecha, true);
             File iIzquierda = new File("src/Fondos/bosque.jpg");
             TIzquierda1 = TextureIO.newTexture(iIzquierda, true);
-            File iTecho = new File("src/Fondos/cielo.jpg");
-            tTecho1 = TextureIO.newTexture(iTecho, true);
             File iPiso = new File("src/Fondos/suelo.jpg");
             tPiso1 = TextureIO.newTexture(iPiso, true);
 
             //Escenario2
             iAtras = new File("src/Fondos/minecraftLado.jpg");
             tAtras2 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/minecraftFrente.jpg");
-            tFrente2 = TextureIO.newTexture(iFrente, true);
             iDerecha = new File("src/Fondos/minecraftLado.jpg");
             tDerecha2 = TextureIO.newTexture(iDerecha, true);
             iIzquierda = new File("src/Fondos/minecraftLado.jpg");
             TIzquierda2 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/minecraftCielo.jpg");
-            tTecho2 = TextureIO.newTexture(iTecho, true);
             iPiso = new File("src/Fondos/minecraftSuelo.jpg");
             tPiso2 = TextureIO.newTexture(iPiso, true);
 
             //Escenario3
             iAtras = new File("src/Fondos/feriaLados.jpg");
             tAtras3 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/feriaFrente.jpg");
-            tFrente3 = TextureIO.newTexture(iFrente, true);
             iDerecha = new File("src/Fondos/feriaLados.jpg");
             tDerecha3 = TextureIO.newTexture(iDerecha, true);
             iIzquierda = new File("src/Fondos/feriaLados.jpg");
             TIzquierda3 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/cieloNoche.jpg");
-            tTecho3 = TextureIO.newTexture(iTecho, true);
             iPiso = new File("src/Fondos/suelo.jpg");
             tPiso3 = TextureIO.newTexture(iPiso, true);
 
             //Escenario4
             iAtras = new File("src/Fondos/atraccion.jpg");
             tAtras4 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/atraccion.jpg");
-            tFrente4 = TextureIO.newTexture(iFrente, true);
             iDerecha = new File("src/Fondos/atraccion.jpg");
             tDerecha4 = TextureIO.newTexture(iDerecha, true);
             iIzquierda = new File("src/Fondos/atraccion.jpg");
             TIzquierda4 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/techoYCieloAtraccion.jpg");
-            tTecho4 = TextureIO.newTexture(iTecho, true);
             iPiso = new File("src/Fondos/techoYCieloAtraccion.jpg");
             tPiso4 = TextureIO.newTexture(iPiso, true);
 
             //Escenario5
             iAtras = new File("src/Fondos/frenteYAtrasCielo.jpg");
             tAtras5 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/frenteYAtrasCielo.jpg");
-            tFrente5 = TextureIO.newTexture(iFrente, true);
             iDerecha = new File("src/Fondos/ladoCiudad.jpg");
             tDerecha5 = TextureIO.newTexture(iDerecha, true);
             iIzquierda = new File("src/Fondos/ladoCiudad.jpg");
             TIzquierda5 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/cieloCiudad.jpg");
-            tTecho5 = TextureIO.newTexture(iTecho, true);
             iPiso = new File("src/Fondos/sueloCiudad.jpg");
             tPiso5 = TextureIO.newTexture(iPiso, true);
 
             //Escenario6
             iAtras = new File("src/Fondos/atrasCarretera.jpg");
             tAtras6 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/frenteCarretera.jpg");
-            tFrente6 = TextureIO.newTexture(iFrente, true);
             iDerecha = new File("src/Fondos/ladoCarretera.jpg");
             tDerecha6 = TextureIO.newTexture(iDerecha, true);
             iIzquierda = new File("src/Fondos/ladoCarretera.jpg");
             TIzquierda6 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/cieloCarretera.jpg");
-            tTecho6 = TextureIO.newTexture(iTecho, true);
             iPiso = new File("src/Fondos/sueloCarretera.jpg");
             tPiso6 = TextureIO.newTexture(iPiso, true);
 
             //Escenario7
             iAtras = new File("src/Fondos/desiertoAtras.jpg");
             tAtras7 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/desiertoFrente.jpg");
-            tFrente7 = TextureIO.newTexture(iFrente, true);
             iDerecha = new File("src/Fondos/desiertoLados.jpg");
             tDerecha7 = TextureIO.newTexture(iDerecha, true);
             iIzquierda = new File("src/Fondos/desiertoLados.jpg");
             TIzquierda7 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/desiertoCielo.jpg");
-            tTecho7 = TextureIO.newTexture(iTecho, true);
             iPiso = new File("src/Fondos/desiertoSuelo.jpg");
             tPiso7 = TextureIO.newTexture(iPiso, true);
 
@@ -339,6 +311,8 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         }
         // Move the whole scene
         gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
+        view_rotx = -70.233894f;
+        view_roty = 0.01f;
         gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
         gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
         gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
@@ -447,96 +421,52 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         gl.glPopMatrix();
         gl.glFlush();
 
-        //Dibujamos la texturas del cielo 1
+        //Dibujamos la texturas del piso 1
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 4.0f, parte1);
-        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
-        gl.glTranslatef(0.0f, -((float) velocidadP1 / 10), 0.0f);
+        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+        gl.glTranslatef(0.0f, ((float) velocidadP1 / 10), 0.0f);
         if (keys['2']) {
-            cuphead.fondo(gl, glu, tTecho2);
+            cuphead.fondo(gl, glu, tPiso2);
         } else if (keys['3']) {
-            cuphead.fondo(gl, glu, tTecho3);
+            cuphead.fondo(gl, glu, tPiso3);
         } else if (keys['4']) {
-            cuphead.fondo(gl, glu, tTecho4);
+            cuphead.fondo(gl, glu, tPiso4);
         } else if (keys['5']) {
-            cuphead.fondo(gl, glu, tTecho5);
+            cuphead.fondo(gl, glu, tPiso5);
         } else if (keys['6']) {
-            cuphead.fondo(gl, glu, tTecho6);
+            cuphead.fondo(gl, glu, tPiso6);
         } else if (keys['7']) {
-            cuphead.fondo(gl, glu, tTecho7);
+            cuphead.fondo(gl, glu, tPiso7);
         } else {
-            cuphead.fondo(gl, glu, tTecho1);
+            cuphead.fondo(gl, glu, tPiso1);
         }
         gl.glPopMatrix();
         gl.glFlush();
-
-        //Dibujamos la texturas del cielo 2
+        
+        //Dibujamos la texturas del piso 2
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 4.0f, -1.0f);
         gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
-        gl.glTranslatef(0.0f, 12.0f - ((float) velocidadP2 / 10), 0.0f);
+        gl.glTranslatef(0.0f, 12.0f - ((float) velocidadP2 / 10), 12.0f);
         if (keys['2']) {
-            cuphead.fondo(gl, glu, tTecho2);
+            cuphead.fondo(gl, glu, tPiso2);
         } else if (keys['3']) {
-            cuphead.fondo(gl, glu, tTecho3);
+            cuphead.fondo(gl, glu, tPiso3);
         } else if (keys['4']) {
-            cuphead.fondo(gl, glu, tTecho4);
+            cuphead.fondo(gl, glu, tPiso4);
         } else if (keys['5']) {
-            cuphead.fondo(gl, glu, tTecho5);
+            cuphead.fondo(gl, glu, tPiso5);
         } else if (keys['6']) {
-            cuphead.fondo(gl, glu, tTecho6);
+            cuphead.fondo(gl, glu, tPiso6);
         } else if (keys['7']) {
-            cuphead.fondo(gl, glu, tTecho7);
+            cuphead.fondo(gl, glu, tPiso7);
         } else {
-            cuphead.fondo(gl, glu, tTecho1);
+            cuphead.fondo(gl, glu, tPiso1);
         }
         gl.glPopMatrix();
         gl.glFlush();
-
-//        //Dibujamos la texturas del piso 1
-//        gl.glPushMatrix();
-//        gl.glTranslatef(0.0f, 4.0f, parte1);
-//        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
-//        gl.glTranslatef(0.0f, ((float) velocidadP1 / 10), 0.0f);
-//        if (keys['2']) {
-//            cuphead.fondo(gl, glu, tPiso2);
-//        } else if (keys['3']) {
-//            cuphead.fondo(gl, glu, tPiso3);
-//        } else if (keys['4']) {
-//            cuphead.fondo(gl, glu, tPiso4);
-//        } else if (keys['5']) {
-//            cuphead.fondo(gl, glu, tPiso5);
-//        } else if (keys['6']) {
-//            cuphead.fondo(gl, glu, tPiso6);
-//        } else if (keys['7']) {
-//            cuphead.fondo(gl, glu, tPiso7);
-//        } else {
-//            cuphead.fondo(gl, glu, tPiso1);
-//        }
-//        gl.glPopMatrix();
-//        gl.glFlush();
-        //Dibujamos la texturas del piso 2
-//        gl.glPushMatrix();
-//        gl.glTranslatef(0.0f, 4.0f, -1.0f);
-//        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
-//        gl.glTranslatef(0.0f, 12.0f - ((float) velocidadP2 / 10), 12.0f);
-//        if (keys['2']) {
-//            cuphead.fondo(gl, glu, tPiso2);
-//        } else if (keys['3']) {
-//            cuphead.fondo(gl, glu, tPiso3);
-//        } else if (keys['4']) {
-//            cuphead.fondo(gl, glu, tPiso4);
-//        } else if (keys['5']) {
-//            cuphead.fondo(gl, glu, tPiso5);
-//        } else if (keys['6']) {
-//            cuphead.fondo(gl, glu, tPiso6);
-//        } else if (keys['7']) {
-//            cuphead.fondo(gl, glu, tPiso7);
-//        } else {
-//            cuphead.fondo(gl, glu, tPiso1);
-//        }
-//        gl.glPopMatrix();
-//        gl.glFlush();
+        
         //Dibujamos la texturas de la casa
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 4.0f, -1.0f);
@@ -557,29 +487,6 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         }
         gl.glPopMatrix();
         gl.glFlush();
-//
-//        //Dibujamos la texturas de la feria
-//        gl.glPushMatrix();
-//        gl.glTranslatef(0.0f, 4.0f, -1.0f);
-//        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
-//        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
-//        if (keys['2']) {
-//            cuphead.fondo(gl, glu, tFrente2);
-//        } else if (keys['3']) {
-//            cuphead.fondo(gl, glu, tFrente3);
-//        } else if (keys['4']) {
-//            cuphead.fondo(gl, glu, tFrente4);
-//        } else if (keys['5']) {
-//            cuphead.fondo(gl, glu, tFrente5);
-//        } else if (keys['6']) {
-//            cuphead.fondo(gl, glu, tFrente6);
-//        } else if (keys['7']) {
-//            cuphead.fondo(gl, glu, tFrente7);
-//        } else {
-//            cuphead.fondo(gl, glu, tFrente1);
-//        }
-//        gl.glPopMatrix();
-//        gl.glFlush();
 
         if (!colision) {
             gl.glPushMatrix();
@@ -920,18 +827,16 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
                 cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true);
                 gl.glPopMatrix();
-                
-                
+
                 /*gl.glPushMatrix();
-                gl.glTranslatef(-0.3f, 0.7f, -1.0f);
-                gl.glScalef(0.4f, 0.4f, 0.4f);
-                kingdice.draw_KingDice(gl, keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
-                gl.glPopMatrix();*/
-                
+                 gl.glTranslatef(-0.3f, 0.7f, -1.0f);
+                 gl.glScalef(0.4f, 0.4f, 0.4f);
+                 kingdice.draw_KingDice(gl, keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+                 gl.glPopMatrix();*/
                 gl.glPushMatrix();
                 gl.glTranslatef(0.0f, 0.008f, -2.09f);
                 gl.glScalef(0.65f, 0.65f, 0.65f);
-                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'],keys['F'],keys['G'],keys['H'],keys['J'],keys['Q'],keys['W'],keys['E'],keys['R'],keys['T'],keys['Y'],keys['U']);
+                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
                 gl.glPopMatrix();
 
                 if (cz1 == 0.1f) {
@@ -1081,16 +986,17 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     public void mouseDragged(MouseEvent e)
     {
 
-        int x = e.getX();
-        int y = e.getY();
-        Dimension size = e.getComponent().getSize();
-        float thetaX = 360.0f * ((float) (x - oldMouseX) / (float) size.width);
-        float thetaY = 360.0f * ((float) (oldMouseY - y) / (float) size.height);
-        oldMouseX = x;
-        oldMouseY = y;
-        view_rotx += thetaX;
-        view_roty += thetaY;
-
+        //int x = e.getX();
+        //int y = e.getY();
+        //Dimension size = e.getComponent().getSize();
+        //float thetaX = 360.0f * ((float) (x - oldMouseX) / (float) size.width);
+        //float thetaY = 360.0f * ((float) (oldMouseY - y) / (float) size.height);
+        //oldMouseX = x;
+        //oldMouseY = y;
+        //view_rotx += thetaX;
+        //view_roty += thetaY;
+        //System.out.println("vX" + view_rotx);
+        //System.out.println("vY" + view_roty);
     }
 
     public void keyPressed(KeyEvent e)
@@ -1180,7 +1086,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             reproducir(caminar);
         } else if (e.getKeyChar() == ' ') {
             parar();
-            //reproducir(saltar);
+            reproducir(saltar);
         } else if (e.getKeyChar() == 'C' || e.getKeyChar() == 'c') {
             parar();
             reproducir(agacharse);
