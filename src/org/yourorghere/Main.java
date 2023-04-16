@@ -41,14 +41,16 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     
     
     //Prueba edit valor
-    int edit = 3;
+    int edit = 36;
     
     //Agregue desde github
     int pss = 58;
     
-    //Prueba eliminar esto
-    int ght;
+    //Agregue desde github
+    int pss1 = 7;
     
+    //Agregue desde github
+    int pss2 = 9;
     //Agregue esto desde netbeans
     int net1=15;
     
