@@ -95,10 +95,9 @@ public class Menu2 implements GLEventListener, MouseListener, MouseWheelListener
     static final GLCanvas canvas = new GLCanvas();
 
     public static void main(String[] args) {
-
         JFrame frame = new JFrame("King Dice Cuphead Pingu");
-        JOptionPane.showMessageDialog(null, "King Dice: Presiona el boton de INSTRUCCIONES para comezar\n ",
-                "Holi", JOptionPane.INFORMATION_MESSAGE);
+//        JOptionPane.showMessageDialog(null, "King Dice: Presiona el boton de INSTRUCCIONES para comezar\n ",
+//                "Holi", JOptionPane.INFORMATION_MESSAGE);
 
         jMInstucciones.setText("Instrucciones");
         jMenuBar.add(jMInstucciones);
@@ -791,15 +790,20 @@ public class Menu2 implements GLEventListener, MouseListener, MouseWheelListener
                 gl.glFlush();
                 break;
         }
-        DrawPingu pingu = new DrawPingu();        
+        gl.glPushMatrix();
+        DrawPingu pingu = new DrawPingu();
         gl.glTranslatef(-5f, 0f, 0f);
-        pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);       
+        pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+        gl.glPopMatrix();
+        gl.glPushMatrix();        
+        kd.draw_KingDice(gl, true, false, false, false, false, false, true);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
         gl.glTranslatef(5f, 0f, 0f);
-        kd.draw_KingDice(gl, keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
         Cuphead cuphead = new Cuphead();
-        gl.glTranslatef(5f, 0f, 0f);
-        cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
-
+        cuphead.draw_cuphead(gl, true, true, true, true, true, true, true, true);
+        gl.glPopMatrix();
+        
         // Flush all drawing operations to the graphics card
         gl.glFlush();
 
