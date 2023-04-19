@@ -59,7 +59,6 @@ public class KingDice {
         glu.gluQuadricDrawStyle(q, GLU.GLU_FILL);
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
-        dibujar_pelota(gl, glu);
         if (brincar && mvt % 20 + 10 > 20) {
             gl.glTranslatef(0f, .5f, 0.0f);//(-izq+der,-abajo +arriba,-atras+enfrente)  
             //feliz, enojado, serio, sorpresa, triste, ginio, muerto, miedo
@@ -152,16 +151,6 @@ public class KingDice {
         }
         mvt++;
     }
-
-    public void dibujar_pelota(GL gl, GLU glu) {
-        //Creamos el hombro y el brazo
-        set_red_material(gl);
-        gl.glPushMatrix();
-        gl.glTranslatef(-1.20f, 2.5f, 0.5f);//-0.3
-        glu.gluSphere(q, 1f, SLICES, STACKS);        
-        gl.glPopMatrix();
-    }
-
     public void dibujar_Cabeza(GL gl, GLU glu, boolean feliz, boolean enojado, boolean serio, boolean sorpresa, boolean triste,
             boolean ginio, boolean muerto, boolean miedo) {
         set_white_head_material(gl);
