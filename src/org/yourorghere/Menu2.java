@@ -20,7 +20,6 @@ import java.io.IOException;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
-
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.sound.sampled.AudioInputStream;
@@ -31,7 +30,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JLabel;
