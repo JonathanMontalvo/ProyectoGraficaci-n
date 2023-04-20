@@ -53,7 +53,6 @@ public class Menu2 implements GLEventListener, MouseListener, MouseWheelListener
     private static final float Z_POSITION = 0f;
     private static int bndKey=0;
     private double zoom = 10;
-
     public static int bnd = 1;
     public static int bnds = -1;
     public static Clip clipfondo;
