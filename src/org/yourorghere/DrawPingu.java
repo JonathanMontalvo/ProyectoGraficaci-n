@@ -12,7 +12,7 @@ import javax.media.opengl.glu.GLUquadric;
 
 /**
  *
- * @author Bryan Hern·ndez V·zquez
+ * @author Bryan Hern√°ndez V√°zquez
  */
 public class DrawPingu
 {
@@ -75,7 +75,7 @@ public class DrawPingu
             dibujar_brazos(gl, glu, ' ', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
         } //Pingu is jumping
-        else if (jump && mvt % 18 + 9 <= 17) {
+        else if (jump && mvt % 20 + 10 <= 20) {
             gl.glTranslatef(0f, 0.75f, 0f);
             dibujar_pierna(gl, glu, 'S', true);
             dibujar_pierna(gl, glu, 'S', false);
