@@ -7,7 +7,7 @@ package org.yourorghere;
 
 /**
  *
- * @author Jonathan Montalvo Pérez
+ * @author Jonathan Montalvo PÃ©rez
  */
 import com.sun.opengl.util.texture.Texture;
 import javax.media.opengl.GL;
@@ -136,7 +136,7 @@ public class Cuphead
             gl.glTranslatef(-0.03f, -0.05f, 0.2f);
             dibujar_Brazo_Derecho(gl, glu, true, false, false, false);
         } //Cuphead is jumping
-        else if (saltar && mvt % 18 + 9 <= 17) {//26 9 9 Segundos
+        else if (saltar && mvt % 20 + 10 <= 20) {//26 9 9 Segundos
             Cuphead.pieIzq = false;
             Cuphead.pieDer = false;
             gl.glTranslatef(0f, 0.75f, 0f);
@@ -486,7 +486,7 @@ public class Cuphead
             gl.glDisable(GL.GL_CLIP_PLANE2);
             gl.glPopMatrix();
 
-            //Creamos la pupíla de los ojos
+            //Creamos la pupÃ­la de los ojos
             cutplane[1] = 0.0f;
             cutplane[2] = 1.0f;
             set_black_material(gl);
@@ -530,7 +530,7 @@ public class Cuphead
             gl.glDisable(GL.GL_CLIP_PLANE2);
             gl.glPopMatrix();
 
-            //Creamos la pupíla de los ojos
+            //Creamos la pupÃ­la de los ojos
             cutplane[1] = 0.0f;
             cutplane[2] = 1.0f;
             set_black_material(gl);
@@ -598,7 +598,7 @@ public class Cuphead
             gl.glDisable(GL.GL_CLIP_PLANE2);
             gl.glPopMatrix();
 
-            //Creamos la pupíla de los ojos
+            //Creamos la pupÃ­la de los ojos
             cutplane[1] = 0.0f;
             cutplane[2] = 1.0f;
             set_black_material(gl);
@@ -663,7 +663,7 @@ public class Cuphead
             gl.glDisable(GL.GL_CLIP_PLANE2);
             gl.glPopMatrix();
 
-            //Creamos la pupíla de los ojos
+            //Creamos la pupÃ­la de los ojos
             cutplane[1] = 0.0f;
             cutplane[2] = 1.0f;
             set_black_material(gl);
@@ -735,7 +735,7 @@ public class Cuphead
             gl.glDisable(GL.GL_CLIP_PLANE2);
             gl.glPopMatrix();
 
-            //Creamos la pupíla del ojo Derecho
+            //Creamos la pupÃ­la del ojo Derecho
             cutplane[1] = 0.0f;
             cutplane[2] = 1.0f;
             set_black_material(gl);
@@ -793,7 +793,7 @@ public class Cuphead
             gl.glDisable(GL.GL_CLIP_PLANE2);
             gl.glPopMatrix();
 
-            //Creamos la pupíla de los ojos
+            //Creamos la pupÃ­la de los ojos
             cutplane[1] = 0.0f;
             cutplane[2] = 1.0f;
             set_black_material(gl);
@@ -837,7 +837,7 @@ public class Cuphead
             gl.glDisable(GL.GL_CLIP_PLANE2);
             gl.glPopMatrix();
 
-            //Creamos la pupíla de los ojos
+            //Creamos la pupÃ­la de los ojos
             cutplane[1] = 0.0f;
             cutplane[2] = 1.0f;
             set_black_material(gl);
@@ -973,7 +973,7 @@ public class Cuphead
             gl.glRotatef(230f, 0f, 0f, 1f);
         }
         if (apuntar) {
-            //Dedo índice
+            //Dedo Ã­ndice
             gl.glTranslatef(0.01f, 0.03f, 0.09f);
             glu.gluCylinder(q, WIDTH_FINGERS, WIDTH_FINGERS, HEIGHT_FINGERS, SLICES, STACKS);
             gl.glTranslatef(0.0f, 0.0f, 0.09f);
@@ -1135,7 +1135,7 @@ public class Cuphead
             gl.glRotatef(-25f, 1f, 0f, 0f);
         }
         glu.gluCylinder(q, TOP_SHORT_LEGS, BOTTOM_SHORT_LEGS, HEIGHT_SHORT_LEGS, SLICES, STACKS);//Cilindro Vertical Blanco 
-        gl.glTranslatef(0.0f, 0.0f, 0.198f);//Ajusta la posición de la base
+        gl.glTranslatef(0.0f, 0.0f, 0.198f);//Ajusta la posiciÃ³n de la base
         glu.gluDisk(q, 0f, BOTTOM_WHITE_STRAW, SLICES, STACKS);//Pinta la base del cilindro
         gl.glTranslatef(0.25f, 0.0f, -0.198f);
         if (izquierda) {
@@ -1144,7 +1144,7 @@ public class Cuphead
             gl.glRotatef(-25f, 1f, 0f, 0f);
         }
         glu.gluCylinder(q, TOP_SHORT_LEGS, BOTTOM_SHORT_LEGS, HEIGHT_SHORT_LEGS, SLICES, STACKS);//Cilindro Vertical Blanco 
-        gl.glTranslatef(0.0f, 0.0f, 0.198f);//Ajusta la posición de la base
+        gl.glTranslatef(0.0f, 0.0f, 0.198f);//Ajusta la posiciÃ³n de la base
         glu.gluDisk(q, 0f, BOTTOM_WHITE_STRAW, SLICES, STACKS);//Pinta la base del cilindro
         gl.glPopMatrix();
         set_white_material(gl);
@@ -1158,7 +1158,7 @@ public class Cuphead
         gl.glTranslatef(-0.15f, -0.55f, 0.05f);
         gl.glRotatef(90f, 1f, 0f, 0f);
         glu.gluCylinder(q, WIDTH_LEGS, WIDTH_LEGS, HEIGHT_LEGS, SLICES, STACKS);
-        gl.glTranslatef(0.0f, 0.0f, 0.25f);//Ajusta la posición de la base
+        gl.glTranslatef(0.0f, 0.0f, 0.25f);//Ajusta la posiciÃ³n de la base
         glu.gluDisk(q, 0f, WIDTH_LEGS, SLICES, STACKS);//Pinta la base del cilindro
         gl.glPopMatrix();
         set_white_material(gl);
@@ -1231,7 +1231,7 @@ public class Cuphead
         glu.gluDisk(q, 0f, WIDTH_FRONT_OF_SHOES_SOLE, SLICES, STACKS);
         gl.glPopMatrix();
 
-        //Unión de los zapatos
+        //UniÃ³n de los zapatos
         set_red_material(gl);
         cutplane[3] = 0.19 * WIDTH_BACK_OF_SHOES;//18
         gl.glPushMatrix();
@@ -1242,7 +1242,7 @@ public class Cuphead
         gl.glDisable(GL.GL_CLIP_PLANE2);
         gl.glPopMatrix();
 
-        //Unión de las suelas
+        //UniÃ³n de las suelas
         gl.glPushMatrix();
         set_black_material(gl);
         gl.glRotatef(355f, 0f, 1f, 0f);
@@ -1315,7 +1315,7 @@ public class Cuphead
         glu.gluDisk(q, 0f, WIDTH_FRONT_OF_SHOES_SOLE, SLICES, STACKS);
         gl.glPopMatrix();
 
-        //Unión de los zapatos
+        //UniÃ³n de los zapatos
         cutplane[3] = 0.19 * WIDTH_BACK_OF_SHOES;//18
         gl.glPushMatrix();
         set_red_material(gl);
@@ -1327,7 +1327,7 @@ public class Cuphead
         gl.glDisable(GL.GL_CLIP_PLANE2);
         gl.glPopMatrix();
 
-        //Unión de las suelas
+        //UniÃ³n de las suelas
         gl.glPushMatrix();
         set_black_material(gl);
         gl.glRotatef(355f, 0f, 1f, 0f);
