@@ -5,403 +5,145 @@
  */
 package org.yourorghere;
 
-/**
- *
- * @author Elizabeth
- */
-import com.sun.opengl.util.Animator;
+import com.sun.opengl.util.j2d.TextRenderer;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCanvas;
-import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
-public class Menu extends javax.swing.JFrame implements GLEventListener, MouseListener, MouseMotionListener, KeyListener, MouseWheelListener  {
+/**
+ *
+ * @author
+ */
+public class Menu
+{
 
-    private float view_rotx = 0.01f;
-    private float view_roty = 0.01f;
-    private int oldMouseX;
-    private int oldMouseY;
-    boolean[] keys = new boolean[256]; //to know which key is pressed
+    Texture tAtrasMenu, tFrenteMenu, tDerechaMenu, TIzquierdaMenu, tTechoMenu, tPisoMenu, tAtras2Menu, tFrente2Menu, tDerecha2Menu, TIzquierda2Menu, tTecho2Menu, tPiso2Menu,
+            tAtras3Menu, tFrente3Menu, tDerecha3Menu, TIzquierda3Menu, tTecho3Menu, tPiso3Menu, tAtras4Menu, tFrente4Menu, tDerecha4Menu, TIzquierda4Menu, tTecho4Menu, tPiso4Menu,
+            tAtras7Menu, tFrente7Menu, tDerecha7Menu, TIzquierda7Menu, tTecho7Menu, tPiso7Menu, tAtras5Menu, tFrente5Menu, tDerecha5Menu, TIzquierda5Menu, tTecho5Menu, tPiso5Menu,
+            tAtras6Menu, tFrente6Menu, tDerecha6Menu, TIzquierda6Menu, tTecho6Menu, tPiso6Menu, tTeclaXMenu, tTeclaZMenu, tTeclaCMenu,
+            tAtrasP1Menu, tFrenteP1Menu, tDerechaP1Menu, TIzquierdaP1Menu, tTechoP1Menu, tPisoP1Menu, tAtrasP2Menu, tFrenteP2Menu, tDerechaP2Menu, TIzquierdaP2Menu, tTechoP2Menu, tPisoP2Menu,
+            tAtrasP3Menu, tFrenteP3Menu, tDerechaP3Menu, TIzquierdaP3Menu, tTechoP3Menu, tPisoP3Menu, tAtrasP4Menu, tFrenteP4Menu, tDerechaP4Menu, TIzquierdaP4Menu, tTechoP4Menu, tPisoP4Menu,
+            tAtrasP5Menu, tFrenteP5Menu, tDerechaP5Menu, TIzquierdaP5Menu, tTechoP5Menu, tPisoP5Menu, tAtrasP6Menu, tFrenteP6Menu, tDerechaP6Menu, TIzquierdaP6Menu, tTechoP6Menu, tPisoP6Menu,
+            tAtrasP7Menu, tFrenteP7Menu, tDerechaP7Menu, TIzquierdaP7Menu, tTechoP7Menu, tPisoP7Menu, tAtrasK1Menu, tFrenteK1Menu, tDerechaK1Menu, TIzquierdaK1Menu, tTechoK1Menu, tPisoK1Menu, tAtrasK2Menu, tFrenteK2Menu, tDerechaK2Menu, TIzquierdaK2Menu, tTechoK2Menu, tPisoK2Menu,
+            tAtrasK3Menu, tFrenteK3Menu, tDerechaK3Menu, TIzquierdaK3Menu, tTechoK3Menu, tPisoK3Menu, tAtrasK4Menu, tFrenteK4Menu, tDerechaK4Menu, TIzquierdaK4Menu, tTechoK4Menu, tPisoK4Menu,
+            tAtrasK5Menu, tFrenteK5Menu, tDerechaK5Menu, TIzquierdaK5Menu, tTechoK5Menu, tPisoK5Menu, tAtrasK6Menu, tFrenteK6Menu, tDerechaK6Menu, TIzquierdaK6Menu, tTechoK6Menu, tPisoK6Menu,
+            tAtrasK7Menu, tFrenteK7Menu, tDerechaK7Menu, TIzquierdaK7Menu, tTechoK7Menu, tPisoK7Menu;
 
-    //position of stan in the window
-    private static final float X_POSITION = 0f;
-    private static final float Y_POSITION = -0.08f;
-    private static final float Z_POSITION = 0f;
+    private static final TextRenderer tituloMenu = new TextRenderer(new Font("SansSerif", Font.BOLD, 42));
 
-    Clip clip;
-    static String caminar = "src/Sonidos/camion.wav";
-    static String saltar = "src/Sonidos/coin.wav";
-    static String grunir = "src/Sonidos/tuberia.wav";
-
-    private double zoom = 3.5;
-    public static int per=0;
-    public static int selec=1;
-    
-
-    //Textura
-    Texture tAtras1, tFrente1, tDerecha1, TIzquierda1, tTecho1, tPiso1,tAtras2, tFrente2, tDerecha2, TIzquierda2, tTecho2, tPiso2,
-            tAtras3, tFrente3, tDerecha3, TIzquierda3, tTecho3, tPiso3,tAtras4, tFrente4, tDerecha4, TIzquierda4, tTecho4, tPiso4,
-            tAtras5, tFrente5, tDerecha5, TIzquierda5, tTecho5, tPiso5,tAtras6, tFrente6, tDerecha6, TIzquierda6, tTecho6, tPiso6,
-            tAtras7, tFrente7, tDerecha7, TIzquierda7, tTecho7, tPiso7,
-            tAtrasK1,tFrenteK1,tDerechaK1,TIzquierdaK1,tTechoK1,tPisoK1,tAtrasK2,tFrenteK2,tDerechaK2,TIzquierdaK2,tTechoK2,tPisoK2,
-            tAtrasK3,tFrenteK3,tDerechaK3,TIzquierdaK3,tTechoK3,tPisoK3,tAtrasK4,tFrenteK4,tDerechaK4,TIzquierdaK4,tTechoK4,tPisoK4,
-            tAtrasK5,tFrenteK5,tDerechaK5,TIzquierdaK5,tTechoK5,tPisoK5,tAtrasK6,tFrenteK6,tDerechaK6,TIzquierdaK6,tTechoK6,tPisoK6,
-            tAtrasK7,tFrenteK7,tDerechaK7,TIzquierdaK7,tTechoK7,tPisoK7,
-            tAtrasP1,tFrenteP1,tDerechaP1,TIzquierdaP1,tTechoP1,tPisoP1,tAtrasP2,tFrenteP2,tDerechaP2,TIzquierdaP2,tTechoP2,tPisoP2,
-            tAtrasP3,tFrenteP3,tDerechaP3,TIzquierdaP3,tTechoP3,tPisoP3,tAtrasP4,tFrenteP4,tDerechaP4,TIzquierdaP4,tTechoP4,tPisoP4,
-            tAtrasP5,tFrenteP5,tDerechaP5,TIzquierdaP5,tTechoP5,tPisoP5,tAtrasP6,tFrenteP6,tDerechaP6,TIzquierdaP6,tTechoP6,tPisoP6,
-            tAtrasP7,tFrenteP7,tDerechaP7,TIzquierdaP7,tTechoP7,tPisoP7;
-
-        public static int sel;
-//Componentes menu        
-    private static javax.swing.JComboBox jComboBox1;
-    private static  javax.swing.JLabel labTitulo;
-    private static  javax.swing.JLabel labSel;
-    public void Menuu()
+    public Menu()
     {
-        
-    }
-    public static void main(String[] args) {
-
-        Frame frame = new Frame("Menu");
-        GLCanvas canvas = new GLCanvas();
-        canvas.addGLEventListener(new Menu());
-    jComboBox1 = new javax.swing.JComboBox();
-    labTitulo = new javax.swing.JLabel();
-    labSel = new javax.swing.JLabel();
-    labSel.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
-        labSel.setText("Seleccion de personaje :");
-        labSel.setBounds(25,35,490,45);
-    frame.add(labSel);
-     jComboBox1.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cuphead", "King Dice", "Pingu" }));
-        jComboBox1.setBounds(25,85,250,45);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        frame.add(jComboBox1);
-    JButton boton1 = new JButton();
-    boton1.setText("Ver personaje");
-    boton1.setBounds(25,140,220,30);
-    boton1.setEnabled(true);
-    boton1.setMnemonic('a');
-    boton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                botonVerActionPerformed(evt);
-            }
-        });
-    frame.add(boton1);
-    labTitulo.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
-        labTitulo.setText("Instrucciones");
-        labTitulo.setBounds(25,180,280,45);
-    frame.add(labTitulo);
-    JButton boton2 = new JButton();
-    boton2.setText("Ver Instrucciones");
-    boton2.setBounds(25,230,220,30);
-    boton2.setEnabled(true);
-    boton2.setMnemonic('a');
-    boton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                botonVerInsActionPerformed(evt);
-            }
-        });
-    frame.add(boton2);
-    JButton boton3 = new JButton();
-    boton3.setText("Jugar");
-    boton3.setBounds(25,270,220,30);
-    boton3.setEnabled(true);
-    boton3.setMnemonic('a');
-    boton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                botonPlayActionPerformed(evt);
-            }
-        });
-    frame.add(boton3);
-        frame.add(canvas);
-        frame.setSize(1000, 800);
-        
-        final Animator animator = new Animator(canvas);
- 
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                // Run this on another thread than the AWT event queue to
-                // make sure the call to Animator.stop() completes before
-                // exiting
-                new Thread(new Runnable() {
-                    public void run() {
-                        animator.stop();
-                        System.exit(0);
-                    
-                    }
-                }).start();
-            }
-        });
-
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        animator.start();
-
     }
 
-    public void init(GLAutoDrawable drawable) {
-
-        GL gl = drawable.getGL();
-        System.err.println("INIT GL IS: " + gl.getClass().getName());
-        gl.setSwapInterval(1);
-        
-        // set up lighting
-        float light_ambient[] = {0.9f, 0.9f, 0.9f, 1.0f};
-        float light_diffuse[] = {0.3f, 0.3f, 0.3f, 1.0f};
-        float light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-        float light_position[] = {1.0f, 1.5f, 1.0f, 0.0f};
-
-        gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, light_ambient, 0);
-        gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, light_diffuse, 0);
-        gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, light_specular, 0);
-        gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, light_position, 0);
-
-        gl.glEnable(GL.GL_LIGHTING);
-        gl.glEnable(GL.GL_LIGHT0);
-        gl.glEnable(GL.GL_DEPTH_TEST);
-
-        // Setup the drawing area and shading mode
-        gl.glClearColor(0.9f, 0.9f, 0.9f, 0.9f);
-        gl.glShadeModel(GL.GL_SMOOTH);
-
- try {
-            //Escenario 1
-            File iAtras = new File("src/Fondos/casa.jpg");
-            tAtras1 = TextureIO.newTexture(iAtras, true);
-            File iFrente = new File("src/Fondos/feria.jpg");
-            tFrente1 = TextureIO.newTexture(iFrente, true);
-            File iDerecha = new File("src/Fondos/bosque.jpg");
-            tDerecha1 = TextureIO.newTexture(iDerecha, true);
-            File iIzquierda = new File("src/Fondos/bosque.jpg");
-            TIzquierda1 = TextureIO.newTexture(iIzquierda, true);
-            File iTecho = new File("src/Fondos/cielo.jpg");
-            tTecho1 = TextureIO.newTexture(iTecho, true);
-            File iPiso = new File("src/Fondos/suelo.jpg");
-            tPiso1 = TextureIO.newTexture(iPiso, true);
-
-            //Escenario2
-            iAtras = new File("src/Fondos/minecraftLado.jpg");
-            tAtras2 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/minecraftFrente.jpg");
-            tFrente2 = TextureIO.newTexture(iFrente, true);
-            iDerecha = new File("src/Fondos/minecraftLado.jpg");
-            tDerecha2 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/minecraftLado.jpg");
-            TIzquierda2 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/minecraftCielo.jpg");
-            tTecho2 = TextureIO.newTexture(iTecho, true);
-            iPiso = new File("src/Fondos/minecraftSuelo.jpg");
-            tPiso2 = TextureIO.newTexture(iPiso, true);
-
-            //Escenario3
-            iAtras = new File("src/Fondos/feriaLados.jpg");
-            tAtras3 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/feriaFrente.jpg");
-            tFrente3 = TextureIO.newTexture(iFrente, true);
-            iDerecha = new File("src/Fondos/feriaLados.jpg");
-            tDerecha3 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/feriaLados.jpg");
-            TIzquierda3 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/cieloNoche.jpg");
-            tTecho3 = TextureIO.newTexture(iTecho, true);
-            iPiso = new File("src/Fondos/suelo.jpg");
-            tPiso3 = TextureIO.newTexture(iPiso, true);
-
-            //Escenario4
-            iAtras = new File("src/Fondos/atraccion.jpg");
-            tAtras4 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/atraccion.jpg");
-            tFrente4 = TextureIO.newTexture(iFrente, true);
-            iDerecha = new File("src/Fondos/atraccion.jpg");
-            tDerecha4 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/atraccion.jpg");
-            TIzquierda4 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/techoYCieloAtraccion.jpg");
-            tTecho4 = TextureIO.newTexture(iTecho, true);
-            iPiso = new File("src/Fondos/techoYCieloAtraccion.jpg");
-            tPiso4 = TextureIO.newTexture(iPiso, true);
-
-            //Escenario5
-            iAtras = new File("src/Fondos/frenteYAtrasCielo.jpg");
-            tAtras5 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/frenteYAtrasCielo.jpg");
-            tFrente5 = TextureIO.newTexture(iFrente, true);
-            iDerecha = new File("src/Fondos/ladoCiudad.jpg");
-            tDerecha5 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/ladoCiudad.jpg");
-            TIzquierda5 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/cieloCiudad.jpg");
-            tTecho5 = TextureIO.newTexture(iTecho, true);
-            iPiso = new File("src/Fondos/sueloCiudad.jpg");
-            tPiso5 = TextureIO.newTexture(iPiso, true);
-
-            //Escenario6
-            iAtras = new File("src/Fondos/atrasCarretera.jpg");
-            tAtras6 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/frenteCarretera.jpg");
-            tFrente6 = TextureIO.newTexture(iFrente, true);
-            iDerecha = new File("src/Fondos/ladoCarretera.jpg");
-            tDerecha6 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/ladoCarretera.jpg");
-            TIzquierda6 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/cieloCarretera.jpg");
-            tTecho6 = TextureIO.newTexture(iTecho, true);
-            iPiso = new File("src/Fondos/sueloCarretera.jpg");
-            tPiso6 = TextureIO.newTexture(iPiso, true);
-
-            //Escenario7
-            iAtras = new File("src/Fondos/desiertoAtras.jpg");
-            tAtras7 = TextureIO.newTexture(iAtras, true);
-            iFrente = new File("src/Fondos/desiertoFrente.jpg");
-            tFrente7 = TextureIO.newTexture(iFrente, true);
-            iDerecha = new File("src/Fondos/desiertoLados.jpg");
-            tDerecha7 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/desiertoLados.jpg");
-            TIzquierda7 = TextureIO.newTexture(iIzquierda, true);
-            iTecho = new File("src/Fondos/desiertoCielo.jpg");
-            tTecho7 = TextureIO.newTexture(iTecho, true);
-            iPiso = new File("src/Fondos/desiertoSuelo.jpg");
-            tPiso7 = TextureIO.newTexture(iPiso, true);
-            //Escenario King Dice
-             File tAtrask = new File("src/Fondos/f1.jpg");
-            tAtrasK1 = TextureIO.newTexture(tAtrask, true);
-            File tFrentek = new File("src/Fondos/f1.jpg");
-            tFrenteK1 = TextureIO.newTexture(tFrentek, true);
-            File iDerechak = new File("src/Fondos/f1.jpg");
-            tDerechaK1 = TextureIO.newTexture(iDerechak, true);
-            File iIzquierdak = new File("src/Fondos/f1.jpg");
-            TIzquierdaK1 = TextureIO.newTexture(iIzquierdak, true);
-            File iTechok = new File("src/Fondos/r3.jpg");
-            tTechoK1 = TextureIO.newTexture(iTechok, true);
-            File iPisok = new File("src/Fondos/p.jpg");
-            tPisoK1 = TextureIO.newTexture(iPisok, true);
-            //2
-            tAtrask = new File("src/Fondos/f2.jpg");
-            tAtrasK2 = TextureIO.newTexture(tAtrask, true);
-             tFrentek = new File("src/Fondos/f2.jpg");
-            tFrenteK2 = TextureIO.newTexture(tFrentek, true);
-            iDerechak = new File("src/Fondos/f2.jpg");
-            tDerechaK2 = TextureIO.newTexture(iDerechak, true);
-            iIzquierdak = new File("src/Fondos/f2.jpg");
-            TIzquierdaK2 = TextureIO.newTexture(iIzquierdak, true);
-            iTechok = new File("src/Fondos/r3.jpg");
-            tTechoK2 = TextureIO.newTexture(iTechok, true);
-            iPisok = new File("src/Fondos/p.jpg");
-            tPisoK2 = TextureIO.newTexture(iPisok, true);
-            //3
-            tAtrask = new File("src/Fondos/f3.jpg");
-            tAtrasK3 = TextureIO.newTexture(tAtrask, true);
-            tFrentek = new File("src/Fondos/f3.jpg");
-            tFrenteK3 = TextureIO.newTexture(tFrentek, true);
-            iDerechak = new File("src/Fondos/f3.jpg");
-            tDerechaK3 = TextureIO.newTexture(iDerechak, true);
-            iIzquierdak = new File("src/Fondos/f3.jpg");
-            TIzquierdaK3 = TextureIO.newTexture(iIzquierdak, true);
-            iTechok = new File("src/Fondos/r3.jpg");
-            tTechoK3 = TextureIO.newTexture(iTechok, true);
-            iPisok = new File("src/Fondos/p.jpg");
-            tPisoK3 = TextureIO.newTexture(iPisok, true);
-            //4
-             tAtrask = new File("src/Fondos/e.jpg");
-            tAtrasK4 = TextureIO.newTexture(tAtrask, true);
-             tFrentek = new File("src/Fondos/e.jpg");
-            tFrenteK4 = TextureIO.newTexture(tFrentek, true);
-             iDerechak = new File("src/Fondos/e.jpg");
-            tDerechaK4 = TextureIO.newTexture(iDerechak, true);
-             iIzquierdak = new File("src/Fondos/e.jpg");
-            TIzquierdaK4 = TextureIO.newTexture(iIzquierdak, true);
-            iTechok = new File("src/Fondos/r3.jpg");
-            tTechoK4 = TextureIO.newTexture(iTechok, true);
-             iPisok = new File("src/Fondos/p.jpg");
-            tPisoK4 = TextureIO.newTexture(iPisok, true);
-            //5
-            tAtrask = new File("src/Fondos/f4.jpg");
-            tAtrasK5 = TextureIO.newTexture(tAtrask, true);
-            tFrentek = new File("src/Fondos/f4.jpg");
-            tFrenteK5 = TextureIO.newTexture(tFrentek, true);
-            iDerechak = new File("src/Fondos/f4.jpg");
-            tDerechaK5 = TextureIO.newTexture(iDerechak, true);
-            iIzquierdak = new File("src/Fondos/f4.jpg");
-            TIzquierdaK5 = TextureIO.newTexture(iIzquierdak, true);
-            iTechok = new File("src/Fondos/r3.jpg");
-            tTechoK5 = TextureIO.newTexture(iTechok, true);
-            iPisok = new File("src/Fondos/p.jpg");
-            tPisoK5 = TextureIO.newTexture(iPisok, true);
-            //6
-            tAtrask = new File("src/Fondos/f5.jpg");
-            tAtrasK6 = TextureIO.newTexture(tAtrask, true);
-            tFrentek = new File("src/Fondos/f5.jpg");
-            tFrenteK6 = TextureIO.newTexture(tFrentek, true);
-            iDerechak = new File("src/Fondos/f5.jpg");
-            tDerechaK6 = TextureIO.newTexture(iDerechak, true);
-            iIzquierdak = new File("src/Fondos/f5.jpg");
-            TIzquierdaK6 = TextureIO.newTexture(iIzquierdak, true);
-            iTechok = new File("src/Fondos/r3.jpg");
-            tTechoK6 = TextureIO.newTexture(iTechok, true);
-            iPisok = new File("src/Fondos/p.jpg");
-            tPisoK6 = TextureIO.newTexture(iPisok, true);
-            //7
-            tAtrask = new File("src/Fondos/c.jpg");
-            tAtrasK7 = TextureIO.newTexture(tAtrask, true);
-            tFrentek = new File("src/Fondos/c.jpg");
-            tFrenteK7 = TextureIO.newTexture(tFrentek, true);
-            iDerechak = new File("src/Fondos/c.jpg");
-            tDerechaK7 = TextureIO.newTexture(iDerechak, true);
-            iIzquierdak = new File("src/Fondos/c.jpg");
-            TIzquierdaK7 = TextureIO.newTexture(iIzquierdak, true);
-            iTechok = new File("src/Fondos/r3.jpg");
-            tTechoK7 = TextureIO.newTexture(iTechok, true);
-            iPisok = new File("src/Fondos/p.jpg");
-            tPisoK7 = TextureIO.newTexture(iPisok, true);
+    public void texturasInit()
+    {
+        try {
+            File iAtras = new File("src/Fondos/f1.jpg");
+            tAtrasMenu = TextureIO.newTexture(iAtras, true);
+            File iFrente = new File("src/Fondos/f1.jpg");
+            tFrenteMenu = TextureIO.newTexture(iFrente, true);
+            File iDerecha = new File("src/Fondos/f1.jpg");
+            tDerechaMenu = TextureIO.newTexture(iDerecha, true);
+            File iIzquierda = new File("src/Fondos/f1.jpg");
+            TIzquierdaMenu = TextureIO.newTexture(iIzquierda, true);
+            File iTecho = new File("src/Fondos/r3.jpg");
+            tTechoMenu = TextureIO.newTexture(iTecho, true);
+            File iPiso = new File("src/Fondos/p.jpg");
+            tPisoMenu = TextureIO.newTexture(iPiso, true);
+            File iAtras2 = new File("src/Fondos/f2.jpg");
+            tAtras2Menu = TextureIO.newTexture(iAtras2, true);
+            File iFrente2 = new File("src/Fondos/f2.jpg");
+            tFrente2Menu = TextureIO.newTexture(iFrente2, true);
+            File iDerecha2 = new File("src/Fondos/f2.jpg");
+            tDerecha2Menu = TextureIO.newTexture(iDerecha2, true);
+            File iIzquierda2 = new File("src/Fondos/f2.jpg");
+            TIzquierda2Menu = TextureIO.newTexture(iIzquierda2, true);
+            File iTecho2 = new File("src/Fondos/r3.jpg");
+            tTecho2Menu = TextureIO.newTexture(iTecho2, true);
+            File iPiso2 = new File("src/Fondos/p.jpg");
+            tPiso2Menu = TextureIO.newTexture(iPiso2, true);
+            File iAtras3 = new File("src/Fondos/f3.jpg");
+            tAtras3Menu = TextureIO.newTexture(iAtras3, true);
+            File iFrente3 = new File("src/Fondos/f3.jpg");
+            tFrente3Menu = TextureIO.newTexture(iFrente3, true);
+            File iDerecha3 = new File("src/Fondos/f3.jpg");
+            tDerecha3Menu = TextureIO.newTexture(iDerecha3, true);
+            File iIzquierda3 = new File("src/Fondos/f3.jpg");
+            TIzquierda3Menu = TextureIO.newTexture(iIzquierda3, true);
+            File iTecho3 = new File("src/Fondos/r3.jpg");
+            tTecho3Menu = TextureIO.newTexture(iTecho3, true);
+            File iPiso3 = new File("src/Fondos/p.jpg");
+            tPiso3Menu = TextureIO.newTexture(iPiso3, true);
+            File iAtras4 = new File("src/Fondos/e.jpg");
+            tAtras4Menu = TextureIO.newTexture(iAtras4, true);
+            File iFrente4 = new File("src/Fondos/e.jpg");
+            tFrente4Menu = TextureIO.newTexture(iFrente4, true);
+            File iDerecha4 = new File("src/Fondos/e.jpg");
+            tDerecha4Menu = TextureIO.newTexture(iDerecha4, true);
+            File iIzquierda4 = new File("src/Fondos/e.jpg");
+            TIzquierda4Menu = TextureIO.newTexture(iIzquierda4, true);
+            File iTecho4 = new File("src/Fondos/r3.jpg");
+            tTecho4Menu = TextureIO.newTexture(iTecho4, true);
+            File iPiso4 = new File("src/Fondos/p.jpg");
+            tPiso4Menu = TextureIO.newTexture(iPiso4, true);
+            File iAtras5 = new File("src/Fondos/f4.jpg");
+            tAtras5Menu = TextureIO.newTexture(iAtras5, true);
+            File iFrente5 = new File("src/Fondos/f4.jpg");
+            tFrente5Menu = TextureIO.newTexture(iFrente5, true);
+            File iDerecha5 = new File("src/Fondos/f4.jpg");
+            tDerecha5Menu = TextureIO.newTexture(iDerecha5, true);
+            File iIzquierda5 = new File("src/Fondos/f4.jpg");
+            TIzquierda5Menu = TextureIO.newTexture(iIzquierda5, true);
+            File iTecho5 = new File("src/Fondos/r3.jpg");
+            tTecho5Menu = TextureIO.newTexture(iTecho, true);
+            File iPiso5 = new File("src/Fondos/p.jpg");
+            tPiso5Menu = TextureIO.newTexture(iPiso, true);
+            File iAtras6 = new File("src/Fondos/f5.jpg");
+            tAtras6Menu = TextureIO.newTexture(iAtras6, true);
+            File iFrente6 = new File("src/Fondos/f5.jpg");
+            tFrente6Menu = TextureIO.newTexture(iFrente6, true);
+            File iDerecha6 = new File("src/Fondos/f5.jpg");
+            tDerecha6Menu = TextureIO.newTexture(iDerecha6, true);
+            File iIzquierda6 = new File("src/Fondos/f5.jpg");
+            TIzquierda6Menu = TextureIO.newTexture(iIzquierda6, true);
+            File iTecho6 = new File("src/Fondos/r3.jpg");
+            tTecho6Menu = TextureIO.newTexture(iTecho6, true);
+            File iPiso6 = new File("src/Fondos/p.jpg");
+            tPiso6Menu = TextureIO.newTexture(iPiso6, true);
+            File iAtras7 = new File("src/Fondos/c.jpg");
+            tAtras7Menu = TextureIO.newTexture(iAtras7, true);
+            File iFrente7 = new File("src/Fondos/c.jpg");
+            tFrente7Menu = TextureIO.newTexture(iFrente7, true);
+            File iDerecha7 = new File("src/Fondos/c.jpg");
+            tDerecha7Menu = TextureIO.newTexture(iDerecha7, true);
+            File iIzquierda7 = new File("src/Fondos/c.jpg");
+            TIzquierda7Menu = TextureIO.newTexture(iIzquierda7, true);
+            File iTecho7 = new File("src/Fondos/r3.jpg");
+            tTecho7Menu = TextureIO.newTexture(iTecho7, true);
+            File iPiso7 = new File("src/Fondos/p.jpg");
+            tPiso7Menu = TextureIO.newTexture(iPiso7, true);
+            //Pingu
             //Escenario Pingu
-                File iAtrasP = new File("src/Fondos/i1.jpg");
+            File iAtrasP = new File("src/Fondos/i1.jpg");
             File iFrenteP = new File("src/Fondos/i6.jpg");
             File iDerechaP = new File("src/Fondos/i3.jpg");
             File iIzquierdaP = new File("src/Fondos/i5.jpg");
             File iTechoP = new File("src/Fondos/i4.jpg");
             File iPisoP = new File("src/Fondos/i2.jpg");
-            tAtrasP1 = TextureIO.newTexture(iAtrasP, true);
-                    tFrenteP1 = TextureIO.newTexture(iFrenteP, true);
-                    tDerechaP1 = TextureIO.newTexture(iDerechaP, true);
-                    TIzquierdaP1 = TextureIO.newTexture(iIzquierdaP, true);
-                    tTechoP1 = TextureIO.newTexture(iTechoP, true);
-                    tPisoP1 = TextureIO.newTexture(iPisoP, true);
+            tAtrasP1Menu = TextureIO.newTexture(iAtrasP, true);
+            tFrenteP1Menu = TextureIO.newTexture(iFrenteP, true);
+            tDerechaP1Menu = TextureIO.newTexture(iDerechaP, true);
+            TIzquierdaP1Menu = TextureIO.newTexture(iIzquierdaP, true);
+            tTechoP1Menu = TextureIO.newTexture(iTechoP, true);
+            tPisoP1Menu = TextureIO.newTexture(iPisoP, true);
 //2
             iAtrasP = new File("src/Fondos/i8.jpg");
             iFrenteP = new File("src/Fondos/i9.jpg");
@@ -409,990 +151,1190 @@ public class Menu extends javax.swing.JFrame implements GLEventListener, MouseLi
             iIzquierdaP = new File("src/Fondos/i11.jpg");
             iTechoP = new File("src/Fondos/i4.jpg");
             iPisoP = new File("src/Fondos/i12.jpg");
-                    tAtrasP2 = TextureIO.newTexture(iAtrasP, false);
-                    tFrenteP2 = TextureIO.newTexture(iFrenteP, false);
-                    tDerechaP2 = TextureIO.newTexture(iDerechaP, false);
-                    TIzquierdaP2 = TextureIO.newTexture(iIzquierdaP, false);
-                    tTechoP2 = TextureIO.newTexture(iTechoP, false);
-                    tPisoP2 = TextureIO.newTexture(iPisoP, false);
-          //3
+            tAtrasP2Menu = TextureIO.newTexture(iAtrasP, false);
+            tFrenteP2Menu = TextureIO.newTexture(iFrenteP, false);
+            tDerechaP2Menu = TextureIO.newTexture(iDerechaP, false);
+            TIzquierdaP2Menu = TextureIO.newTexture(iIzquierdaP, false);
+            tTechoP2Menu = TextureIO.newTexture(iTechoP, false);
+            tPisoP2Menu = TextureIO.newTexture(iPisoP, false);
+            //3
             iAtrasP = new File("src/Fondos/i13.jpg");
             iFrenteP = new File("src/Fondos/i14.jpg");
             iDerechaP = new File("src/Fondos/i15.jpg");
             iIzquierdaP = new File("src/Fondos/i16.jpg");
             iTechoP = new File("src/Fondos/i18.jpg");
             iPisoP = new File("src/Fondos/i17.jpg");
-                    tAtrasP3 = TextureIO.newTexture(iAtrasP, false);
-                    tFrenteP3 = TextureIO.newTexture(iFrenteP, false);
-                    tDerechaP3 = TextureIO.newTexture(iDerechaP, false);
-                    TIzquierdaP3 = TextureIO.newTexture(iIzquierdaP, false);
-                    tTechoP3 = TextureIO.newTexture(iTechoP, false);
-                    tPisoP3 = TextureIO.newTexture(iPisoP, false);
-                    ///4
+            tAtrasP3Menu = TextureIO.newTexture(iAtrasP, false);
+            tFrenteP3Menu = TextureIO.newTexture(iFrenteP, false);
+            tDerechaP3Menu = TextureIO.newTexture(iDerechaP, false);
+            TIzquierdaP3Menu = TextureIO.newTexture(iIzquierdaP, false);
+            tTechoP3Menu = TextureIO.newTexture(iTechoP, false);
+            tPisoP3Menu = TextureIO.newTexture(iPisoP, false);
+            ///4
             iAtrasP = new File("src/Fondos/i19.jpg");
             iFrenteP = new File("src/Fondos/i20.jpg");
             iDerechaP = new File("src/Fondos/i21.jpg");
             iIzquierdaP = new File("src/Fondos/i22.jpg");
             iTechoP = new File("src/Fondos/i24.jpg");
             iPisoP = new File("src/Fondos/i23.jpg");
-                    tAtrasP4 = TextureIO.newTexture(iAtrasP, false);
-                    tFrenteP4 = TextureIO.newTexture(iFrenteP, false);
-                    tDerechaP4 = TextureIO.newTexture(iDerechaP, false);
-                    TIzquierdaP4 = TextureIO.newTexture(iIzquierdaP, false);
-                    tTechoP4 = TextureIO.newTexture(iTechoP, false);
-                    tPisoP4 = TextureIO.newTexture(iPisoP, false);
-                    //5
+            tAtrasP4Menu = TextureIO.newTexture(iAtrasP, false);
+            tFrenteP4Menu = TextureIO.newTexture(iFrenteP, false);
+            tDerechaP4Menu = TextureIO.newTexture(iDerechaP, false);
+            TIzquierdaP4Menu = TextureIO.newTexture(iIzquierdaP, false);
+            tTechoP4Menu = TextureIO.newTexture(iTechoP, false);
+            tPisoP4Menu = TextureIO.newTexture(iPisoP, false);
+            //5
             iAtrasP = new File("src/Fondos/i25.jpg");
             iFrenteP = new File("src/Fondos/i26.jpg");
             iDerechaP = new File("src/Fondos/i27.jpg");
             iIzquierdaP = new File("src/Fondos/i28.jpg");
             iTechoP = new File("src/Fondos/i30.jpg");
             iPisoP = new File("src/Fondos/i29.jpg");
-                    tAtrasP5 = TextureIO.newTexture(iAtrasP, false);
-                    tFrenteP5 = TextureIO.newTexture(iFrenteP, false);
-                    tDerechaP5 = TextureIO.newTexture(iDerechaP, false);
-                    TIzquierdaP5 = TextureIO.newTexture(iIzquierdaP, false);
-                    tTechoP5 = TextureIO.newTexture(iTechoP, false);
-                    tPisoP5 = TextureIO.newTexture(iPisoP, false);
-                    //6
+            tAtrasP5Menu = TextureIO.newTexture(iAtrasP, false);
+            tFrenteP5Menu = TextureIO.newTexture(iFrenteP, false);
+            tDerechaP5Menu = TextureIO.newTexture(iDerechaP, false);
+            TIzquierdaP5Menu = TextureIO.newTexture(iIzquierdaP, false);
+            tTechoP5Menu = TextureIO.newTexture(iTechoP, false);
+            tPisoP5Menu = TextureIO.newTexture(iPisoP, false);
+            //6
             iAtrasP = new File("src/Fondos/i31.jpg");
             iFrenteP = new File("src/Fondos/i32.jpg");
             iDerechaP = new File("src/Fondos/i33.jpg");
             iIzquierdaP = new File("src/Fondos/i34.jpg");
             iTechoP = new File("src/Fondos/i36.jpg");
             iPisoP = new File("src/Fondos/i35.jpg");
-                    tAtrasP6 = TextureIO.newTexture(iAtrasP, false);
-                    tFrenteP6 = TextureIO.newTexture(iFrenteP, false);
-                    tDerechaP6 = TextureIO.newTexture(iDerechaP, false);
-                    TIzquierdaP6 = TextureIO.newTexture(iIzquierdaP, false);
-                    tTechoP6 = TextureIO.newTexture(iTechoP, false);
-                    tPisoP6 = TextureIO.newTexture(iPisoP, false);
-                    //7 
+            tAtrasP6Menu = TextureIO.newTexture(iAtrasP, false);
+            tFrenteP6Menu = TextureIO.newTexture(iFrenteP, false);
+            tDerechaP6Menu = TextureIO.newTexture(iDerechaP, false);
+            TIzquierdaP6Menu = TextureIO.newTexture(iIzquierdaP, false);
+            tTechoP6Menu = TextureIO.newTexture(iTechoP, false);
+            tPisoP6Menu = TextureIO.newTexture(iPisoP, false);
+            //7 
             iAtrasP = new File("src/Fondos/i37.jpg");
             iFrenteP = new File("src/Fondos/i38.jpg");
             iDerechaP = new File("src/Fondos/i39.jpg");
             iIzquierdaP = new File("src/Fondos/i40.jpg");
             iTechoP = new File("src/Fondos/i41.jpg");
             iPisoP = new File("src/Fondos/i42.jpg");
-                    tAtrasP7 = TextureIO.newTexture(iAtrasP, false);
-                    tFrenteP7 = TextureIO.newTexture(iFrenteP, false);
-                    tDerechaP7 = TextureIO.newTexture(iDerechaP, false);
-                    TIzquierdaP7 = TextureIO.newTexture(iIzquierdaP, false);
-                    tTechoP7 = TextureIO.newTexture(iTechoP, false);
-                    tPisoP7 = TextureIO.newTexture(iPisoP, false);
-                    
+            tAtrasP7Menu = TextureIO.newTexture(iAtrasP, false);
+            tFrenteP7Menu = TextureIO.newTexture(iFrenteP, false);
+            tDerechaP7Menu = TextureIO.newTexture(iDerechaP, false);
+            TIzquierdaP7Menu = TextureIO.newTexture(iIzquierdaP, false);
+            tTechoP7Menu = TextureIO.newTexture(iTechoP, false);
+            tPisoP7Menu = TextureIO.newTexture(iPisoP, false);
+            //Cuphead
+            //Escenario 1
+            File iAtrasC = new File("src/Fondos/casa.jpg");
+            tAtrasK1Menu = TextureIO.newTexture(iAtrasC, true);
+            File iFrenteC = new File("src/Fondos/feria.jpg");
+            tFrenteK1Menu = TextureIO.newTexture(iFrenteC, true);
+            File iDerechaC = new File("src/Fondos/bosque.jpg");
+            tDerechaK1Menu = TextureIO.newTexture(iDerechaC, true);
+            File iIzquierdaC = new File("src/Fondos/bosque.jpg");
+            TIzquierdaK1Menu = TextureIO.newTexture(iIzquierdaC, true);
+            File iTechoC = new File("src/Fondos/cielo.jpg");
+            tTechoK1Menu = TextureIO.newTexture(iTechoC, true);
+            File iPisoC = new File("src/Fondos/suelo.jpg");
+            tPisoK1Menu = TextureIO.newTexture(iPisoC, true);
+            //Escenario2
+            iAtrasC = new File("src/Fondos/minecraftLado.jpg");
+            tAtrasK2Menu = TextureIO.newTexture(iAtrasC, true);
+            iFrenteC = new File("src/Fondos/minecraftFrente.jpg");
+            tFrenteK2Menu = TextureIO.newTexture(iFrenteC, true);
+            iDerechaC = new File("src/Fondos/minecraftLado.jpg");
+            tDerechaK2Menu = TextureIO.newTexture(iDerechaC, true);
+            iIzquierdaC = new File("src/Fondos/minecraftLado.jpg");
+            TIzquierdaK2Menu = TextureIO.newTexture(iIzquierdaC, true);
+            iTechoC = new File("src/Fondos/minecraftCielo.jpg");
+            tTechoK2Menu = TextureIO.newTexture(iTechoC, true);
+            iPisoC = new File("src/Fondos/minecraftSuelo.jpg");
+            tPisoK2Menu = TextureIO.newTexture(iPisoC, true);
+            //Escenario3
+            iAtrasC = new File("src/Fondos/feriaLados.jpg");
+            tAtrasK3Menu = TextureIO.newTexture(iAtrasC, true);
+            iFrenteC = new File("src/Fondos/feriaFrente.jpg");
+            tFrenteK3Menu = TextureIO.newTexture(iFrenteC, true);
+            iDerechaC = new File("src/Fondos/feriaLados.jpg");
+            tDerechaK3Menu = TextureIO.newTexture(iDerechaC, true);
+            iIzquierdaC = new File("src/Fondos/feriaLados.jpg");
+            TIzquierdaK3Menu = TextureIO.newTexture(iIzquierdaC, true);
+            iTechoC = new File("src/Fondos/cieloNoche.jpg");
+            tTechoK3Menu = TextureIO.newTexture(iTechoC, true);
+            iPisoC = new File("src/Fondos/suelo.jpg");
+            tPisoK3Menu = TextureIO.newTexture(iPisoC, true);
+            //Escenario4
+            iAtrasC = new File("src/Fondos/atraccion.jpg");
+            tAtrasK4Menu = TextureIO.newTexture(iAtrasC, true);
+            iFrenteC = new File("src/Fondos/atraccion.jpg");
+            tFrenteK4Menu = TextureIO.newTexture(iFrenteC, true);
+            iDerechaC = new File("src/Fondos/atraccion.jpg");
+            tDerechaK4Menu = TextureIO.newTexture(iDerechaC, true);
+            iIzquierdaC = new File("src/Fondos/atraccion.jpg");
+            TIzquierdaK4Menu = TextureIO.newTexture(iIzquierdaC, true);
+            iTechoC = new File("src/Fondos/techoYCieloAtraccion.jpg");
+            tTechoK4Menu = TextureIO.newTexture(iTechoC, true);
+            iPisoC = new File("src/Fondos/techoYCieloAtraccion.jpg");
+            tPisoK4Menu = TextureIO.newTexture(iPisoC, true);
+            //Escenario5
+            iAtrasC = new File("src/Fondos/frenteYAtrasCielo.jpg");
+            tAtrasK5Menu = TextureIO.newTexture(iAtrasC, true);
+            iFrenteC = new File("src/Fondos/frenteYAtrasCielo.jpg");
+            tFrenteK5Menu = TextureIO.newTexture(iFrenteC, true);
+            iDerechaC = new File("src/Fondos/ladoCiudad.jpg");
+            tDerechaK5Menu = TextureIO.newTexture(iDerechaC, true);
+            iIzquierdaC = new File("src/Fondos/ladoCiudad.jpg");
+            TIzquierdaK5Menu = TextureIO.newTexture(iIzquierdaC, true);
+            iTechoC = new File("src/Fondos/cieloCiudad.jpg");
+            tTechoK5Menu = TextureIO.newTexture(iTechoC, true);
+            iPisoC = new File("src/Fondos/sueloCiudad.jpg");
+            tPisoK5Menu = TextureIO.newTexture(iPisoC, true);
+            //Escenario6
+            iAtrasC = new File("src/Fondos/atrasCarretera.jpg");
+            tAtrasK6Menu = TextureIO.newTexture(iAtrasC, true);
+            iFrenteC = new File("src/Fondos/frenteCarretera.jpg");
+            tFrenteK6Menu = TextureIO.newTexture(iFrenteC, true);
+            iDerechaC = new File("src/Fondos/ladoCarretera.jpg");
+            tDerechaK6Menu = TextureIO.newTexture(iDerechaC, true);
+            iIzquierdaC = new File("src/Fondos/ladoCarretera.jpg");
+            TIzquierdaK6Menu = TextureIO.newTexture(iIzquierdaC, true);
+            iTechoC = new File("src/Fondos/cieloCarretera.jpg");
+            tTechoK6Menu = TextureIO.newTexture(iTechoC, true);
+            iPisoC = new File("src/Fondos/sueloCarretera.jpg");
+            tPisoK6Menu = TextureIO.newTexture(iPisoC, true);
+            //Escenario7
+            iAtrasC = new File("src/Fondos/desiertoAtras.jpg");
+            tAtrasK7Menu = TextureIO.newTexture(iAtrasC, true);
+            iFrenteC = new File("src/Fondos/desiertoFrente.jpg");
+            tFrenteK7Menu = TextureIO.newTexture(iFrenteC, true);
+            iDerechaC = new File("src/Fondos/desiertoLados.jpg");
+            tDerechaK7Menu = TextureIO.newTexture(iDerechaC, true);
+            iIzquierdaC = new File("src/Fondos/desiertoLados.jpg");
+            TIzquierdaK7Menu = TextureIO.newTexture(iIzquierdaC, true);
+            iTechoC = new File("src/Fondos/desiertoCielo.jpg");
+            tTechoK7Menu = TextureIO.newTexture(iTechoC, true);
+            iPisoC = new File("src/Fondos/desiertoSuelo.jpg");
+            tPisoK7Menu = TextureIO.newTexture(iPisoC, true);
+            //Teclas
+            File iTeclaZ = new File("src/Fondos/keyboard_key_z.png");
+            tTeclaZMenu = TextureIO.newTexture(iTeclaZ, true);
+            File iTeclaX = new File("src/Fondos/X.jpg");
+            tTeclaXMenu = TextureIO.newTexture(iTeclaX, true);
+            File iTeclaC = new File("src/Fondos/keyboard_key_c.png");
+            tTeclaCMenu = TextureIO.newTexture(iTeclaC, true);
+
         } catch (IOException iOE) {
             System.out.println("Error en carga de imágen");
         }
-        drawable.addMouseListener(this);
-        drawable.addMouseMotionListener(this);
-        //drawable.addMouseWheelListener(this);
-        drawable.addKeyListener(this);
-
-//        drawable.addMouseListener(this);
-//        drawable.addMouseMotionListener(this);
-//        drawable.addKeyListener(this);
-//        drawable.addMouseWheelListener(this);
-
     }
 
-    public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-        GL gl = drawable.getGL();
-        GLU glu = new GLU();
-        if (height <= 0) { // avoid a divide by zero error!
-            height = 1;
-        }
-        final float h = (float) width / (float) height;
-        gl.glViewport(0, 0, width, height);
-        gl.glMatrixMode(GL.GL_PROJECTION);
-        gl.glLoadIdentity();
-        glu.gluPerspective(45.0f, h, 1.0, 20.0);
-        gl.glMatrixMode(GL.GL_MODELVIEW);
-        gl.glLoadIdentity();
+    public void diplayTextura(GL gl, GLU glu, final float X_POSITION, final float Y_POSITION,
+            final float Z_POSITION, float view_rotx, float view_roty, double zoom, int bndKey, int bnd, boolean[] keys)
+    {
 
-    }
-
-    public void display(GLAutoDrawable drawable) {
-
-        GL gl = drawable.getGL();
-        GLU glu = new GLU();
-        // Clear the drawing area
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        gl.glMatrixMode(GL.GL_MODELVIEW);
-
-        // Reset the current matrix to the "identity"
-        gl.glLoadIdentity();
-        glu.gluLookAt(0.1f, 0.0f, zoom,// eye 4.0f
-                0.0f, 0.0f, 0.0f, // looking at
-                0.0f, 0.0f, 1.0f // is up
+        glu.gluLookAt(0.1f, 0.0f, zoom,// eye (ver desde los pies, acostar der,zoom)
+                0.0f, 0.0f, 0.0f, // looking at (de cabeza, acostar izq,)
+                0.0f, 0.0f, 1.0f // is up (cabeza,acostar der)
         );
 
-        // Move the whole scene
+        // Move the whole scene Agrega
         gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
         gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
         gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
         gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
-
+        //Mostrar el FONDO
         //we draw Stan in the window
-        Cuphead cuphead = new Cuphead();
-        KingDice kingdice = new KingDice();
+        KingDice kd = new KingDice();
         DrawPingu pingu = new DrawPingu();
-        if (per==1)
-        {
-        cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false);    
-        }else if (per==2)
-        {
-        kingdice.draw_KingDice(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], false);
-        }else if (per==3)
-        {
-         pingu.draw_pingu(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], false, false, false, false, false, false, false,false);
+        Cuphead cuphead = new Cuphead();
+        switch (bndKey) {
+            case 0:
+                gl.glPushMatrix();
+                gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                kd.fondo(gl, glu, tTechoMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                kd.fondo(gl, glu, tTechoMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                kd.fondo(gl, glu, tTechoMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                kd.fondo(gl, glu, tPisoMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                kd.fondo(gl, glu, tTechoMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                kd.fondo(gl, glu, tTechoMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                break;
+            case 1:
+                switch (bnd) {
+                    case 1:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaP1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaP1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoP1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoP1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasP1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteP1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 2:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaP2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaP2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoP2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoP2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasP2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteP2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 3:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaP3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaP3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoP3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoP3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasP3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteP3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 4:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaP4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaP4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoP4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoP4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasP4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteP4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 5:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaP5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaP5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoP5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoP5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasP5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteP5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 6:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaP6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaP6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoP6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoP6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasP6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteP6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 7:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaP7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaP7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoP7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoP7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasP7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteP7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                }
+                break;
+            case 2:
+                switch (bnd) {
+                    case 1:
+                        //Dibujamos la texturas del lado derecho
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoMenu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del lado izquierdo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoMenu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del cielo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoMenu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del piso
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoMenu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la casa
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tTechoMenu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la feria
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tTechoMenu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 2:
+                        //Dibujamos la texturas del lado derecho
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerecha2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del lado izquierdo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierda2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del cielo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTecho2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del piso
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPiso2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la casa
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtras2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la feria
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrente2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 3:
+                        //Dibujamos la texturas del lado derecho
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerecha3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del lado izquierdo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierda3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del cielo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTecho3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del piso
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPiso3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la casa
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtras3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la feria
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrente3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 4:
+                        //Dibujamos la texturas del lado derecho
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerecha4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del lado izquierdo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierda4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del cielo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTecho4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del piso
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPiso4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la casa
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtras4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la feria
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrente4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 5:
+                        //Dibujamos la texturas del lado derecho
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerecha5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del lado izquierdo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierda5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del cielo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTecho5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del piso
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPiso5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la casa
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtras5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la feria
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrente5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 6:
+                        //Dibujamos la texturas del lado derecho
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerecha6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del lado izquierdo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierda6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del cielo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTecho6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del piso
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPiso6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la casa
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtras6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la feria
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrente6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 7:
+                        //Dibujamos la texturas del lado derecho
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerecha7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del lado izquierdo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierda7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del cielo
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTecho7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas del piso
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPiso7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la casa
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtras7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        //Dibujamos la texturas de la feria
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrente7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                }
+                break;
+            case 3:
+                switch (bnd) {
+                    case 1:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaK1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaK1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoK1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoK1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasK1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteK1Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 2:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaK2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaK2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoK2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoK2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasK2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteK2Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 3:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaK3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaK3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoK3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoK3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasK3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteK3Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 4:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaK4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaK4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoK4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoK4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasK4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteK4Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 5:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaK5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaK5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoK5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoK5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasK5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteK5Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 6:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaK6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaK6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoK6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoK6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasK6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteK6Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        break;
+                    case 7:
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, tDerechaK7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
+                        kd.fondo(gl, glu, TIzquierdaK7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tTechoK7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
+                        kd.fondo(gl, glu, tPisoK7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        kd.fondo(gl, glu, tAtrasK7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0.0f, 2.5f, 2.5f);
+                        gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                        gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                        kd.fondo(gl, glu, tFrenteK7Menu);
+                        gl.glPopMatrix();
+                        gl.glFlush();
+                }
+                break;
         }
-        // Flush all drawing operations to the graphics card
-        gl.glFlush();
-        float mat_ambient[] = {0.9f, 0.9f, 0.9f, 1.0f};
-        float mat_diffuse[] = {0.3f, 0.3f, 0.3f, 1.0f};
-        float mat_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-        float light_position[] = {1.0f, 1.5f, 1.0f, 0.0f};
-        float shine = 125.2f;
-        gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, mat_ambient, 0);
-        gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, mat_diffuse, 0);
-        gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_SPECULAR, mat_specular, 0);
-        gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, light_position, 0);
-        gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
-switch(per)
-{
-    case 1:
-        switch(selec)
-        {
+        switch (bndKey) {
+            case 0:
+                //Dibujamos la texturas de los botones
+                gl.glPushMatrix();
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(5.6f, -12.6f, 12.0f);
+                gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                kd.fondo(gl, glu, tTeclaXMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(-46.6f, -12.6f, 20.0f);
+                kd.fondo(gl, glu, tTeclaZMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(45.6f, -12.6f, 20.0f);
+                kd.fondo(gl, glu, tTeclaCMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glTranslatef(-5f, 0f, 0f);
+                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+                gl.glPopMatrix();
+                gl.glPushMatrix();
+                kd.draw_KingDice(gl, true, false, false, false, false, false, true);
+                gl.glPopMatrix();
+                gl.glPushMatrix();
+                gl.glTranslatef(5f, 0f, 0f);
+                cuphead.draw_cuphead(gl, true, true, true, true, true, true, true, true);
+                gl.glPopMatrix();
+                // Flush all drawing operations to the graphics card
+                gl.glFlush();
+                break;
             case 1:
                 gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtras1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrente1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPiso1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTecho1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierda1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerecha1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=2;
+                gl.glTranslatef(-5f, 0f, 0f);
+                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+                pingu.set_white_head_material(gl);
+                gl.glPopMatrix();
+                gl.glPushMatrix();
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(45.6f, -12.6f, 20.0f);
+                kd.fondo(gl, glu, tTeclaCMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(5.6f, -12.6f, 12.0f);
+                gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                kd.fondo(gl, glu, tTeclaXMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
                 break;
             case 2:
                 gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtras2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrente2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPiso2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTecho2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierda2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerecha2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=3;
+                kd.draw_KingDice(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J']);
+                gl.glPopMatrix();
+                gl.glPushMatrix();
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(45.6f, -12.6f, 20.0f);
+                kd.fondo(gl, glu, tTeclaCMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
+                gl.glPushMatrix();
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(-46.6f, -12.6f, 20.0f);
+                kd.fondo(gl, glu, tTeclaZMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
                 break;
             case 3:
                 gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtras3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrente3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPiso3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTecho3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierda3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerecha3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=4;
-                break;
-            case 4:
+                gl.glTranslatef(5f, 0f, 0f);
+                cuphead.draw_cuphead(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q']);
+                gl.glPopMatrix();
                 gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtras4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrente4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPiso4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTecho4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierda4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerecha4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=5;
-                break;
-            case 5:
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(5.6f, -12.6f, 12.0f);
+                gl.glRotatef(180, 1.0f, 0.0f, 0.0f);
+                gl.glRotatef(180, 0.0f, 0.0f, 1.0f);
+                kd.fondo(gl, glu, tTeclaXMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
                 gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtras5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrente5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPiso5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTecho5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierda5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerecha5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=6;
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(-46.6f, -12.6f, 20.0f);
+                kd.fondo(gl, glu, tTeclaZMenu);
+                gl.glPopMatrix();
+                gl.glFlush();
                 break;
-            case 6:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtras6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrente6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPiso6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTecho6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierda6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerecha6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=7;
-                break;
-            case 7:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtras7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrente7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPiso7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTecho7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierda7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerecha7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=1;
-                break;                  
         }
-        break;
-    case 2:
-        switch(selec)
-        {
-            case 1:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasK1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteK1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoK1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoK1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaK1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaK1);
-        gl.glPopMatrix();
-        gl.glFlush();
-            selec=2;
-                break;
-            case 2:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasK2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteK2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoK2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoK2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaK2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaK2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=3;
-                break;
-            case 3:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasK3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteK3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoK3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoK3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaK3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaK3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=4;
-                break;
-            case 4:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasK4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteK4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoK4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoK4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaK4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaK4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=5;
-                break;
-            case 5:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasK5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteK5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoK5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoK5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaK5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaK5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=6;
-                break;
-            case 6:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasK6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteK6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoK6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoK6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaK6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaK6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=7;
-                break;
-            case 7:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasK7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteK7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoK7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoK7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaK7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaK7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=1;
-                break; 
-        }
-        break;
-    case 3:
-        switch(selec)
-        {
-            case 1:
-            gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasP1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteP1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoP1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoP1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaP1);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaP1);
-        gl.glPopMatrix();
-        gl.glFlush(); 
-                selec=2;
-                break;
-            case 2:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasP2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteP2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoP2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoP2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaP2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaP2);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=3;
-                break;
-            case 3:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasP3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteP3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoP3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoP3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaP3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaP3);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=4;
-                break;
-            case 4:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasP4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteP4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoP4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoP4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaP4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaP4);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=5;
-                break;
-            case 5:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasP5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteP5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoP5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoP5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaP5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaP5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=6;
-                break;
-            case 6:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasP6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteP6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoP6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoP6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaP6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaP6);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=7;
-                break;
-            case 7:
-                gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtrasP7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrenteP7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPisoP7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTechoP7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierdaP7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerechaP7);
-        gl.glPopMatrix();
-        gl.glFlush();
-        selec=1;
-                break;
-        }        
-        break;
-    default:
-        gl.glPushMatrix();
-        cuphead.fondo(gl, glu, tAtras5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(180f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tFrente5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tPiso5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 1.0f, 0.0f, 0.0f);
-        cuphead.fondo(gl, glu, tTecho5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, TIzquierda5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        gl.glPushMatrix();
-        gl.glRotatef(-90f, 0.0f, 1.0f, 0.0f);
-        cuphead.fondo(gl, glu, tDerecha5);
-        gl.glPopMatrix();
-        gl.glFlush();
-        break;
-}
-       
+        tituloMenu.beginRendering(1000, 800);
+        tituloMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        tituloMenu.draw("Selecccione un personaje", 230, 700);
+        tituloMenu.endRendering();
     }
-    public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
-    }
-    public void mouseClicked(MouseEvent e) {
-    }
-    public void mouseEntered(MouseEvent e) {
-    }
-    public void mouseExited(MouseEvent e) {
-    }
-    public void mouseReleased(MouseEvent e) {
-    }
-    public void mouseMoved(MouseEvent e) {
-    }
-    public void keyTyped(KeyEvent e) {
-    }
-    public void keyReleased(KeyEvent e) {
-    }
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        int gira = e.getWheelRotation();
-        if (gira < 0) {
-            zoom -= 0.1;
-        } else {
-            zoom += 0.1;
-        }
-    }
-    public void mousePressed(MouseEvent e) {
-        oldMouseX = e.getX();
-        oldMouseY = e.getY();
-    }
-
-    public void mouseDragged(MouseEvent e) {
-
-        int x = e.getX();
-        int y = e.getY();
-        Dimension size = e.getComponent().getSize();
-        float thetaX = 360.0f * ((float) (x - oldMouseX) / (float) size.width);
-        float thetaY = 360.0f * ((float) (oldMouseY - y) / (float) size.height);
-        oldMouseX = x;
-        oldMouseY = y;
-        view_rotx += thetaX;
-        view_roty += thetaY;
-
-    }
-
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() < 250 && keys[e.getKeyCode()] == false) {
-            keys['W'] = false;
-            keys['J'] = false;
-            keys['A'] = false;
-            keys['D'] = false;
-            keys['S'] = false;
-            keys[e.getKeyCode()] = true;
-
-            switch (e.getKeyCode()) {
-                case 'W':
-                    reproducir(caminar);
-                    break;
-                case 'J':
-                    reproducir(saltar);
-                    break;
-                case 'A':
-                    reproducir(grunir);
-                    break;
-                 case 'D':
-                    break;
-                case 'S':
-                    break;
-
-            }
-        } else {
-            keys[e.getKeyCode()] = false;
-        }
-    }
-
-    public void reproducir(String efecto) {
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File(efecto)));
-            clip.start();
-        } catch (Exception e) {
-            System.out.println("Error de carga de sonido");
-        }
-    }
-      public static void botonVerActionPerformed(java.awt.event.ActionEvent evt)                                           
-    {                                               
-        // TODO add your handling code here:
-        sel=jComboBox1.getSelectedIndex();
-        System.out.println("sleccion "+sel);
-        if (sel==0)
-        {
-            per=1;
-        }else if (sel==1)
-        {
-            per=2;
-        }else if (sel==2)
-        {
-            per=3;
-        }
-        
-    }                                                   
-      public static void botonVerInsActionPerformed(java.awt.event.ActionEvent evt)                                           
-    {                                               
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Usa las teclas para jugar");
-        
-    }                                                   
-      public static void botonPlayActionPerformed(java.awt.event.ActionEvent evt)                                           
-    {                                               
-        // TODO add your handling code here:   
-    }                                                   
-         private static void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)                                           
-    {                                               
-        // TODO add your handling code here:
-    }      
 }

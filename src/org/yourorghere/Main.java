@@ -10,9 +10,10 @@ package org.yourorghere;
  * @author Jonathan Montalvo Pérez
  */
 import com.sun.opengl.util.Animator;
+import com.sun.opengl.util.j2d.TextRenderer;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
-import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,10 +33,14 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 public class Main implements GLEventListener, MouseListener, MouseMotionListener, /*MouseWheelListener,*/ KeyListener
-{    
+{
+
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
@@ -62,7 +67,15 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     static String bailar = "src/Sonidos/bailar.wav";
     static String cintura = "src/Sonidos/cintura.wav";
     static String cara = "src/Sonidos/cara.wav";
-
+    static String notnot = "src/Sonidos/Pingu Sound - Noot Noot.wav";
+    static String saltar2 = "src/Sonidos/Penguin - Sound Effect _ ProSounds.wav";
+    static String enojado= "src/Sonidos/Tom Screaming Sound Effect (From Tom and Jerry).wav";
+    static String guniar = "src/Sonidos/Bonitos y Gorditos.wav";
+    static String mrs = "src/Sonidos/mrbeast sound effect.wav";
+    static String mimido = "src/Sonidos/Pinche gato zzz.wav";
+    static String rola = "src/Sonidos/SE.wav";
+    static String rola2 = "src/Sonidos/SE.wav";    
+    
     //Texture
     Texture tAtras1, tDerecha1, TIzquierda1, tPiso1,
             tAtras2, tDerecha2, TIzquierda2, tPiso2,
@@ -318,6 +331,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         Cuphead cuphead = new Cuphead();
         KingDice kingdice = new KingDice();
         DrawPingu pingu = new DrawPingu();
+        TextRenderer preguntaJuego = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 40));
 
         //We draw Cactus in the window
         Obstaculos obstaculos = new Obstaculos();
@@ -485,11 +499,16 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         }
         gl.glPopMatrix();
         gl.glFlush();
-
+        //Es la parte del juego
         if (!colision) {
             gl.glPushMatrix();
             cuphead.cambioInstruccion(keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
-            gl.glTranslatef(0.0f, 0.0f, -2.0f);
+            preguntaJuego.beginRendering(1000, 800);
+            preguntaJuego.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+            preguntaJuego.draw("Hello, world!", 100, 100);
+            preguntaJuego.endRendering();
+
+            gl.glTranslatef(0.10f, 0.0f, -2.0f);
             cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false);
             gl.glPopMatrix();
 
