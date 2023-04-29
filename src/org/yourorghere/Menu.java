@@ -37,7 +37,7 @@ public class Menu
             tAtrasK5Menu, tFrenteK5Menu, tDerechaK5Menu, TIzquierdaK5Menu, tTechoK5Menu, tPisoK5Menu, tAtrasK6Menu, tFrenteK6Menu, tDerechaK6Menu, TIzquierdaK6Menu, tTechoK6Menu, tPisoK6Menu,
             tAtrasK7Menu, tFrenteK7Menu, tDerechaK7Menu, TIzquierdaK7Menu, tTechoK7Menu, tPisoK7Menu;
 
-    private static final TextRenderer tituloMenu = new TextRenderer(new Font("SansSerif", Font.BOLD, 42));
+    private static final TextRenderer tituloMenu = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
 
     public Menu()
     {

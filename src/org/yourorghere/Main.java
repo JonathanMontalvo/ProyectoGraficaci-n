@@ -69,13 +69,13 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     static String cara = "src/Sonidos/cara.wav";
     static String notnot = "src/Sonidos/Pingu Sound - Noot Noot.wav";
     static String saltar2 = "src/Sonidos/Penguin - Sound Effect _ ProSounds.wav";
-    static String enojado= "src/Sonidos/Tom Screaming Sound Effect (From Tom and Jerry).wav";
+    static String enojado = "src/Sonidos/Tom Screaming Sound Effect (From Tom and Jerry).wav";
     static String guniar = "src/Sonidos/Bonitos y Gorditos.wav";
     static String mrs = "src/Sonidos/mrbeast sound effect.wav";
     static String mimido = "src/Sonidos/Pinche gato zzz.wav";
     static String rola = "src/Sonidos/SE.wav";
-    static String rola2 = "src/Sonidos/SE.wav";    
-    
+    static String rola2 = "src/Sonidos/SE.wav";
+
     //Texture
     Texture tAtras1, tDerecha1, TIzquierda1, tPiso1,
             tAtras2, tDerecha2, TIzquierda2, tPiso2,
@@ -132,6 +132,11 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     //Creamos el hilo del contador
     Tiempo t = new Tiempo();
+    private static final TextRenderer contador = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 55));
+    private static final TextRenderer pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+    private static final TextRenderer respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
+    private static final TextRenderer respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
+    private static final TextRenderer respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
 
     public static void main(String[] args)
     {
@@ -293,6 +298,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     public void display(GLAutoDrawable drawable)
     {
+        String tiempoContador = "";
         GL gl = drawable.getGL();
         GLU glu = new GLU();
         // Clear the drawing area
@@ -503,11 +509,6 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         if (!colision) {
             gl.glPushMatrix();
             cuphead.cambioInstruccion(keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
-            preguntaJuego.beginRendering(1000, 800);
-            preguntaJuego.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-            preguntaJuego.draw("Hello, world!", 100, 100);
-            preguntaJuego.endRendering();
-
             gl.glTranslatef(0.10f, 0.0f, -2.0f);
             cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false);
             gl.glPopMatrix();
@@ -892,8 +893,35 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 }
 
                 if (!finT) {
-                    System.out.println("" + t.getTiempo());
-                    if (t.getTiempo().equals("00:00.00")) {
+                    tiempoContador = t.getTiempo();
+                    if (!tiempoContador.equals("00:00:00")) {
+                        contador.beginRendering(1000, 800);
+                        contador.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        contador.draw(tiempoContador, 400, 750);
+                        contador.endRendering();
+
+                        pregunta.beginRendering(1000, 800);
+                        pregunta.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        pregunta.draw("¿Soy una preguta?", 300, 700);
+                        pregunta.endRendering();
+
+                        respuesta1.beginRendering(1000, 800);
+                        respuesta1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        respuesta1.draw("No sé ¯\\_(?)_/¯", 20, 150);
+                        respuesta1.endRendering();
+
+                        respuesta1.beginRendering(1000, 800);
+                        respuesta1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        respuesta1.draw("No sé x2 ¯\\_(?)_/¯", 330, 150);
+                        respuesta1.endRendering();
+
+                        respuesta1.beginRendering(1000, 800);
+                        respuesta1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        respuesta1.draw("No sé x3 ¯\\_(?)_/¯", 705, 150);
+                        respuesta1.endRendering();
+                    }
+
+                    if (tiempoContador.equals("00:00.00")) {
                         finT = true;
                         JOptionPane.showMessageDialog(null, "respuesta bien o mal", "Evaluar respuesta", JOptionPane.INFORMATION_MESSAGE);
                         Ventanas ventanaPerdio = new Ventanas("Nivel 1", 800, 400, false);
