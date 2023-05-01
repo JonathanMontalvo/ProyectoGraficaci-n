@@ -9,6 +9,7 @@ import com.sun.opengl.util.texture.Texture;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUquadric;
+import static org.yourorghere.Main.cambiarEspacio;
 
 /**
  *
@@ -21,6 +22,17 @@ public class DrawPingu
     private static final int SLICES = 40;
     private static final int STACKS = 40;
     private GLUquadric q = null;
+    private static int mvt = 0;
+    private static boolean cam = false;
+    private static boolean salt = false;
+    private static boolean agach = false;
+    private static boolean apunt = false;
+    private static boolean bail = false;
+    private static boolean mCint = false;
+    private static boolean mCar = false;
+    private static boolean pieDer = false;
+    private static boolean pieIzq = false;
+
     //para cara
     private static final float HEIGHT_BODY = 1.1f;
     private static final float TOP_BODY = 0.5f;
@@ -43,20 +55,27 @@ public class DrawPingu
     private static final float WIDTH_ARMS = 0.35f;
     private static final float HEIGHT_ARMS = 0.9f;
 
-    private static int mvt = 0;
-
     public DrawPingu()
     {
 
     }
 
-    public void draw_pingu(GL gl, boolean walk, boolean jump, boolean levanta, boolean agachar, boolean flex, boolean baile, boolean mov, boolean angry, boolean notnot, boolean sorprendido, boolean guinio, boolean mimido, boolean ojos2, boolean ojos3)
+    public void draw_pingu(GL gl, boolean walk, boolean jump, boolean levanta,
+            boolean agachar, boolean flex, boolean baile, boolean mov,
+            boolean angry, boolean notnot, boolean sorprendido, boolean guinio,
+            boolean mimido, boolean ojos2, boolean ojos3, boolean quieto)
     {
         GLU glu = new GLU();
         q = glu.gluNewQuadric();
         glu.gluQuadricDrawStyle(q, GLU.GLU_FILL);
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
+
+        //Cuphead only jumps once
+        if (DrawPingu.mvt >= 11 && jump) {
+            cambiarEspacio(false);
+        }
+
         //Pingu is walking
         if (walk && mvt % 20 + 10 > 20) {
             dibujar_pierna(gl, glu, ' ', true);
@@ -185,14 +204,15 @@ public class DrawPingu
             dibujar_brazos(gl, glu, ' ', true);
             dibujar_brazos(gl, glu, ' ', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, true);
+        } else if (quieto) {
+            dibujar_pierna(gl, glu, ' ', true);
+            dibujar_pierna(gl, glu, ' ', false);
+            dibujar_patas(gl, glu, ' ', true);
+            dibujar_patas(gl, glu, ' ', false);
+            dibujar_brazos(gl, glu, ' ', true);
+            dibujar_brazos(gl, glu, ' ', false);
+            dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
         } else {
-            /*dibujar_pierna(gl, glu, ' ', true);
-             dibujar_pierna(gl, glu, ' ', false);
-             dibujar_patas(gl, glu, ' ', true);
-             dibujar_patas(gl, glu, ' ', false);
-             dibujar_brazos(gl, glu, ' ', true);
-             dibujar_brazos(gl, glu, ' ', false);
-             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);*/
             if (mvt % 8 + 3 > 7) {
                 dibujar_pierna(gl, glu, 'A', true);
                 dibujar_pierna(gl, glu, ' ', false);

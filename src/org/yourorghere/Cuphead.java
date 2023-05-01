@@ -77,7 +77,7 @@ public class Cuphead
     }
 
     public void draw_cuphead(GL gl, boolean caminar, boolean saltar, boolean agachar,
-            boolean apuntar, boolean bailar, boolean mCintura, boolean mCara, boolean eliminado)
+            boolean apuntar, boolean bailar, boolean mCintura, boolean mCara, boolean eliminado, boolean quieto)
     {
         GLU glu = new GLU();
         q = glu.gluNewQuadric();
@@ -85,7 +85,7 @@ public class Cuphead
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
 
-        //Cuphead just jump once
+        //Cuphead only jumps once
         if (Cuphead.mvt >= 11 && saltar) {
             cambiarEspacio(false);
         }
@@ -324,17 +324,17 @@ public class Cuphead
             dibujar_Zapato_Derecho(gl, glu);
             gl.glPopMatrix();
         } //Cuphead is normal
-        else {
-            /*dibujar_Cabeza(gl, glu, false, false, false, false, false, false);
-             dibujar_Cuerpo(gl, glu);
-             dibujar_Brazo_Izquierdo(gl, glu, false, false);
-             dibujar_Brazo_Derecho(gl, glu, false, false, false, false);
-             dibujar_Pantalones(gl, glu, false, false, false);
-             dibujar_Pierna_Izquierda(gl, glu);
-             dibujar_Pierna_Derecha(gl, glu);
-             dibujar_Zapato_Izquierdo(gl, glu);
-             dibujar_Zapato_Derecho(gl, glu); */
-
+        else if (quieto) {
+            dibujar_Cabeza(gl, glu, false, false, false, false, false, false);
+            dibujar_Cuerpo(gl, glu);
+            dibujar_Brazo_Izquierdo(gl, glu, false, false);
+            dibujar_Brazo_Derecho(gl, glu, false, false, false, false);
+            dibujar_Pantalones(gl, glu, false, false, false);
+            dibujar_Pierna_Izquierda(gl, glu);
+            dibujar_Pierna_Derecha(gl, glu);
+            dibujar_Zapato_Izquierdo(gl, glu);
+            dibujar_Zapato_Derecho(gl, glu);
+        } else {
             if (mvt % 8 + 3 > 7) {
                 Cuphead.pieDer = true;
                 Cuphead.pieIzq = false;
@@ -1431,7 +1431,6 @@ public class Cuphead
 
     public void set_white_material(GL gl)
     {
-
         float mat_ambient[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
@@ -1441,7 +1440,6 @@ public class Cuphead
         gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, mat_diffuse, 0);
         gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_SPECULAR, mat_specular, 0);
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
-
     }
 
     public void set_blue_material(GL gl)

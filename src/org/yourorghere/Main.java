@@ -324,7 +324,12 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 break;
             case 'P':
                 if (!nivelUno) {
-                    inicioNivel1();
+                    if (bndKey == 1 || bndKey == 2 || bndKey == 3) {
+                        inicioNivel1();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Por favor seleccione un personaje primero",
+                                "Selección de personaje", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
                 break;
         }

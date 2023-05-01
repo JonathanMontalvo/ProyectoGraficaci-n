@@ -1401,14 +1401,14 @@ public class Menu
                 gl.glFlush();
                 gl.glPushMatrix();
                 gl.glTranslatef(-5f, 0f, 0f);
-                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+                pingu.draw_pingu(gl, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
-                kd.draw_KingDice(gl, true, false, false, false, false, false, true);
+                kd.draw_KingDice(gl, false, false, false, false, false, false, false);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 gl.glTranslatef(5f, 0f, 0f);
-                cuphead.draw_cuphead(gl, true, true, true, true, true, true, true, true);
+                cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, false, true);
                 gl.glPopMatrix();
                 // Flush all drawing operations to the graphics card
                 gl.glFlush();
@@ -1416,7 +1416,7 @@ public class Menu
             case 1:
                 gl.glPushMatrix();
                 gl.glTranslatef(-5f, 0f, 0f);
-                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U'], false);
                 pingu.set_white_head_material(gl);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
@@ -1436,7 +1436,7 @@ public class Menu
                 break;
             case 2:
                 gl.glPushMatrix();
-                kd.draw_KingDice(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J']);
+                kd.draw_KingDice(gl, keys[' '], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J']);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 gl.glScalef(0.1f, 0.1f, 0.1f);
@@ -1454,7 +1454,7 @@ public class Menu
             case 3:
                 gl.glPushMatrix();
                 gl.glTranslatef(5f, 0f, 0f);
-                cuphead.draw_cuphead(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q']);
+                cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false, false);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 gl.glScalef(0.1f, 0.1f, 0.1f);

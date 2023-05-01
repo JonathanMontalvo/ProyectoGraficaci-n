@@ -388,7 +388,8 @@ public class Juego
             gl.glPushMatrix();
             cuphead.cambioInstruccion(keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
             gl.glTranslatef(0.10f, 0.0f, -2.0f);
-            cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false);
+            //Para los dem·s solo vas aceptar el jump y walk, por lo que solo debes hacer dos cambios de estado en instrucciones
+            cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false, false);
             gl.glPopMatrix();
 
             // Flush all drawing operations to the graphics card
@@ -721,7 +722,7 @@ public class Juego
                 //Si hay colisi√≥n
                 gl.glPushMatrix();
                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
-                cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true);
+                cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true, false);
                 gl.glPopMatrix();
 
                 /*gl.glPushMatrix();
@@ -732,7 +733,9 @@ public class Juego
                 gl.glPushMatrix();
                 gl.glTranslatef(0.0f, 0.008f, -2.09f);
                 gl.glScalef(0.65f, 0.65f, 0.65f);
-                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+                //pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U'], false);
+                pingu.draw_pingu(gl, keys['W'], keys[' '], false, false, false, false, false, false, false, false, false, false, false, false, false);
+
                 gl.glPopMatrix();
 
                 if (cz1 == 0.1f) {
@@ -836,7 +839,7 @@ public class Juego
                 //Si es el fin del nivel
                 gl.glPushMatrix();
                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
-                cuphead.draw_cuphead(gl, false, false, false, false, true, false, false, false);
+                cuphead.draw_cuphead(gl, false, false, false, false, true, false, false, false, true);
                 gl.glPopMatrix();
 
                 if (!most) {
