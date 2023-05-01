@@ -16,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static org.yourorghere.Main.regresoMenu;
-
 /**
  *
  * @author Jonathan Montalvo Pérez
@@ -61,7 +60,7 @@ public class Ventanas extends JFrame
 
         // Establece solo se cierre la ventada y no todas la ventanas
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        
         // Agrega a la ventana el panel de título
         add(panelTitulo, "North");
     }
@@ -70,7 +69,7 @@ public class Ventanas extends JFrame
     {
         // Crear el panel con GridBagLayout
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(java.awt.Color.red); // Cambiar el color de fondo del panel
+        panel.setBackground(java.awt.Color.GREEN); // Cambiar el color de fondo del panel
 
         // Hacer que el fondo del panel cambie
         panel.setOpaque(true);
@@ -209,5 +208,4 @@ public class Ventanas extends JFrame
             }
         });
     }
-
 }
