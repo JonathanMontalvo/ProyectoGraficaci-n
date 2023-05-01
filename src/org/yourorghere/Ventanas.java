@@ -69,7 +69,7 @@ public class Ventanas extends JFrame
     {
         // Crear el panel con GridBagLayout
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(java.awt.Color.red); // Cambiar el color de fondo del panel
+        panel.setBackground(java.awt.Color.GREEN); // Cambiar el color de fondo del panel
 
         // Hacer que el fondo del panel cambie
         panel.setOpaque(true);
