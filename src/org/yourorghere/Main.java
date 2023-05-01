@@ -35,11 +35,13 @@ import javax.swing.JOptionPane;
 public class Main implements GLEventListener, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener
 {
 
-    private float view_rotx = 0.01f;
-    private float view_roty = 0.01f;
-    private int oldMouseX;
-    private int oldMouseY;
-    boolean[] keys = new boolean[256]; //to know which key is pressed
+    private static JFrame frame = null;
+
+    private static float view_rotx = 0.01f;
+    private static float view_roty = 0.01f;
+    private static int oldMouseX;
+    private static int oldMouseY;
+    private static boolean[] keys = new boolean[256]; //to know which key is pressed
 
     //position of stan in the window
     private static final float X_POSITION = 0f;
@@ -77,8 +79,10 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     private static final Menu menu = new Menu();
 
     //Banderas para menú y juegos
-    private static boolean menuActivo = false;
-    private static boolean nivelUno = true;
+    private static boolean menuActivo = true;
+    private static boolean nivelUno = false;
+    private static boolean nivelDos = false;
+    private static boolean nivelTres = false;
 
     public static int bnd = 1;
     private static int bndKey = 0;
@@ -158,9 +162,9 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         if (menuActivo) {
             menu.diplayTextura(gl, glu, X_POSITION, Y_POSITION, Z_POSITION, view_rotx, view_roty, zoom, bndKey, bnd, keys);
         } else if (nivelUno) {
+            //System.out.println(": " + keys[32]);
             juego.displayJuego(gl, glu, zoom, abajoYarriba, izquierdaYderecha, X_POSITION, Y_POSITION, Z_POSITION, view_rotx, view_roty, keys);
         }
-
     }
 
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged)
@@ -169,17 +173,17 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     public static void jMIOriginalMouseClicked(ActionEvent e)
     {
-        bnd = 1;
+        bndKey = 3;
     }
 
     public static void jMITraslacionMouseClicked(ActionEvent e)
     {
-        bnd = 2;
+        bndKey = 2;
     }
 
     public static void jMIEscalacionAumentarMouseClicked(ActionEvent e)
     {
-        bnd = 3;
+        bndKey = 1;
     }
 
     public void mouseClicked(MouseEvent e)
@@ -257,6 +261,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
 //        System.out.println("x: " + e.getKeyCode() + "\ny:" + e.getKeyChar());
         if (e.getKeyCode() < 250 && keys[e.getKeyCode()] == false) {
+            keys['P'] = false;
             keys['W'] = false;
             keys[' '] = false;
             keys['C'] = false;
@@ -269,8 +274,9 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             keys['4'] = false;
             keys['5'] = false;
             keys['6'] = false;
-            keys['7'] = false;
+            keys[17] = false;
             keys[e.getKeyCode()] = true;
+            //System.out.println("" + e.getKeyCode() + ": " + keys[e.getKeyCode()]);
             if (e.getKeyChar() != '1' && e.getKeyChar() != '2' && e.getKeyChar() != '3' && e.getKeyChar() != '4'
                     && e.getKeyChar() != '5' && e.getKeyChar() != '6' && e.getKeyChar() != '7') {
                 keys['2'] = bndEscenario['2'];
@@ -281,9 +287,10 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 keys['7'] = bndEscenario['7'];
             }
         } else {
-            keys[e.getKeyCode()] = false;
+            if (menuActivo) {
+                keys[e.getKeyCode()] = false;
+            }
         }
-
         switch (e.getKeyCode()) {
             case '1':
                 bnd = 1;
@@ -315,8 +322,12 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             case 'C':
                 bndKey = 3;
                 break;
+            case 'P':
+                if (!nivelUno) {
+                    inicioNivel1();
+                }
+                break;
         }
-
         if (e.getKeyChar() == 'I' || e.getKeyChar() == 'i') {
             zoom = -1.0f;
         } else if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o') {
@@ -449,15 +460,50 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    //We can chage the key value
+    public static void cambiarEspacio(boolean estado)
+    {
+        keys[' '] = estado;
+    }
+
+    private static void desactivarTeclas()
+    {
+        keys['P'] = false;
+        keys['W'] = false;
+        keys[' '] = false;
+        keys['C'] = false;
+        keys['E'] = false;
+        keys['B'] = false;
+        keys['Q'] = false;
+        keys['F'] = false;
+    }
+
+    public static void inicioNivel1()
+    {
+        menuActivo = false;
+        nivelUno = true;
+        frame.dispose();
+        menu.quitarParteMain(frame);
+        frame.setVisible(true);
+        desactivarTeclas();
+    }
+
+    public static void regresoMenu()
+    {
+        menuActivo = true;
+        nivelUno = false;
+        nivelDos = false;
+        nivelTres = false;
+        frame.dispose();
+        menu.cargarMenu(frame);
+        frame.setVisible(true);
+        desactivarTeclas();
+    }
+
     public static void main(String[] args)
     {
-        JFrame frame = null;
-        if (menuActivo) {
-            frame = new JFrame("Menu ");
-            menu.parteMain(frame);
-        } else if (nivelUno) {
-            frame = new JFrame("Nivel 1");
-        }
+        frame = new JFrame("Menu");
+        menu.parteMain(frame);
         GLCanvas canvas = new GLCanvas();
         canvas.addGLEventListener(new Main());
         frame.add(canvas);

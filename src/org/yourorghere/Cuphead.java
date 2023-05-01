@@ -13,6 +13,7 @@ import com.sun.opengl.util.texture.Texture;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUquadric;
+import static org.yourorghere.Main.cambiarEspacio;
 
 public class Cuphead
 {
@@ -83,6 +84,11 @@ public class Cuphead
         glu.gluQuadricDrawStyle(q, GLU.GLU_FILL);
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
+
+        //Cuphead just jump once
+        if (Cuphead.mvt >= 11 && saltar) {
+            cambiarEspacio(false);
+        }
 
         //Cuphead is walking
         if (caminar && mvt % 8 + 3 > 7) {

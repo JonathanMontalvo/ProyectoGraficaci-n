@@ -152,6 +152,22 @@ public class Menu
         frame.setJMenuBar(jMenuBar);
     }
 
+    public void cargarMenu(JFrame frame)
+    {
+        frame.setTitle("Menu");
+        frame.setJMenuBar(jMenuBar);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void quitarParteMain(JFrame frame)
+    {
+        frame.setTitle("Juego");
+        frame.setJMenuBar(null);
+        frame.revalidate();
+        frame.repaint();
+    }
+
     public void texturasInit()
     {
         try {
