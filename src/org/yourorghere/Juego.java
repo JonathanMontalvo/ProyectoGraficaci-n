@@ -722,9 +722,20 @@ public class Juego
                 //Si hay colisión
                 gl.glPushMatrix();
                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
+                 if (keys['U']||keys['u'])
+                        {
+                            gl.glTranslatef(0.0f, 0.0f, 0.0f);
+                        }else if (keys['I']||keys['i'])
+                 {
+                   gl.glTranslatef(0.0f, 0.0f, 2.0f);   
+                 }else if (keys['O']||keys['o'])
+                 {
+                     gl.glTranslatef(0.0f, 0.0f, 3.6f);
+                 }  else
+                 {   
+                 }
                 cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true, false);
                 gl.glPopMatrix();
-
                 /*gl.glPushMatrix();
                  gl.glTranslatef(-0.3f, 0.7f, -1.0f);
                  gl.glScalef(0.4f, 0.4f, 0.4f);
@@ -832,6 +843,7 @@ public class Juego
 
                     if (tiempoContador.equals("00:00.00")) {
                         mostrarVentanaPerder = true;
+                        Reintentar();
                     }
                 }
 
@@ -890,5 +902,10 @@ public class Juego
             hayColisionZ = true;
         }
         return hayColisionX && hayColisionY && hayColisionZ;
+    }
+    public void Reintentar()
+    {
+        colision=false;
+        
     }
 }

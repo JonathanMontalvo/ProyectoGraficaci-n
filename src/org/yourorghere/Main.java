@@ -274,6 +274,9 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             keys['4'] = false;
             keys['5'] = false;
             keys['6'] = false;
+            keys['U']=false;
+            keys['I']=false;
+            keys['O']=false;
             keys[17] = false;
             keys[e.getKeyCode()] = true;
             //System.out.println("" + e.getKeyCode() + ": " + keys[e.getKeyCode()]);
