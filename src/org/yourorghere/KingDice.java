@@ -64,8 +64,7 @@ public class KingDice
     
     public void draw_KingDice(GL gl, boolean brincar, boolean guinio, boolean triste, boolean serio, boolean enojado, boolean muerto,
             boolean feliz)
-    {
-        
+    {        
         GLU glu = new GLU();
         q = glu.gluNewQuadric();
         glu.gluQuadricDrawStyle(q, GLU.GLU_FILL);
