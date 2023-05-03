@@ -84,7 +84,6 @@ public class Cuphead
         if (Cuphead.mvt >= 11 && saltar) {
             cambiarEspacio(false);
         }
-
         //Cuphead is walking
         if (caminar && mvt % 8 + 3 > 7) {
             Cuphead.pieDer = true;
