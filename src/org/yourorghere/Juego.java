@@ -22,6 +22,10 @@ import javax.swing.JOptionPane;
 public class Juego
 {
 
+    private boolean xd = false;
+    public static boolean pIzquierdo = true;
+    public static boolean pDerecho = false;
+    private PartesJuego pJ = new PartesJuego();
     //Texture
     private Texture tAtras1, tDerecha1, TIzquierda1, tPiso1,
             tAtras2, tDerecha2, TIzquierda2, tPiso2,
@@ -32,18 +36,18 @@ public class Juego
             tAtras7, tDerecha7, TIzquierda7, tPiso7;
 
     //velocidad
-    private static int velocidadP1 = 2;
-    private static int velocidadP2 = 2;
-    private static float velocidadHitBox = 0.513f;
-    private static int velocidadP3 = 1;
-    private static float parte1 = -1.0f;
-    private static int control1 = 1;
+    public static int velocidadP1 = 2;
+    public static int velocidadP2 = 2;
+    public static float velocidadHitBox = 0.513f;
+    public static int velocidadP3 = 1;
+    public static float parte1 = -1.0f;
+    public static int control1 = 1;
 
     //posicion objetos
     private float c1 = 0.0f;
     private float c2 = 0.0f;
     private float c3 = 0.0f;
-    private float cz1 = 0.0f;
+    public static float cz1 = 0.0f;
     private float cz2 = 0.0f;
     private float cz3 = 0.0f;
 
@@ -59,21 +63,21 @@ public class Juego
     private float[] centroCactus3 = {-0.565f, -1.41f, 0.0f};
 
     //Caja de los pies     
-    private cBoxObj cajaPieIzquierdo;
-    private cBoxObj cajaPieDerecho;
+    public static cBoxObj cajaPieIzquierdo;
+    public static cBoxObj cajaPieDerecho;
 
     //Caja de los cactus
-    private cBoxObj cajaCactus0;
-    private cBoxObj cajaCactus1;
-    private cBoxObj cajaCactus2;
-    private cBoxObj cajaCactus3;
+    public static cBoxObj cajaCactus0;
+    public static cBoxObj cajaCactus1;
+    public static cBoxObj cajaCactus2;
+    public static cBoxObj cajaCactus3;
 
     //Bandera de colision
-    private boolean colision = false;
+    public static boolean colision = false;
     private boolean finT = false;
 
     //Bandera de final
-    private boolean fin = false;
+    public static boolean fin = false;
     private boolean most = false;
 
     //Creamos el hilo del contador
@@ -501,220 +505,11 @@ public class Juego
             centroCactus3[2] = cz3 - velocidadHitBox;
             cajaCactus3 = new cBoxObj(0.39f, 0.7f, 0.39f, centroCactus3);
 
-            //Control fondo primera parte
-            if ((velocidadP1 % 120) == 0) //Cuando llega a 120 va a cambiar la posicion del fondo
-            {
-                if ((control1 % 2) == 0) //Controlamos a que posición se debe colocar para que de el efecto de continuidad
-                {
-                    parte1 = -1.0f;//Esto es en la parte más cercana
-                } else {
-                    parte1 = 11.0f;//En la parte más alejada
-                }
-                velocidadP1 = 0;//Reiniciamos la velocidad
-                control1++;//Es una bandera para controlar la posición
-            }
-
-            //Control fondo segunda parte
-            if ((velocidadP2 % 240) == 0) //Cuando llegamos a 240 reinicia la velocidad, lo que altera la posición
-            {
-                velocidadP2 = 0;
-            }
-
-            // Control de velocidad
-            velocidadP1 += 2;
-            velocidadP2 += 2;
-            velocidadHitBox += 0.513f;
-            velocidadP3 += 1;
-
-            if (velocidadP3 <= 139) {
-                if (cuphead.pieIzq()) {
-                    if (interseccion(cajaPieIzquierdo, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.1f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus1, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.2f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus2, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.3f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus3, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.4f;
-                    }
-                }
-                if (cuphead.pieDer()) {
-                    if (interseccion(cajaPieDerecho, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.1f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus1, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.2f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus2, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.3f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus3, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.4f;
-                    }
-                }
-            } else if (velocidadP3 <= 195) {
-                if (cuphead.pieIzq()) {
-                    if (interseccion(cajaPieIzquierdo, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.1f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus1, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.2f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus2, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.3f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus3, 0.5130005f, 0.76950075f)) {
-                        colision = true;
-                        cz1 = 0.4f;
-                    }
-                }
-                if (cuphead.pieDer()) {
-                    if (interseccion(cajaPieDerecho, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.1f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus1, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.2f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus2, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.3f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus3, 0.5130005f, 0.76950075f)) {
-                        colision = true;
-                        cz1 = 0.4f;
-                    }
-                }
-            } else if (velocidadP3 <= 231) {//231
-                if (cuphead.pieIzq()) {
-                    if (interseccion(cajaPieIzquierdo, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.1f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus1, 1.026001f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.2f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus2, 0.87210085f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.3f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus3, 0.35910035f, 1.31950635f)) {
-                        colision = true;
-                        cz1 = 0.4f;
-                    }
-                }
-                if (cuphead.pieDer()) {
-                    if (interseccion(cajaPieDerecho, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.1f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus1, 1.026001f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.2f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus2, 0.87210085f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.3f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus3, 0.35910035f, 1.31950635f)) {
-                        colision = true;
-                        cz1 = 0.4f;
-                    }
-                }
-            } else {
-                if (cuphead.pieIzq()) {
-                    if (interseccion(cajaPieIzquierdo, cajaCactus0, 1.026001f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.1f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus1, 1.5390015f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.2f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus2, 1.026001f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.3f;
-                    }
-                    if (interseccion(cajaPieIzquierdo, cajaCactus3, 1.5390015f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.4f;
-                    }
-                }
-                if (cuphead.pieDer()) {
-                    if (interseccion(cajaPieDerecho, cajaCactus0, 1.026001f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.1f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus1, 1.5390015f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.2f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus2, 1.026001f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.3f;
-                    }
-                    if (interseccion(cajaPieDerecho, cajaCactus3, 1.5390015f, 2.6390127f)) {
-                        colision = true;
-                        cz1 = 0.4f;
-                    }
-                }
-            }
-
-            if (velocidadP3 == 122) {
-                velocidadHitBox = 1.026f;
-            }
-            if (velocidadP3 == 184) {
-                velocidadHitBox = 2.565f;
-            }
-            if (velocidadP3 == 222) {
-                velocidadHitBox = -1.026f;
-            }
-            if (!colision) {
-
-                if (velocidadP3 >= 123) {//En cada if hacer el método aleatorio de nuevo para el primero evalua con p3=1
-                    velocidadP1 += 2;
-                    velocidadP2 += 2;
-                    velocidadHitBox += 0.513f;
-                }
-                if (velocidadP3 >= 185) {
-                    velocidadP1 += 2;
-                    velocidadP2 += 2;
-                    velocidadHitBox += 0.513f;
-                }
-                if (velocidadP3 >= 223) {//223 224 225 
-                    velocidadP1 += 2;
-                    velocidadP2 += 2;
-                    velocidadHitBox += 0.513f;
-                    //System.out.println("\nk:" + velocidadP2);//Siempre debe coincidir con 120 para limpiar
-                    //System.out.println("c:" + velocidadP1);//Siempre debe coincidir con 240 para limpiar
-                }
-            } else {
-                velocidadP1 -= 2;
-                velocidadP2 -= 2;
-            }
-            if (velocidadP3 >= 255) {
-                colision = true;
-                fin = true;
-
-                //restale los del ultimo avance a esos 2
-                velocidadP1 -= 2;
-                velocidadP2 -= 2;
+            pIzquierdo = cuphead.pieIzq();
+            pDerecho = cuphead.pieDer();
+            if (!xd) {
+                xd = true;
+                pJ.start();
             }
 
         } else {
@@ -722,18 +517,14 @@ public class Juego
                 //Si hay colisión
                 gl.glPushMatrix();
                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
-                 if (keys['U']||keys['u'])
-                        {
-                            gl.glTranslatef(0.0f, 0.0f, 0.0f);
-                        }else if (keys['I']||keys['i'])
-                 {
-                   gl.glTranslatef(0.0f, 0.0f, 2.0f);   
-                 }else if (keys['O']||keys['o'])
-                 {
-                     gl.glTranslatef(0.0f, 0.0f, 3.6f);
-                 }  else
-                 {   
-                 }
+                if (keys['U'] || keys['u']) {
+                    gl.glTranslatef(0.0f, 0.0f, 0.0f);
+                } else if (keys['I'] || keys['i']) {
+                    gl.glTranslatef(0.0f, 0.0f, 2.0f);
+                } else if (keys['O'] || keys['o']) {
+                    gl.glTranslatef(0.0f, 0.0f, 3.6f);
+                } else {
+                }
                 cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true, false);
                 gl.glPopMatrix();
                 /*gl.glPushMatrix();
@@ -843,7 +634,6 @@ public class Juego
 
                     if (tiempoContador.equals("00:00.00")) {
                         mostrarVentanaPerder = true;
-                        Reintentar();
                     }
                 }
 
@@ -861,51 +651,5 @@ public class Juego
                 }
             }
         }
-    }
-
-    // Función para verificar si hay intersección entre dos cajas de colisión
-    private boolean interseccion(cBoxObj caja1, cBoxObj caja2, float c1, float c2)
-    {
-
-        boolean hayColisionX = false;
-        boolean hayColisionY = false;
-        boolean hayColisionZ = false;
-
-        // Calcular las posiciones de los bordes de las cajas
-        float izquierdaCaja1 = caja1.centro[0] + caja1.extend[0];
-        float derechaCaja1 = caja1.centro[0] - caja1.extend[0];
-        float arribaCaja1 = caja1.centro[1] + (caja1.extend[1] * 4);
-        float abajoCaja1 = caja1.centro[1] - (caja1.extend[1] * 4);
-        float adelanteCaja1 = caja1.centro[2] - caja1.extend[2];
-        float atrasCaja1 = caja1.centro[2] + caja1.extend[2];
-
-        float izquierdaCaja2 = caja2.centro[0] + caja2.extend[0];
-        float derechaCaja2 = caja2.centro[0] - caja2.extend[0];
-        float arribaCaja2 = caja2.centro[1] + caja2.extend[1];
-        float abajoCaja2 = caja2.centro[1] - caja2.extend[1];
-        float adelanteCaja2 = caja2.centro[2] - caja2.extend[2];
-        float atrasCaja2 = caja2.centro[2] + caja2.extend[2];
-
-        // Verificar colisión en el eje X
-        if (izquierdaCaja1 >= derechaCaja2 && derechaCaja1 <= izquierdaCaja2) {
-            hayColisionX = true;
-        }
-
-        // Verificar colisión en el eje Y
-        if (arribaCaja1 >= abajoCaja2 && abajoCaja1 <= arribaCaja2) {
-            hayColisionY = true;
-        }
-
-        // Verificar colisión en el eje Z
-        if (adelanteCaja2 <= adelanteCaja1 - c1 && atrasCaja2 >= adelanteCaja1 - c2)//-2.6390127+adelanteCaja1 da -6.779013
-        {
-            hayColisionZ = true;
-        }
-        return hayColisionX && hayColisionY && hayColisionZ;
-    }
-    public void Reintentar()
-    {
-        colision=false;
-        
     }
 }
