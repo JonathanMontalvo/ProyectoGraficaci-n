@@ -33,13 +33,11 @@ import static org.yourorghere.Juego.pDerecho;
 public class PartesJuego extends Thread
 {
 
-    long tiempoInicial = System.currentTimeMillis(); //Obtener el tiempo actual en milisegundos
-    long tiempoActual = tiempoInicial;
+    private int repetir;
 
     public PartesJuego()
     {
-        this.tiempoInicial = 0;
-        this.tiempoActual = 0;
+        this.repetir = 0;
     }
 
     // Funci贸n para verificar si hay intersecci贸n entre dos cajas de colisi贸n
@@ -103,15 +101,16 @@ public class PartesJuego extends Thread
         if ((velocidadP2 % 240) == 0) //Cuando llegamos a 240 reinicia la velocidad, lo que altera la posici贸n
         {
             velocidadP2 = 0;
+            velocidadHitBox = 0.256f;
         }
 
         // Control de velocidad
-        velocidadP1 += 2;
-        velocidadP2 += 2;
-        velocidadHitBox += 0.513f;
+        velocidadP1 += 1;
+        velocidadP2 += 1;
+        velocidadHitBox += 0.256f;
         velocidadP3 += 1;
 
-        if (velocidadP3 <= 139) {
+        if (velocidadP3 <= 960) {
             if (pIzquierdo) {
                 if (interseccion(cajaPieIzquierdo, cajaCactus0, 0.5130005f, 2.6390127f)) {
                     colision = true;
@@ -148,208 +147,65 @@ public class PartesJuego extends Thread
                     cz1 = 0.4f;
                 }
             }
-        } else if (velocidadP3 <= 195) {
-            if (pIzquierdo) {
-                if (interseccion(cajaPieIzquierdo, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.1f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus1, 0.5130005f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.2f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus2, 0.5130005f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.3f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus3, 0.5130005f, 0.76950075f)) {
-                    colision = true;
-                    cz1 = 0.4f;
-                }
-            }
-            if (pDerecho) {
-                if (interseccion(cajaPieDerecho, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.1f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus1, 0.5130005f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.2f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus2, 0.5130005f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.3f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus3, 0.5130005f, 0.76950075f)) {
-                    colision = true;
-                    cz1 = 0.4f;
-                }
-            }
-        } else if (velocidadP3 <= 231) {//231
-            if (pIzquierdo) {
-                if (interseccion(cajaPieIzquierdo, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.1f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus1, 1.026001f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.2f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus2, 0.87210085f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.3f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus3, 0.35910035f, 1.31950635f)) {
-                    colision = true;
-                    cz1 = 0.4f;
-                }
-            }
-            if (pDerecho) {
-                if (interseccion(cajaPieDerecho, cajaCactus0, 0.5130005f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.1f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus1, 1.026001f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.2f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus2, 0.87210085f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.3f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus3, 0.35910035f, 1.31950635f)) {
-                    colision = true;
-                    cz1 = 0.4f;
-                }
-            }
-        } else {
-            if (pIzquierdo) {
-                if (interseccion(cajaPieIzquierdo, cajaCactus0, 1.026001f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.1f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus1, 1.5390015f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.2f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus2, 1.026001f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.3f;
-                }
-                if (interseccion(cajaPieIzquierdo, cajaCactus3, 1.5390015f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.4f;
-                }
-            }
-            if (pDerecho) {
-                if (interseccion(cajaPieDerecho, cajaCactus0, 1.026001f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.1f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus1, 1.5390015f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.2f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus2, 1.026001f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.3f;
-                }
-                if (interseccion(cajaPieDerecho, cajaCactus3, 1.5390015f, 2.6390127f)) {
-                    colision = true;
-                    cz1 = 0.4f;
-                }
-            }
         }
 
-        if (velocidadP3 == 122) {
-            velocidadHitBox = 1.026f;
-        }
-        if (velocidadP3 == 184) {
-            velocidadHitBox = 2.565f;
-        }
-        if (velocidadP3 == 222) {
-            velocidadHitBox = -1.026f;
-        }
-        if (!colision) {
-
-            if (velocidadP3 >= 123) {//En cada if hacer el m茅todo aleatorio de nuevo para el primero evalua con p3=1
-                velocidadP1 += 2;
-                velocidadP2 += 2;
-                velocidadHitBox += 0.513f;
-            }
-            if (velocidadP3 >= 185) {
-                velocidadP1 += 2;
-                velocidadP2 += 2;
-                velocidadHitBox += 0.513f;
-            }
-            if (velocidadP3 >= 223) {//223 224 225 
-                velocidadP1 += 2;
-                velocidadP2 += 2;
-                velocidadHitBox += 0.513f;
-                //System.out.println("\nk:" + velocidadP2);//Siempre debe coincidir con 120 para limpiar
-                //System.out.println("c:" + velocidadP1);//Siempre debe coincidir con 240 para limpiar
-            }
-        } else {
-            velocidadP1 -= 2;
-            velocidadP2 -= 2;
-        }
-        if (velocidadP3 >= 255) {
+        if (velocidadP3 >= 960) {
             colision = true;
             fin = true;
-
             //restale los del ultimo avance a esos 2
-            velocidadP1 -= 2;
-            velocidadP2 -= 2;
+            velocidadP1 -= 1;
+            velocidadP2 -= 1;
         }
         if (colision) {
+            velocidadP1 -= 1;
+            velocidadP2 -= 1;
             stop();
         }
     }
 
     public void velocidades()
     {
-        tiempoInicial = System.currentTimeMillis(); //Obtener el tiempo actual en milisegundos
-        tiempoActual = tiempoInicial;
+        int repetir = 0;
 
-        while (tiempoActual - tiempoInicial <= 20160 * 1000) {
+        while (repetir < 240) {
             try {
-                //Bucle de tiempo para el primer intervalo de tiempo de 20160 milisegundos
+                //Bucle de tiempo para el primer intervalo de tiempo de 10080 milisegundos
                 juego();
-                sleep(84); //Esperar 42 milisegundos antes de la siguiente iteraci髇
-                tiempoActual = System.currentTimeMillis(); //Actualizar el tiempo actual
+                sleep(42); //Esperar 42 milisegundos antes de la siguiente iteraci髇
+                repetir++;
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        while (tiempoActual - tiempoInicial <= 30240 * 1000) {
+        while (repetir < 480) {
             try {
-                //Bucle de tiempo para el segundo intervalo de tiempo de 10080 milisegundos
+                //Bucle de tiempo para el segundo intervalo de tiempo de 17520 milisegundos
                 juego();
-                sleep(42); //Esperar 21 milisegundos antes de la siguiente iteraci髇
+                sleep(30); //Esperar 21 milisegundos antes de la siguiente iteraci髇
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
             }
-            tiempoActual = System.currentTimeMillis(); //Actualizar el tiempo actual
+            repetir++;
         }
 
-        while (tiempoActual - tiempoInicial <= 36960 * 1000) {
+        while (repetir < 720) {
             try {
-                //Bucle de tiempo para el tercer intervalo de tiempo de 6720 milisegundos
+                //Bucle de tiempo para el tercer intervalo de tiempo de 6000 milisegundos
                 juego();
-                sleep(28); //Esperar 10 milisegundos antes de la siguiente iteraci髇
-                tiempoActual = System.currentTimeMillis(); //Actualizar el tiempo actual
+                sleep(25); //Esperar 10 milisegundos antes de la siguiente iteraci髇
+                repetir++;
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        while (tiempoActual - tiempoInicial <= 41760 * 1000) {
+        while (repetir < 975) {
             try {
                 //Bucle de tiempo para el tercer intervalo de tiempo de 4800 milisegundos
                 juego();
                 sleep(20); //Esperar 10 milisegundos antes de la siguiente iteraci髇
-                tiempoActual = System.currentTimeMillis(); //Actualizar el tiempo actual
+                repetir++;
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
             }

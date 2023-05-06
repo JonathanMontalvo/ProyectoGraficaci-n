@@ -36,9 +36,9 @@ public class Juego
             tAtras7, tDerecha7, TIzquierda7, tPiso7;
 
     //velocidad
-    public static int velocidadP1 = 2;
-    public static int velocidadP2 = 2;
-    public static float velocidadHitBox = 0.513f;
+    public static int velocidadP1 = 1;
+    public static int velocidadP2 = 1;
+    public static float velocidadHitBox = 0.256f;
     public static int velocidadP3 = 1;
     public static float parte1 = -1.0f;
     public static int control1 = 1;
@@ -186,25 +186,11 @@ public class Juego
             boolean[] keys)
     {
 
-        //glu.gluLookAt(0.1f, 0.0f, 4.0f + zoom,// eye
         glu.gluLookAt(0.1f, 0.0f, 5,// eye 4.0f
                 0.0f, 0.0f, 0.0f, // looking at
                 0.0f, 0.0f, 1.0f // is up
         );
-//        glu.gluLookAt(1.0f + abajoYarriba, -1.0f, 4.0f + zoom,// eye
-//                0.0f, 0.0f + izquierdaYderecha, 0.0f, // looking at
-//                0.0f, 0.0f, 1.0f // is up
-//        );
 
-        if (abajoYarriba == 3.0f) {
-            gl.glRotatef(70, 0.0f, 1.0f, 0.0f);
-        } else if (izquierdaYderecha == 1.0f) {
-            gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
-            gl.glRotatef(-90, 0.0f, 0.0f, 1.0f);
-        } else if (izquierdaYderecha == -1.0f) {
-            gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
-            gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
-        }
         // Move the whole scene
         gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
         view_rotx = -70.233894f;
@@ -224,12 +210,7 @@ public class Juego
         //We draw Cactus in the window
         Obstaculos obstaculos = new Obstaculos();
 
-        //Dibujamos la texturas del lado derecho 1
-        //System.out.println(""+(velocidad/10));
-        gl.glPushMatrix();
-//        System.out.println("k:" + ((float) velocidadP1 / 10));
-//        System.out.println("c:" + ((float) velocidadP2 / 10));
-//        System.out.println("q:" + velocidadP3);
+        gl.glPushMatrix();;
         gl.glTranslatef(0.0f, 4.0f, parte1);
         gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
         gl.glTranslatef(-((float) velocidadP1 / 10), 0.0f, 0.0f);
@@ -443,7 +424,7 @@ public class Juego
             cajaCactus0 = new cBoxObj(0.39f, 0.7f, 0.39f, centroCactus0);
 
             //Otorgar las posiciones
-            if (velocidadP3 == 1 || velocidadP3 == 123 || velocidadP3 == 185 || velocidadP3 == 223) {
+            if (velocidadP3 == 1 || velocidadP3 == 240 || velocidadP3 == 480 || velocidadP3 == 720) {
                 c1 = 6.0f - obstaculos.numerosAleatorios();
                 c2 = 12.0f - obstaculos.numerosAleatorios();
                 c3 = 17.0f - obstaculos.numerosAleatorios();
