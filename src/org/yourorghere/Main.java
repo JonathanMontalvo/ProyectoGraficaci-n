@@ -7,7 +7,7 @@ package org.yourorghere;
 
 /**
  *
- * @author Jonathan Montalvo PÃ©rez
+ * @author Jonathan Montalvo Pérez
  */
 import com.sun.opengl.util.Animator;
 import java.awt.Dimension;
