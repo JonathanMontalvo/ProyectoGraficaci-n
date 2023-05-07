@@ -274,9 +274,9 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             keys['4'] = false;
             keys['5'] = false;
             keys['6'] = false;
-            keys['U']=false;
-            keys['I']=false;
-            keys['O']=false;
+            keys['U'] = false;
+            keys['I'] = false;
+            keys['O'] = false;
             keys[17] = false;
             keys[e.getKeyCode()] = true;
             //System.out.println("" + e.getKeyCode() + ": " + keys[e.getKeyCode()]);
@@ -504,6 +504,16 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         nivelTres = false;
         frame.dispose();
         menu.cargarMenu(frame);
+        frame.setVisible(true);
+        desactivarTeclas();
+    }
+
+    public static void reiniciar()
+    {
+        menuActivo = false;
+        nivelUno = true;
+        frame.dispose();
+        juego.reiniciarJuego();
         frame.setVisible(true);
         desactivarTeclas();
     }

@@ -165,8 +165,6 @@ public class PartesJuego extends Thread
 
     public void velocidades()
     {
-        int repetir = 0;
-
         while (repetir < 240) {
             try {
                 //Bucle de tiempo para el primer intervalo de tiempo de 10080 milisegundos

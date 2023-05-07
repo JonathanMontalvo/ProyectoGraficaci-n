@@ -22,10 +22,12 @@ import javax.swing.JOptionPane;
 public class Juego
 {
 
-    private boolean xd = false;
+    //Movimiento del juego
+    private boolean hiloVelocidades = false;
     public static boolean pIzquierdo = true;
     public static boolean pDerecho = false;
     private PartesJuego pJ = new PartesJuego();
+
     //Texture
     private Texture tAtras1, tDerecha1, TIzquierda1, tPiso1,
             tAtras2, tDerecha2, TIzquierda2, tPiso2,
@@ -489,9 +491,9 @@ public class Juego
 
             pIzquierdo = cuphead.pieIzq();
             pDerecho = cuphead.pieDer();
-            if (!xd) {
-                xd = true;
+            if (!hiloVelocidades) {
                 pJ.start();
+                hiloVelocidades = true;
             }
 
         } else {
@@ -633,5 +635,61 @@ public class Juego
                 }
             }
         }
+    }
+
+    public void reiniciarJuego()
+    {
+        //Movimiento del juego
+        hiloVelocidades = false;
+        pIzquierdo = true;
+        pDerecho = false;
+        pJ = new PartesJuego();
+        //velocidad
+        velocidadP1 = 1;
+        velocidadP2 = 1;
+        velocidadHitBox = 0.256f;
+        velocidadP3 = 1;
+        parte1 = -1.0f;
+        control1 = 1;
+
+        //posicion objetos
+        c1 = 0.0f;
+        c2 = 0.0f;
+        c3 = 0.0f;
+        cz1 = 0.0f;
+        cz2 = 0.0f;
+        cz3 = 0.0f;
+
+        //Colision
+        //Pies
+        centroPieIzquierdo = new float[]{-0.03f, 0.0f, 0.0f};
+        centroPieDerecho = new float[]{-1.13f, 0.0f, 0.0f};
+
+        //Cactus
+        centroCactus0 = new float[]{-0.565f, -1.41f, 0.0f};
+        centroCactus1 = new float[]{-0.565f, -1.41f, 0.0f};
+        centroCactus2 = new float[]{-0.565f, -1.41f, 0.0f};
+        centroCactus3 = new float[]{-0.565f, -1.41f, 0.0f};
+
+        //Bandera de colision
+        colision = false;
+        finT = false;
+
+        //Bandera de final
+        fin = false;
+        most = false;
+
+        //Creamos el hilo del contador
+        t = new Tiempo();
+        mostrarVentanaPerder = false;
+
+        //Creamos la preguntas y respuestas
+        arr = null;
+        preguntaNivel1 = false;
+        preguntaNiv1 = "";
+        respuestaNiv1 = "";
+        respuestaNiv2 = "";
+        respuestaNiv3 = "";
+        respuestaCorrecta = -1;
     }
 }

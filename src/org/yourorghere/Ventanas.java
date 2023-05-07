@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static org.yourorghere.Main.regresoMenu;
-import  org.yourorghere.Juego;
+import static org.yourorghere.Main.reiniciar;
 /**
  *
  * @author Jonathan Montalvo Pérez
@@ -194,8 +194,7 @@ public class Ventanas extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("Cargando de nuevo el nivel");
-                
+                reiniciar();
                 dispose();
             }
         });

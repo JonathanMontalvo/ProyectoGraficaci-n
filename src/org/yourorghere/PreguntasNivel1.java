@@ -5,7 +5,6 @@
  */
 package org.yourorghere;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Random;
 public class PreguntasNivel1
 {
 
-    private static Random rand;
+    private Random rand;
 
     public PreguntasNivel1()
     {
