@@ -375,6 +375,7 @@ public class Juego
             gl.glTranslatef(0.10f, 0.0f, -2.0f);
             //Para los demás solo vas aceptar el jump y walk, por lo que solo debes hacer dos cambios de estado en instrucciones
             cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false, false);
+            //pingu.draw_pingu(gl, keys['W'], keys[' '], false, false, false, false, false, false, false, false, false, false, false, false, false);
             gl.glPopMatrix();
 
             // Flush all drawing operations to the graphics card

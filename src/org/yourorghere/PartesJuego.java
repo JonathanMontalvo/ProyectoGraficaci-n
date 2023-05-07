@@ -171,7 +171,7 @@ public class PartesJuego extends Thread
             try {
                 //Bucle de tiempo para el primer intervalo de tiempo de 10080 milisegundos
                 juego();
-                sleep(50); //Esperar 42 milisegundos antes de la siguiente iteración
+                sleep(40); //Esperar 42 milisegundos antes de la siguiente iteración
                 repetir++;
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,7 +182,7 @@ public class PartesJuego extends Thread
             try {
                 //Bucle de tiempo para el segundo intervalo de tiempo de 17520 milisegundos
                 juego();
-                sleep(40); //Esperar 21 milisegundos antes de la siguiente iteración
+                sleep(30); //Esperar 21 milisegundos antes de la siguiente iteración
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -193,7 +193,7 @@ public class PartesJuego extends Thread
             try {
                 //Bucle de tiempo para el tercer intervalo de tiempo de 6000 milisegundos
                 juego();
-                sleep(30); //Esperar 10 milisegundos antes de la siguiente iteración
+                sleep(27); //Esperar 10 milisegundos antes de la siguiente iteración
                 repetir++;
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,7 +204,7 @@ public class PartesJuego extends Thread
             try {
                 //Bucle de tiempo para el tercer intervalo de tiempo de 4800 milisegundos
                 juego();
-                sleep(20); //Esperar 10 milisegundos antes de la siguiente iteración
+                sleep(24); //Esperar 10 milisegundos antes de la siguiente iteración
                 repetir++;
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
