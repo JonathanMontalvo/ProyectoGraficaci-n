@@ -24,8 +24,8 @@ public class Juego
 
     //Movimiento del juego
     private boolean hiloVelocidades = false;
-    public static boolean pIzquierdo = true;
-    public static boolean pDerecho = false;
+    public static boolean pieIzquierdo = true;
+    public static boolean pieDerecho = false;
     private PartesJuego pJ = new PartesJuego();
 
     //Texture
@@ -372,6 +372,7 @@ public class Juego
         gl.glFlush();
         //Es la parte del juego
         if (!colision) {
+            
             gl.glPushMatrix();
             cuphead.cambioInstruccion(keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
             gl.glTranslatef(0.10f, 0.0f, -2.0f);
@@ -383,8 +384,11 @@ public class Juego
             // Flush all drawing operations to the graphics card
             gl.glFlush();
 
-            if ((cuphead.pieIzq() == true && cuphead.pieDer() == false) || (cuphead.pieIzq() == false && cuphead.pieDer() == true)) {
-                if (cuphead.pieIzq()) {
+            pieIzquierdo = cuphead.pieIzq();
+            pieDerecho = cuphead.pieDer();
+
+            if ((pieIzquierdo == true && pieDerecho == false) || (pieIzquierdo == false && pieDerecho == true)) {
+                if (pieIzquierdo) {
                     centroPieIzquierdo[1] = -3.17f;
                     centroPieIzquierdo[2] = -3.64f;
                     cajaPieIzquierdo = new cBoxObj(0.23f, 0.3f, 0.5f, centroPieIzquierdo);
@@ -394,7 +398,7 @@ public class Juego
                     cajaPieDerecho = new cBoxObj(0.23f, 0.3f, 0.74f, centroPieDerecho);
                 }
 
-                if (cuphead.pieDer()) {
+                if (pieDerecho) {
                     centroPieIzquierdo[1] = -3.26f;
                     centroPieIzquierdo[2] = -3.075f;
                     cajaPieIzquierdo = new cBoxObj(0.23f, 0.3f, 0.74f, centroPieIzquierdo);
@@ -489,8 +493,6 @@ public class Juego
             centroCactus3[2] = cz3 - velocidadHitBox;
             cajaCactus3 = new cBoxObj(0.39f, 0.7f, 0.39f, centroCactus3);
 
-            pIzquierdo = cuphead.pieIzq();
-            pDerecho = cuphead.pieDer();
             if (!hiloVelocidades) {
                 pJ.start();
                 hiloVelocidades = true;
@@ -499,8 +501,26 @@ public class Juego
         } else {
             if (!fin) {
                 //Si hay colisión
+                /*gl.glPushMatrix();
+                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
+                 if (keys['U'] || keys['u']) {
+                 gl.glTranslatef(0.0f, 0.0f, 0.0f);
+                 } else if (keys['I'] || keys['i']) {
+                 gl.glTranslatef(0.0f, 0.0f, 2.0f);
+                 } else if (keys['O'] || keys['o']) {
+                 gl.glTranslatef(0.0f, 0.0f, 3.6f);
+                 } else {
+                 }
+                 cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true, false);
+                 gl.glPopMatrix();*/
+                /*gl.glPushMatrix();
+                 gl.glTranslatef(-0.3f, 0.7f, -1.0f);
+                 gl.glScalef(0.4f, 0.4f, 0.4f);
+                 kingdice.draw_KingDice(gl, keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
+                 gl.glPopMatrix();*/
                 gl.glPushMatrix();
-                gl.glTranslatef(0.0f, 0.0f, -2.0f);
+                pingu.cambioInstruccion(keys['W'], keys[' ']);
+                gl.glTranslatef(0.0f, 0.008f, -2.09f);
                 if (keys['U'] || keys['u']) {
                     gl.glTranslatef(0.0f, 0.0f, 0.0f);
                 } else if (keys['I'] || keys['i']) {
@@ -509,19 +529,8 @@ public class Juego
                     gl.glTranslatef(0.0f, 0.0f, 3.6f);
                 } else {
                 }
-                cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true, false);
-                gl.glPopMatrix();
-                /*gl.glPushMatrix();
-                 gl.glTranslatef(-0.3f, 0.7f, -1.0f);
-                 gl.glScalef(0.4f, 0.4f, 0.4f);
-                 kingdice.draw_KingDice(gl, keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
-                 gl.glPopMatrix();*/
-                gl.glPushMatrix();
-                gl.glTranslatef(0.0f, 0.008f, -2.09f);
                 gl.glScalef(0.65f, 0.65f, 0.65f);
-                //pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U'], false);
                 pingu.draw_pingu(gl, keys['W'], keys[' '], false, false, false, false, false, false, false, false, false, false, false, false, false);
-
                 gl.glPopMatrix();
 
                 if (cz1 == 0.1f) {
@@ -641,8 +650,8 @@ public class Juego
     {
         //Movimiento del juego
         hiloVelocidades = false;
-        pIzquierdo = true;
-        pDerecho = false;
+        pieIzquierdo = true;
+        pieDerecho = false;
         pJ = new PartesJuego();
         //velocidad
         velocidadP1 = 1;

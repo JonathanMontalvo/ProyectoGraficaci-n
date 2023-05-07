@@ -81,11 +81,11 @@ public class Cuphead
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
 
         //Cuphead only jumps once
-        if (Cuphead.mvt >= 11 && saltar) {
+        if (Cuphead.mvt >= 10 && saltar) {
             cambiarEspacio(false);
         }
         //Cuphead is walking
-        if (caminar && mvt % 8 + 3 > 7) {
+        if (caminar && mvt % 8 + 4 > 7) {
             Cuphead.pieDer = true;
             Cuphead.pieIzq = false;
             dibujar_Cabeza(gl, glu, true, false, false, false, false, false);
@@ -110,7 +110,7 @@ public class Cuphead
             gl.glRotatef(-25f, 1f, 0f, 0f);
             gl.glTranslatef(0.03f, -0.05f, 0.2f);
             dibujar_Brazo_Izquierdo(gl, glu, true, false);
-        } else if (caminar && mvt % 8 + 3 <= 7) {
+        } else if (caminar && mvt % 8 + 4 <= 7) {
             Cuphead.pieIzq = true;
             Cuphead.pieDer = false;
             dibujar_Cabeza(gl, glu, true, false, false, false, false, false);
@@ -136,7 +136,7 @@ public class Cuphead
             gl.glTranslatef(-0.03f, -0.05f, 0.2f);
             dibujar_Brazo_Derecho(gl, glu, true, false, false, false);
         } //Cuphead is jumping
-        else if (saltar && mvt % 20 + 10 <= 20) {//26 9 9 Segundos
+        else if (saltar && mvt % 20 + 10 <= 19) {//26 9 9 Segundos
             Cuphead.pieIzq = false;
             Cuphead.pieDer = false;
             gl.glTranslatef(0f, 0.75f, 0f);

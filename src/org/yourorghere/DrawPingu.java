@@ -25,11 +25,6 @@ public class DrawPingu
     private static int mvt = 0;
     private static boolean cam = false;
     private static boolean salt = false;
-    private static boolean agach = false;
-    private static boolean apunt = false;
-    private static boolean bail = false;
-    private static boolean mCint = false;
-    private static boolean mCar = false;
     private static boolean pieDer = false;
     private static boolean pieIzq = false;
 
@@ -72,12 +67,14 @@ public class DrawPingu
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
 
         //Cuphead only jumps once
-        if (DrawPingu.mvt >= 11 && jump) {
+        if (DrawPingu.mvt >= 40 && jump) {
             cambiarEspacio(false);
         }
 
         //Pingu is walking
-        if (walk && mvt % 20 + 10 > 20) {
+        if (walk && mvt % 32 + 16 > 31) {
+            DrawPingu.pieDer = true;
+            DrawPingu.pieIzq = false;
             dibujar_pierna(gl, glu, ' ', true);
             dibujar_pierna(gl, glu, 'A', false);
             dibujar_patas(gl, glu, ' ', true);
@@ -85,7 +82,9 @@ public class DrawPingu
             dibujar_brazos(gl, glu, ' ', true);
             dibujar_brazos(gl, glu, 'A', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
-        } else if (walk && mvt % 20 + 10 <= 20) {
+        } else if (walk && mvt % 32 + 16 <= 31) {
+            DrawPingu.pieIzq = true;
+            DrawPingu.pieDer = false;
             dibujar_pierna(gl, glu, 'A', true);
             dibujar_pierna(gl, glu, ' ', false);
             dibujar_patas(gl, glu, 'A', true);
@@ -94,8 +93,10 @@ public class DrawPingu
             dibujar_brazos(gl, glu, ' ', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
         } //Pingu is jumping
-        else if (jump && mvt % 20 + 10 <= 20) {
-            gl.glTranslatef(0f, 0.75f, 0f);
+        else if (jump && mvt % 80 + 40 <= 79) {
+            DrawPingu.pieIzq = false;
+            DrawPingu.pieDer = false;
+            gl.glTranslatef(0f, 1.25f, 0f);
             dibujar_pierna(gl, glu, 'S', true);
             dibujar_pierna(gl, glu, 'S', false);
             dibujar_patas(gl, glu, 'S', true);
@@ -213,7 +214,9 @@ public class DrawPingu
             dibujar_brazos(gl, glu, ' ', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
         } else {
-            if (mvt % 8 + 3 > 7) {
+            if (mvt % 32 + 16 > 31) {
+                DrawPingu.pieDer = true;
+                DrawPingu.pieIzq = false;
                 dibujar_pierna(gl, glu, 'A', true);
                 dibujar_pierna(gl, glu, ' ', false);
                 dibujar_patas(gl, glu, 'A', true);
@@ -221,7 +224,9 @@ public class DrawPingu
                 dibujar_brazos(gl, glu, 'A', true);
                 dibujar_brazos(gl, glu, ' ', false);
                 dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
-            } else if (mvt % 8 + 3 <= 7) {
+            } else if (mvt % 32 + 16 <= 31) {
+                DrawPingu.pieIzq = true;
+                DrawPingu.pieDer = false;
                 dibujar_pierna(gl, glu, ' ', true);
                 dibujar_pierna(gl, glu, 'A', false);
                 dibujar_patas(gl, glu, ' ', true);
@@ -873,5 +878,24 @@ public class DrawPingu
         gl.glEnd();
         gl.glDisable(GL.GL_TEXTURE_2D);
         gl.glFlush();
+    }
+
+    public void cambioInstruccion(boolean caminar, boolean saltar)
+    {
+        if (DrawPingu.cam != caminar || DrawPingu.salt != saltar) {
+            DrawPingu.cam = caminar;
+            DrawPingu.salt = saltar;
+            DrawPingu.mvt = 0;
+        }
+    }
+
+    public boolean pieIzq()
+    {
+        return DrawPingu.pieIzq;
+    }
+
+    public boolean pieDer()
+    {
+        return DrawPingu.pieDer;
     }
 }

@@ -22,10 +22,9 @@ import static org.yourorghere.Juego.cajaCactus0;
 import static org.yourorghere.Juego.cajaCactus1;
 import static org.yourorghere.Juego.cajaCactus2;
 import static org.yourorghere.Juego.cajaCactus3;
-import static org.yourorghere.Juego.pIzquierdo;
-import static org.yourorghere.Juego.pDerecho;
+import static org.yourorghere.Juego.pieIzquierdo;
+import static org.yourorghere.Juego.pieDerecho;
 //import static org.yourorghere.Juego.;
-
 /**
  *
  * @author Jonathan Montalvo Pérez
@@ -111,7 +110,7 @@ public class PartesJuego extends Thread
         velocidadP3 += 1;
 
         if (velocidadP3 <= 960) {
-            if (pIzquierdo) {
+            if (pieIzquierdo) {
                 if (interseccion(cajaPieIzquierdo, cajaCactus0, 0.5130005f, 2.6390127f)) {
                     colision = true;
                     cz1 = 0.1f;
@@ -129,7 +128,7 @@ public class PartesJuego extends Thread
                     cz1 = 0.4f;
                 }
             }
-            if (pDerecho) {
+            if (pieDerecho) {
                 if (interseccion(cajaPieDerecho, cajaCactus0, 0.5130005f, 2.6390127f)) {
                     colision = true;
                     cz1 = 0.1f;
