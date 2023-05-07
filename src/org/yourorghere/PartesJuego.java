@@ -193,7 +193,7 @@ public class PartesJuego extends Thread
             try {
                 //Bucle de tiempo para el tercer intervalo de tiempo de 6000 milisegundos
                 juego();
-                sleep(27); //Esperar 10 milisegundos antes de la siguiente iteración
+                sleep(26); //Esperar 10 milisegundos antes de la siguiente iteración
                 repetir++;
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,7 +204,7 @@ public class PartesJuego extends Thread
             try {
                 //Bucle de tiempo para el tercer intervalo de tiempo de 4800 milisegundos
                 juego();
-                sleep(24); //Esperar 10 milisegundos antes de la siguiente iteración
+                sleep(22); //Esperar 10 milisegundos antes de la siguiente iteración
                 repetir++;
             } catch (InterruptedException ex) {
                 Logger.getLogger(PartesJuego.class.getName()).log(Level.SEVERE, null, ex);
