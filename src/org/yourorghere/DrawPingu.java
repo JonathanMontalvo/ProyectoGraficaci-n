@@ -58,7 +58,7 @@ public class DrawPingu
     public void draw_pingu(GL gl, boolean walk, boolean jump, boolean levanta,
             boolean agachar, boolean flex, boolean baile, boolean mov,
             boolean angry, boolean notnot, boolean sorprendido, boolean guinio,
-            boolean mimido, boolean ojos2, boolean ojos3, boolean quieto)
+            boolean mimido, boolean ojos2, boolean ojos3, boolean eliminado, boolean quieto)
     {
         GLU glu = new GLU();
         q = glu.gluNewQuadric();
@@ -132,7 +132,7 @@ public class DrawPingu
             dibujar_brazos(gl, glu, 'G', true);
             dibujar_brazos(gl, glu, 'G', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false);
-        } else if (baile && mvt % 20 + 10 <= 20) {
+        } else if (baile && mvt % 32 + 16 <= 31) {
             dibujar_pierna(gl, glu, 'H', true);
             dibujar_pierna(gl, glu, 'H', false);
             dibujar_patas(gl, glu, 'H', true);
@@ -205,6 +205,16 @@ public class DrawPingu
             dibujar_brazos(gl, glu, ' ', true);
             dibujar_brazos(gl, glu, ' ', false);
             dibujar_Cabeza(gl, glu, false, false, false, false, false, false, true);
+        } else if (eliminado && mvt % 80 + 40 <= 79) {
+            gl.glTranslatef(0f, -0.35f, 0f);
+            gl.glRotatef(30, 100f, 0f, 0f);
+            dibujar_pierna(gl, glu, 'F', true);
+            dibujar_pierna(gl, glu, 'F', false);
+            dibujar_patas(gl, glu, 'F', true);
+            dibujar_patas(gl, glu, 'F', false);
+            dibujar_brazos(gl, glu, 'F', true);
+            dibujar_brazos(gl, glu, ' ', false);
+            dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false);
         } else if (quieto) {
             dibujar_pierna(gl, glu, ' ', true);
             dibujar_pierna(gl, glu, ' ', false);

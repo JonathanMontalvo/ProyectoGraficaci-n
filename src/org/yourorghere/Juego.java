@@ -84,11 +84,15 @@ public class Juego
 
     //Creamos el hilo del contador
     private Tiempo t = new Tiempo();
-    private final TextRenderer contador = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 55));
-    private final TextRenderer pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
-    private final TextRenderer respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-    private final TextRenderer respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-    private final TextRenderer respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+    private TextRenderer contador = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 55));
+    private TextRenderer pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+    private TextRenderer seleccione = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 39));
+    private TextRenderer respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+    private TextRenderer respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+    private TextRenderer respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+    private TextRenderer tecla1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+    private TextRenderer tecla2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+    private TextRenderer tecla3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
     private boolean mostrarVentanaPerder = false;
 
     //Creamos la preguntas y respuestas
@@ -99,7 +103,9 @@ public class Juego
     private String respuestaNiv1 = "";
     private String respuestaNiv2 = "";
     private String respuestaNiv3 = "";
+    private String letra = "";
     private int respuestaCorrecta = -1;
+    private int respuestaPlayer = 0;
 
     public Juego()
     {
@@ -185,7 +191,7 @@ public class Juego
 
     public void displayJuego(GL gl, GLU glu, double zoom, double abajoYarriba, double izquierdaYderecha,
             final float X_POSITION, final float Y_POSITION, final float Z_POSITION, float view_rotx, float view_roty,
-            boolean[] keys)
+            int bndKey, boolean[] keys)
     {
 
         glu.gluLookAt(0.1f, 0.0f, 5,// eye 4.0f
@@ -372,20 +378,34 @@ public class Juego
         gl.glFlush();
         //Es la parte del juego
         if (!colision) {
-            
-            gl.glPushMatrix();
-            cuphead.cambioInstruccion(keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
-            gl.glTranslatef(0.10f, 0.0f, -2.0f);
-            //Para los demás solo vas aceptar el jump y walk, por lo que solo debes hacer dos cambios de estado en instrucciones
-            cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false, false);
-            //pingu.draw_pingu(gl, keys['W'], keys[' '], false, false, false, false, false, false, false, false, false, false, false, false, false);
-            gl.glPopMatrix();
+            if (bndKey == 1) {
+                gl.glPushMatrix();
+                pingu.cambioInstruccion(keys['W'], keys[' ']);
+                gl.glTranslatef(0.0f, 0.008f, -2.09f);
+                gl.glScalef(0.65f, 0.65f, 0.65f);
+                pingu.draw_pingu(gl, keys['W'], keys[' '], false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+                gl.glPopMatrix();
 
-            // Flush all drawing operations to the graphics card
-            gl.glFlush();
+                // Flush all drawing operations to the graphics card
+                gl.glFlush();
 
-            pieIzquierdo = cuphead.pieIzq();
-            pieDerecho = cuphead.pieDer();
+                pieIzquierdo = pingu.pieIzq();
+                pieDerecho = pingu.pieDer();
+            } else if (bndKey == 2 || bndKey == 3) //bndKey 2 es kingdice, pero no tiene caminar
+            {
+                gl.glPushMatrix();
+                cuphead.cambioInstruccion(keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
+                gl.glTranslatef(0.10f, 0.0f, -2.0f);
+                //Para los demás solo vas aceptar el jump y walk, por lo que solo debes hacer dos cambios de estado en instrucciones
+                cuphead.draw_cuphead(gl, keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F'], false, false);
+                gl.glPopMatrix();
+
+                // Flush all drawing operations to the graphics card
+                gl.glFlush();
+
+                pieIzquierdo = cuphead.pieIzq();
+                pieDerecho = cuphead.pieDer();
+            }
 
             if ((pieIzquierdo == true && pieDerecho == false) || (pieIzquierdo == false && pieDerecho == true)) {
                 if (pieIzquierdo) {
@@ -500,39 +520,54 @@ public class Juego
 
         } else {
             if (!fin) {
-                //Si hay colisiÃ³n
-                /*gl.glPushMatrix();
-                 gl.glTranslatef(0.0f, 0.0f, -2.0f);
-                 if (keys['U'] || keys['u']) {
-                 gl.glTranslatef(0.0f, 0.0f, 0.0f);
-                 } else if (keys['I'] || keys['i']) {
-                 gl.glTranslatef(0.0f, 0.0f, 2.0f);
-                 } else if (keys['O'] || keys['o']) {
-                 gl.glTranslatef(0.0f, 0.0f, 3.6f);
-                 } else {
-                 }
-                 cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true, false);
-                 gl.glPopMatrix();*/
+                //Si hay colision
+                if (bndKey == 1) {
+                    gl.glPushMatrix();
+                    gl.glTranslatef(0.0f, 0.008f, -2.09f);
+                    if (keys['U'] || keys['u']) {
+                        gl.glTranslatef(0.0f, 0.0f, 0.0f);
+                        this.respuestaPlayer = 0;
+                    } else if (keys['I'] || keys['i']) {
+                        gl.glTranslatef(0.0f, 0.0f, 2.0f);
+                        this.respuestaPlayer = 1;
+                    } else if (keys['O'] || keys['o']) {
+                        gl.glTranslatef(0.0f, 0.0f, 3.6f);
+                        this.respuestaPlayer = 2;
+                    } else {
+                    }
+                    gl.glScalef(0.65f, 0.65f, 0.65f);
+                    pingu.draw_pingu(gl, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false);
+                    gl.glPopMatrix();
+
+                    // Flush all drawing operations to the graphics card
+                    gl.glFlush();
+                } else if (bndKey == 2 || bndKey == 3) //bndKey 2 es kingdice, pero no tiene caminar
+                {
+                    gl.glPushMatrix();
+                    gl.glTranslatef(0.0f, 0.0f, -2.0f);
+                    if (keys['U'] || keys['u']) {
+                        gl.glTranslatef(0.0f, 0.0f, 0.0f);
+                        this.respuestaPlayer = 0;
+                    } else if (keys['I'] || keys['i']) {
+                        gl.glTranslatef(0.0f, 0.0f, 2.0f);
+                        this.respuestaPlayer = 1;
+                    } else if (keys['O'] || keys['o']) {
+                        gl.glTranslatef(0.0f, 0.0f, 3.6f);
+                        this.respuestaPlayer = 2;
+                    } else {
+                    }
+                    cuphead.draw_cuphead(gl, false, false, false, false, false, false, false, true, false);
+                    gl.glPopMatrix();
+
+                    // Flush all drawing operations to the graphics card
+                    gl.glFlush();
+                }
+
                 /*gl.glPushMatrix();
                  gl.glTranslatef(-0.3f, 0.7f, -1.0f);
                  gl.glScalef(0.4f, 0.4f, 0.4f);
                  kingdice.draw_KingDice(gl, keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U']);
                  gl.glPopMatrix();*/
-                gl.glPushMatrix();
-                pingu.cambioInstruccion(keys['W'], keys[' ']);
-                gl.glTranslatef(0.0f, 0.008f, -2.09f);
-                if (keys['U'] || keys['u']) {
-                    gl.glTranslatef(0.0f, 0.0f, 0.0f);
-                } else if (keys['I'] || keys['i']) {
-                    gl.glTranslatef(0.0f, 0.0f, 2.0f);
-                } else if (keys['O'] || keys['o']) {
-                    gl.glTranslatef(0.0f, 0.0f, 3.6f);
-                } else {
-                }
-                gl.glScalef(0.65f, 0.65f, 0.65f);
-                pingu.draw_pingu(gl, keys['W'], keys[' '], false, false, false, false, false, false, false, false, false, false, false, false, false);
-                gl.glPopMatrix();
-
                 if (cz1 == 0.1f) {
                     //Cactus 0 :0
                     gl.glPushMatrix();
@@ -563,6 +598,7 @@ public class Juego
                     gl.glFlush();
                 }
 
+                //Preguntas y contador
                 if (!most) {
                     most = true;
                     t.start();
@@ -584,7 +620,6 @@ public class Juego
                                 break;
                             }
                         }
-
                         preguntaNivel1 = true;
                     }
 
@@ -599,28 +634,97 @@ public class Juego
                         pregunta.draw(preguntaNiv1, 300, 700);
                         pregunta.endRendering();
 
+                        seleccione.beginRendering(1000, 800);
+                        seleccione.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        seleccione.draw("Presione una tecla para elegir su respuesta", 90, 120);
+                        seleccione.endRendering();
+
                         respuesta1.beginRendering(1000, 800);
                         respuesta1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                         respuesta1.draw(respuestaNiv1, 80, 170);
                         respuesta1.endRendering();
+
+                        switch (respuestaNiv1.length()) {
+                            case 6:
+                                letra = "  U";
+                                break;
+                            case 7:
+                                letra = "   U";
+                                break;
+                            case 8:
+                                letra = "   U";
+                                break;
+                            case 9:
+                                letra = "    U";
+                                break;
+                        }
+
+                        tecla1.beginRendering(1000, 800);
+                        tecla1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        tecla1.draw(letra, 80, 70);
+                        tecla1.endRendering();
 
                         respuesta2.beginRendering(1000, 800);
                         respuesta2.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                         respuesta2.draw(respuestaNiv2, 420, 170);
                         respuesta2.endRendering();
 
+                        switch (respuestaNiv2.length()) {
+                            case 6:
+                                letra = "  I";
+                                break;
+                            case 7:
+                                letra = "   I";
+                                break;
+                            case 8:
+                                letra = "   I";
+                                break;
+                            case 9:
+                                letra = "    I";
+                                break;
+                        }
+
+                        tecla2.beginRendering(1000, 800);
+                        tecla2.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        tecla2.draw(letra, 420, 70);
+                        tecla2.endRendering();
+
                         respuesta3.beginRendering(1000, 800);
                         respuesta3.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                         respuesta3.draw(respuestaNiv3, 760, 170);
                         respuesta3.endRendering();
+
+                        switch (respuestaNiv3.length()) {
+                            case 6:
+                                letra = "  O";
+                                break;
+                            case 7:
+                                letra = "   O";
+                                break;
+                            case 8:
+                                letra = "   O";
+                                break;
+                            case 9:
+                                letra = "    O";
+                                break;
+                        }
+
+                        tecla3.beginRendering(1000, 800);
+                        tecla3.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        tecla3.draw(letra, 760, 70);
+                        tecla3.endRendering();
                     }
 
                     if (mostrarVentanaPerder) {
 
                         finT = true;
                         //La respuesta correcta esta en el número de respuestaCorrecta(Inicia desde 0 y términa en 2)
+                        if (respuestaCorrecta == respuestaPlayer) {
+                            JOptionPane.showMessageDialog(null, "¡Respuesta correcta!", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "¡Respuesta incorrecta!\nLa respuesta " + (arr[0][respuestaCorrecta + 1]).toString().toLowerCase(), "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                        }
 
-                        JOptionPane.showMessageDialog(null, "respuesta bien o mal" + respuestaCorrecta, "Evaluar respuesta", JOptionPane.INFORMATION_MESSAGE);
                         Ventanas ventanaPerdio = new Ventanas("Nivel 1", 800, 400, false);
                         ventanaPerdio.ventanaPerdio();
                     }
@@ -632,14 +736,29 @@ public class Juego
 
             } else {
                 //Si es el fin del nivel
-                gl.glPushMatrix();
-                gl.glTranslatef(0.0f, 0.0f, -2.0f);
-                cuphead.draw_cuphead(gl, false, false, false, false, true, false, false, false, true);
-                gl.glPopMatrix();
+                if (bndKey == 1) {
+                    gl.glPushMatrix();
+                    gl.glTranslatef(0.0f, 0.008f, -2.09f);
+                    gl.glScalef(0.65f, 0.65f, 0.65f);
+                    pingu.draw_pingu(gl, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, false);
+                    gl.glPopMatrix();
+
+                    // Flush all drawing operations to the graphics card
+                    gl.glFlush();
+                } else if (bndKey == 2 || bndKey == 3) //bndKey 2 es kingdice, pero no tiene caminar
+                {
+                    gl.glPushMatrix();
+                    gl.glTranslatef(0.0f, 0.0f, -2.0f);
+                    cuphead.draw_cuphead(gl, false, false, false, false, true, false, false, false, false);
+                    gl.glPopMatrix();
+
+                    // Flush all drawing operations to the graphics card
+                    gl.glFlush();
+                }
 
                 if (!most) {
                     most = true;
-                    Ventanas ventanaN1 = new Ventanas("Â¡Felicidades terminÃ³ el nivel 1!", 800, 400, false);
+                    Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 1!", 800, 400, false);
                     ventanaN1.ventanaFinNivel1_2();
                 }
             }
@@ -649,56 +768,67 @@ public class Juego
     public void reiniciarJuego()
     {
         //Movimiento del juego
-        hiloVelocidades = false;
-        pieIzquierdo = true;
-        pieDerecho = false;
-        pJ = new PartesJuego();
+        this.hiloVelocidades = false;
+        Juego.pieIzquierdo = true;
+        Juego.pieDerecho = false;
+        this.pJ = new PartesJuego();
         //velocidad
-        velocidadP1 = 1;
-        velocidadP2 = 1;
-        velocidadHitBox = 0.256f;
-        velocidadP3 = 1;
-        parte1 = -1.0f;
-        control1 = 1;
+        Juego.velocidadP1 = 1;
+        Juego.velocidadP2 = 1;
+        Juego.velocidadHitBox = 0.256f;
+        Juego.velocidadP3 = 1;
+        Juego.parte1 = -1.0f;
+        Juego.control1 = 1;
 
         //posicion objetos
-        c1 = 0.0f;
-        c2 = 0.0f;
-        c3 = 0.0f;
-        cz1 = 0.0f;
-        cz2 = 0.0f;
-        cz3 = 0.0f;
+        this.c1 = 0.0f;
+        this.c2 = 0.0f;
+        this.c3 = 0.0f;
+        Juego.cz1 = 0.0f;
+        this.cz2 = 0.0f;
+        this.cz3 = 0.0f;
 
         //Colision
         //Pies
-        centroPieIzquierdo = new float[]{-0.03f, 0.0f, 0.0f};
-        centroPieDerecho = new float[]{-1.13f, 0.0f, 0.0f};
+        this.centroPieIzquierdo = new float[]{-0.03f, 0.0f, 0.0f};
+        this.centroPieDerecho = new float[]{-1.13f, 0.0f, 0.0f};
 
         //Cactus
-        centroCactus0 = new float[]{-0.565f, -1.41f, 0.0f};
-        centroCactus1 = new float[]{-0.565f, -1.41f, 0.0f};
-        centroCactus2 = new float[]{-0.565f, -1.41f, 0.0f};
-        centroCactus3 = new float[]{-0.565f, -1.41f, 0.0f};
+        this.centroCactus0 = new float[]{-0.565f, -1.41f, 0.0f};
+        this.centroCactus1 = new float[]{-0.565f, -1.41f, 0.0f};
+        this.centroCactus2 = new float[]{-0.565f, -1.41f, 0.0f};
+        this.centroCactus3 = new float[]{-0.565f, -1.41f, 0.0f};
 
         //Bandera de colision
-        colision = false;
-        finT = false;
+        Juego.colision = false;
+        this.finT = false;
 
         //Bandera de final
-        fin = false;
-        most = false;
+        Juego.fin = false;
+        this.most = false;
 
         //Creamos el hilo del contador
-        t = new Tiempo();
-        mostrarVentanaPerder = false;
+        this.t = new Tiempo();
+        this.mostrarVentanaPerder = false;
+        this.contador = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 55));
+        this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+        this.seleccione = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 39));
+        this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        this.tecla1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        this.tecla2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        this.tecla3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
 
         //Creamos la preguntas y respuestas
-        arr = null;
-        preguntaNivel1 = false;
-        preguntaNiv1 = "";
-        respuestaNiv1 = "";
-        respuestaNiv2 = "";
-        respuestaNiv3 = "";
-        respuestaCorrecta = -1;
+        this.arr = null;
+        this.preguntaNivel1 = false;
+        this.preguntaNiv1 = "";
+        this.respuestaNiv1 = "";
+        this.respuestaNiv2 = "";
+        this.respuestaNiv3 = "";
+        this.letra = "";
+        this.respuestaCorrecta = -1;
+        this.respuestaPlayer = 0;
     }
 }

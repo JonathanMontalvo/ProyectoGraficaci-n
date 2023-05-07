@@ -52,7 +52,8 @@ public class Menu
     private final JMenuItem jMITraslacion = new JMenuItem();
     private final JMenuItem jMIEscalacionAumentar = new JMenuItem();
 
-    private static final TextRenderer tituloMenu = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+    private static TextRenderer tituloMenu = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+    private static TextRenderer tituloPlay = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
 
     public Menu()
     {
@@ -154,6 +155,8 @@ public class Menu
 
     public void cargarMenu(JFrame frame)
     {
+        tituloMenu = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+        tituloPlay = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
         frame.setTitle("Menu");
         frame.setJMenuBar(jMenuBar);
         frame.revalidate();
@@ -1401,7 +1404,7 @@ public class Menu
                 gl.glFlush();
                 gl.glPushMatrix();
                 gl.glTranslatef(-5f, 0f, 0f);
-                pingu.draw_pingu(gl, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true);
+                pingu.draw_pingu(gl, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 kd.draw_KingDice(gl, false, false, false, false, false, false, false);
@@ -1416,7 +1419,7 @@ public class Menu
             case 1:
                 gl.glPushMatrix();
                 gl.glTranslatef(-5f, 0f, 0f);
-                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U'], false);
+                pingu.draw_pingu(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J'], keys['Q'], keys['W'], keys['E'], keys['R'], keys['T'], keys['Y'], keys['U'], false, false);
                 pingu.set_white_head_material(gl);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
@@ -1476,5 +1479,12 @@ public class Menu
         tituloMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         tituloMenu.draw("Selecccione un personaje", 230, 700);
         tituloMenu.endRendering();
+
+        if (bndKey == 1 || bndKey == 2 || bndKey == 3) {
+            tituloPlay.beginRendering(1000, 800);
+            tituloPlay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+            tituloPlay.draw("Presiona \"P\" para jugar", 245, 650);
+            tituloPlay.endRendering();
+        }
     }
 }

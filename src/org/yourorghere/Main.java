@@ -163,7 +163,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             menu.diplayTextura(gl, glu, X_POSITION, Y_POSITION, Z_POSITION, view_rotx, view_roty, zoom, bndKey, bnd, keys);
         } else if (nivelUno) {
             //System.out.println(": " + keys[32]);
-            juego.displayJuego(gl, glu, zoom, abajoYarriba, izquierdaYderecha, X_POSITION, Y_POSITION, Z_POSITION, view_rotx, view_roty, keys);
+            juego.displayJuego(gl, glu, zoom, abajoYarriba, izquierdaYderecha, X_POSITION, Y_POSITION, Z_POSITION, view_rotx, view_roty, bndKey, keys);
         }
     }
 
@@ -336,27 +336,28 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 }
                 break;
         }
-        if (e.getKeyChar() == 'I' || e.getKeyChar() == 'i') {
-            zoom = -1.0f;
-        } else if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o') {
-            zoom = 1.0f;
-        } else if (e.getKeyChar() == 'N' || e.getKeyChar() == 'n') {
-            zoom = 0.0f;
-            abajoYarriba = 0.0f;
-            izquierdaYderecha = 0.0f;
-        } else if (e.getKeyCode() == 37)//Izquierda 
-        {
-            izquierdaYderecha = 1.0f;
-        } else if (e.getKeyCode() == 38) //Arriba
-        {
-            abajoYarriba = 3.0f;
-        } else if (e.getKeyCode() == 39) //Derecha
-        {
-            izquierdaYderecha = -1.0f;
-        } else if (e.getKeyCode() == 40) //Abajo
-        {
-            abajoYarriba = 2.0f;
-        } else if (e.getKeyChar() == 'H' || e.getKeyChar() == 'h') {
+        /*if (e.getKeyChar() == 'I' || e.getKeyChar() == 'i') {
+         zoom = -1.0f;
+         } else if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o') {
+         zoom = 1.0f;
+         } else if (e.getKeyChar() == 'N' || e.getKeyChar() == 'n') {
+         zoom = 0.0f;
+         abajoYarriba = 0.0f;
+         izquierdaYderecha = 0.0f;
+         } else if (e.getKeyCode() == 37)//Izquierda 
+         {
+         izquierdaYderecha = 1.0f;
+         } else if (e.getKeyCode() == 38) //Arriba
+         {
+         abajoYarriba = 3.0f;
+         } else if (e.getKeyCode() == 39) //Derecha
+         {
+         izquierdaYderecha = -1.0f;
+         } else if (e.getKeyCode() == 40) //Abajo
+         {
+         abajoYarriba = 2.0f;
+         } else*/
+        if (e.getKeyChar() == 'H' || e.getKeyChar() == 'h') {
             JOptionPane.showMessageDialog(null, "Presiona \"W\" para caminar.\n"
                     + "Presiona la \" Barra de Espacio\" para saltar.\n"
                     + "Presiona \"C\" para agacharse.\n"
@@ -484,6 +485,10 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         keys['B'] = false;
         keys['Q'] = false;
         keys['F'] = false;
+        keys['U'] = false;
+        keys['I'] = false;
+        keys['O'] = false;
+        keys[17] = false;
     }
 
     public static void inicioNivel1()
@@ -503,6 +508,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         nivelDos = false;
         nivelTres = false;
         frame.dispose();
+        juego.reiniciarJuego();
         menu.cargarMenu(frame);
         frame.setVisible(true);
         desactivarTeclas();
