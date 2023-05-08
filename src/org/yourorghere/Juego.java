@@ -96,7 +96,9 @@ public class Juego
     private boolean mostrarVentanaPerder = false;
 
     //Creamos la preguntas y respuestas
-    private PreguntasNivel1 p = new PreguntasNivel1();
+    private PreguntasNivel1 p1 = new PreguntasNivel1();
+    private PreguntasNivel1 p2 = new PreguntasNivel1();
+    private PreguntasNivel1 p3 = new PreguntasNivel1();
     private Object[][] arr = null;
     private boolean preguntaNivel1 = false;
     private String preguntaNiv1 = "";
@@ -608,7 +610,7 @@ public class Juego
                     tiempoContador = t.getTiempo();
 
                     if (!preguntaNivel1) {
-                        arr = p.preguntaRespuesta();
+                        arr = p1.preguntaRespuesta();
                         preguntaNiv1 = (String) arr[0][0];
                         respuestaNiv1 = (String) arr[0][1];
                         respuestaNiv2 = (String) arr[0][2];
