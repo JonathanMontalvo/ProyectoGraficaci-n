@@ -97,8 +97,8 @@ public class Juego
 
     //Creamos la preguntas y respuestas
     private PreguntasNivel1 p1 = new PreguntasNivel1();
-    private PreguntasNivel1 p2 = new PreguntasNivel1();
-    private PreguntasNivel1 p3 = new PreguntasNivel1();
+    private PreguntasNivel2 p2 = new PreguntasNivel2();
+    private PreguntasNivel3 p3 = new PreguntasNivel3();
     private Object[][] arr = null;
     private boolean preguntaNivel1 = false;
     private String preguntaNiv1 = "";
@@ -610,7 +610,9 @@ public class Juego
                     tiempoContador = t.getTiempo();
 
                     if (!preguntaNivel1) {
-                        arr = p1.preguntaRespuesta();
+                        //arr = p1.preguntaRespuesta();
+                        //arr = p2.matriz();
+                        arr = p3.matriz();
                         preguntaNiv1 = (String) arr[0][0];
                         respuestaNiv1 = (String) arr[0][1];
                         respuestaNiv2 = (String) arr[0][2];
@@ -633,7 +635,8 @@ public class Juego
 
                         pregunta.beginRendering(1000, 800);
                         pregunta.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-                        pregunta.draw(preguntaNiv1, 300, 700);
+                        pregunta.draw(preguntaNiv1, 10, 700);
+                        //pregunta.draw(preguntaNiv1, 300, 700);
                         pregunta.endRendering();
 
                         seleccione.beginRendering(1000, 800);
@@ -813,11 +816,15 @@ public class Juego
         this.t = new Tiempo();
         this.mostrarVentanaPerder = false;
         this.contador = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 55));
-        this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+        //this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+        this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
         this.seleccione = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 39));
-        this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-        this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-        this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        //this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+        //this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+        //this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+        this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
         this.tecla1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
         this.tecla2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
         this.tecla3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
