@@ -53,7 +53,7 @@ public class KingDice {
 
     private static boolean pieDer = false;
     private static boolean pieIzq = false;
-
+//orden de los movimientos
     public void draw_KingDice(GL gl, boolean caminar, boolean brincar, boolean guinio, boolean triste, boolean serio, boolean enojado, boolean muerto,
             boolean feliz) {
         set_white_material(gl);
