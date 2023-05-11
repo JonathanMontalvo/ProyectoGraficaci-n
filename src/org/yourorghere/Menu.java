@@ -1407,7 +1407,8 @@ public class Menu
                 pingu.draw_pingu(gl, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
-                kd.draw_KingDice(gl, false, false, false, false, false, false, false);
+                //Aqui agregue un false por que agregue que camine el csm
+                kd.draw_KingDice(gl,false,false, false, false, false, false, false, false);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 gl.glTranslatef(5f, 0f, 0f);
@@ -1439,7 +1440,9 @@ public class Menu
                 break;
             case 2:
                 gl.glPushMatrix();
-                kd.draw_KingDice(gl, keys[' '], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J']);
+                //Agregue el caminar por ende hay que agregar una nueva key no lo agego pq no se cual estu logica para los movimientos
+                //en la clase KingDice esta el orden de lo que hace en la linea 57
+                //kd.draw_KingDice(gl, keys[' '], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J']);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 gl.glScalef(0.1f, 0.1f, 0.1f);
