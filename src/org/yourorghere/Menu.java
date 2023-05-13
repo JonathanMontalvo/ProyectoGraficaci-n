@@ -53,6 +53,7 @@ public class Menu
     private final JMenuItem jMIEscalacionAumentar = new JMenuItem();
 
     private static TextRenderer tituloMenu = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+    private static TextRenderer tituloNivel = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
     private static TextRenderer tituloPlay = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
 
     public Menu()
@@ -273,7 +274,6 @@ public class Menu
             TIzquierdaP1Menu = TextureIO.newTexture(iIzquierdaP, true);
             tTechoP1Menu = TextureIO.newTexture(iTechoP, true);
             tPisoP1Menu = TextureIO.newTexture(iPisoP, true);
-
             //2
             iAtrasP = new File("src/Fondos/i8.jpg");
             iFrenteP = new File("src/Fondos/i9.jpg");
@@ -287,7 +287,6 @@ public class Menu
             TIzquierdaP2Menu = TextureIO.newTexture(iIzquierdaP, false);
             tTechoP2Menu = TextureIO.newTexture(iTechoP, false);
             tPisoP2Menu = TextureIO.newTexture(iPisoP, false);
-
             //3
             iAtrasP = new File("src/Fondos/i13.jpg");
             iFrenteP = new File("src/Fondos/i14.jpg");
@@ -301,7 +300,6 @@ public class Menu
             TIzquierdaP3Menu = TextureIO.newTexture(iIzquierdaP, false);
             tTechoP3Menu = TextureIO.newTexture(iTechoP, false);
             tPisoP3Menu = TextureIO.newTexture(iPisoP, false);
-
             ///4
             iAtrasP = new File("src/Fondos/i19.jpg");
             iFrenteP = new File("src/Fondos/i20.jpg");
@@ -315,7 +313,6 @@ public class Menu
             TIzquierdaP4Menu = TextureIO.newTexture(iIzquierdaP, false);
             tTechoP4Menu = TextureIO.newTexture(iTechoP, false);
             tPisoP4Menu = TextureIO.newTexture(iPisoP, false);
-
             //5
             iAtrasP = new File("src/Fondos/i25.jpg");
             iFrenteP = new File("src/Fondos/i26.jpg");
@@ -329,7 +326,6 @@ public class Menu
             TIzquierdaP5Menu = TextureIO.newTexture(iIzquierdaP, false);
             tTechoP5Menu = TextureIO.newTexture(iTechoP, false);
             tPisoP5Menu = TextureIO.newTexture(iPisoP, false);
-
             //6
             iAtrasP = new File("src/Fondos/i31.jpg");
             iFrenteP = new File("src/Fondos/i32.jpg");
@@ -343,7 +339,6 @@ public class Menu
             TIzquierdaP6Menu = TextureIO.newTexture(iIzquierdaP, false);
             tTechoP6Menu = TextureIO.newTexture(iTechoP, false);
             tPisoP6Menu = TextureIO.newTexture(iPisoP, false);
-
             //7 
             iAtrasP = new File("src/Fondos/i37.jpg");
             iFrenteP = new File("src/Fondos/i38.jpg");
@@ -357,7 +352,6 @@ public class Menu
             TIzquierdaP7Menu = TextureIO.newTexture(iIzquierdaP, false);
             tTechoP7Menu = TextureIO.newTexture(iTechoP, false);
             tPisoP7Menu = TextureIO.newTexture(iPisoP, false);
-
             //Cuphead
             //Escenario 1
             File iAtrasC = new File("src/Fondos/casa.jpg");
@@ -372,7 +366,6 @@ public class Menu
             tTechoK1Menu = TextureIO.newTexture(iTechoC, true);
             File iPisoC = new File("src/Fondos/suelo.jpg");
             tPisoK1Menu = TextureIO.newTexture(iPisoC, true);
-
             //Escenario2
             iAtrasC = new File("src/Fondos/minecraftLado.jpg");
             tAtrasK2Menu = TextureIO.newTexture(iAtrasC, true);
@@ -386,7 +379,6 @@ public class Menu
             tTechoK2Menu = TextureIO.newTexture(iTechoC, true);
             iPisoC = new File("src/Fondos/minecraftSuelo.jpg");
             tPisoK2Menu = TextureIO.newTexture(iPisoC, true);
-
             //Escenario3
             iAtrasC = new File("src/Fondos/feriaLados.jpg");
             tAtrasK3Menu = TextureIO.newTexture(iAtrasC, true);
@@ -400,7 +392,6 @@ public class Menu
             tTechoK3Menu = TextureIO.newTexture(iTechoC, true);
             iPisoC = new File("src/Fondos/suelo.jpg");
             tPisoK3Menu = TextureIO.newTexture(iPisoC, true);
-
             //Escenario4
             iAtrasC = new File("src/Fondos/atraccion.jpg");
             tAtrasK4Menu = TextureIO.newTexture(iAtrasC, true);
@@ -414,7 +405,6 @@ public class Menu
             tTechoK4Menu = TextureIO.newTexture(iTechoC, true);
             iPisoC = new File("src/Fondos/techoYCieloAtraccion.jpg");
             tPisoK4Menu = TextureIO.newTexture(iPisoC, true);
-
             //Escenario5
             iAtrasC = new File("src/Fondos/frenteYAtrasCielo.jpg");
             tAtrasK5Menu = TextureIO.newTexture(iAtrasC, true);
@@ -428,7 +418,6 @@ public class Menu
             tTechoK5Menu = TextureIO.newTexture(iTechoC, true);
             iPisoC = new File("src/Fondos/sueloCiudad.jpg");
             tPisoK5Menu = TextureIO.newTexture(iPisoC, true);
-
             //Escenario6
             iAtrasC = new File("src/Fondos/atrasCarretera.jpg");
             tAtrasK6Menu = TextureIO.newTexture(iAtrasC, true);
@@ -442,7 +431,6 @@ public class Menu
             tTechoK6Menu = TextureIO.newTexture(iTechoC, true);
             iPisoC = new File("src/Fondos/sueloCarretera.jpg");
             tPisoK6Menu = TextureIO.newTexture(iPisoC, true);
-
             //Escenario7
             iAtrasC = new File("src/Fondos/desiertoAtras.jpg");
             tAtrasK7Menu = TextureIO.newTexture(iAtrasC, true);
@@ -456,7 +444,6 @@ public class Menu
             tTechoK7Menu = TextureIO.newTexture(iTechoC, true);
             iPisoC = new File("src/Fondos/desiertoSuelo.jpg");
             tPisoK7Menu = TextureIO.newTexture(iPisoC, true);
-
             //Teclas
             File iTeclaZ = new File("src/Fondos/keyboard_key_z.png");
             tTeclaZMenu = TextureIO.newTexture(iTeclaZ, true);
@@ -1437,6 +1424,11 @@ public class Menu
                 kd.fondo(gl, glu, tTeclaXMenu);
                 gl.glPopMatrix();
                 gl.glFlush();
+                gl.glPushMatrix();
+                gl.glScalef(0.1f,0.1f,0.1f);
+                gl.glTranslatef(-47f,35.6f,20.0f);
+                kd.fondo(gl,glu,tAtrasP1Menu);
+                gl.glPopMatrix();
                 break;
             case 2:
                 gl.glPushMatrix();
@@ -1456,6 +1448,11 @@ public class Menu
                 kd.fondo(gl, glu, tTeclaZMenu);
                 gl.glPopMatrix();
                 gl.glFlush();
+                 gl.glPushMatrix();
+                gl.glScalef(0.1f,0.1f,0.1f);
+                gl.glTranslatef(-47f,35.6f,20.0f);
+                kd.fondo(gl,glu,tAtrasK2Menu);
+                gl.glPopMatrix();
                 break;
             case 3:
                 gl.glPushMatrix();
@@ -1476,18 +1473,27 @@ public class Menu
                 kd.fondo(gl, glu, tTeclaZMenu);
                 gl.glPopMatrix();
                 gl.glFlush();
+                gl.glPushMatrix();
+                gl.glScalef(0.1f,0.1f,0.1f);
+                gl.glTranslatef(-47f,35.6f,20.0f);
+                kd.fondo(gl,glu,tAtras2Menu);
+                gl.glPopMatrix();
                 break;
         }
         tituloMenu.beginRendering(1000, 800);
         tituloMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        tituloMenu.draw("Selecccione un personaje", 230, 700);
+        tituloMenu.draw("Selecccione un personaje", 230, 720);
         tituloMenu.endRendering();
 
         if (bndKey == 1 || bndKey == 2 || bndKey == 3) {
             tituloPlay.beginRendering(1000, 800);
             tituloPlay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-            tituloPlay.draw("Presiona \"P\" para jugar", 245, 650);
+            tituloPlay.draw("Presiona \"P\" para jugar", 245, 670);
             tituloPlay.endRendering();
+            tituloNivel.beginRendering(1000,700);
+            tituloNivel.setColor(1.0f,1.0f,1.0f,1.0f);
+            tituloNivel.draw("Seleccionar nivel", 280, 540);
+            tituloNivel.endRendering();
         }
     }
 }

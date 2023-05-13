@@ -388,7 +388,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             reproducir(saltar);
         } else if (e.getKeyChar() == 'C' || e.getKeyChar() == 'c') {
             parar();
-            reproducir(agacharse);
+           // reproducir(agacharse);
         } else if (e.getKeyChar() == 'E' || e.getKeyChar() == 'e') {
             parar();
             reproducir(apuntar);
