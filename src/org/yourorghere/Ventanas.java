@@ -17,6 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static org.yourorghere.Main.regresoMenu;
 import static org.yourorghere.Main.reiniciar;
+import static org.yourorghere.Main.nivelActual;
+import static org.yourorghere.Main.pasoNivel2;
+import static org.yourorghere.Main.pasoNivel3;
+
 /**
  *
  * @author Jonathan Montalvo Pérez
@@ -61,7 +65,7 @@ public class Ventanas extends JFrame
 
         // Establece solo se cierre la ventada y no todas la ventanas
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
         // Agrega a la ventana el panel de título
         add(panelTitulo, "North");
     }
@@ -122,6 +126,19 @@ public class Ventanas extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                switch (nivelActual()) {
+                    case 2:
+                        pasoNivel3();
+                        reiniciar();
+                        dispose();
+                        break;
+                    case 3:
+                        pasoNivel2();
+                        reiniciar();
+                        dispose();
+                        break;
+
+                }
                 System.out.println("Cargando Nivel 2");
                 dispose();
             }

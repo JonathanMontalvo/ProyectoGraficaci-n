@@ -85,11 +85,11 @@ public class Juego
     //Creamos el hilo del contador
     private Tiempo t = new Tiempo();
     private TextRenderer contador = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 55));
-    private TextRenderer pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+    private TextRenderer pregunta;
     private TextRenderer seleccione = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 39));
-    private TextRenderer respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-    private TextRenderer respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-    private TextRenderer respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+    private TextRenderer respuesta1;
+    private TextRenderer respuesta2;
+    private TextRenderer respuesta3;
     private TextRenderer tecla1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
     private TextRenderer tecla2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
     private TextRenderer tecla3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -100,7 +100,7 @@ public class Juego
     private PreguntasNivel2 p2 = new PreguntasNivel2();
     private PreguntasNivel3 p3 = new PreguntasNivel3();
     private Object[][] arr = null;
-    private boolean preguntaNivel1 = false;
+    private boolean preguntasNiveles = false;
     private String preguntaNiv1 = "";
     private String respuestaNiv1 = "";
     private String respuestaNiv2 = "";
@@ -210,6 +210,28 @@ public class Juego
         gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
 
         String tiempoContador = "";
+
+        //we initialize the fonts
+        switch (bndKey) {
+            case 1:
+                this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
+                this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+                this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+                this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+                break;
+            case 2:
+                this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
+                this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+                this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+                this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+                break;
+            case 3:
+                this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
+                this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+                this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+                this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
+                break;
+        }
 
         //we draw Cuphead in the window        
         Cuphead cuphead = new Cuphead();
@@ -380,7 +402,8 @@ public class Juego
         gl.glFlush();
         //Es la parte del juego
         if (!colision) {
-            if (bndKey == 1) {
+            if (bndKey == 1 || bndKey == 2) //bndKey 2 es kingdice, pero no tiene caminar
+            {
                 gl.glPushMatrix();
                 pingu.cambioInstruccion(keys['W'], keys[' ']);
                 gl.glTranslatef(0.0f, 0.008f, -2.09f);
@@ -393,8 +416,7 @@ public class Juego
 
                 pieIzquierdo = pingu.pieIzq();
                 pieDerecho = pingu.pieDer();
-            } else if (bndKey == 2 || bndKey == 3) //bndKey 2 es kingdice, pero no tiene caminar
-            {
+            } else if (bndKey == 3) {
                 gl.glPushMatrix();
                 cuphead.cambioInstruccion(keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
                 gl.glTranslatef(0.10f, 0.0f, -2.0f);
@@ -523,7 +545,8 @@ public class Juego
         } else {
             if (!fin) {
                 //Si hay colision
-                if (bndKey == 1) {
+                if (bndKey == 1 || bndKey == 2) //bndKey 2 es kingdice, pero no tiene caminar
+                {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.008f, -2.09f);
                     if (keys['U'] || keys['u']) {
@@ -543,8 +566,7 @@ public class Juego
 
                     // Flush all drawing operations to the graphics card
                     gl.glFlush();
-                } else if (bndKey == 2 || bndKey == 3) //bndKey 2 es kingdice, pero no tiene caminar
-                {
+                } else if (bndKey == 3) {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.0f, -2.0f);
                     if (keys['U'] || keys['u']) {
@@ -609,10 +631,18 @@ public class Juego
                 if (!finT) {
                     tiempoContador = t.getTiempo();
 
-                    if (!preguntaNivel1) {
-                        //arr = p1.preguntaRespuesta();
-                        //arr = p2.matriz();
-                        arr = p3.matriz();
+                    if (!preguntasNiveles) {
+                        switch (bndKey) {
+                            case 1:
+                                arr = p3.matriz();
+                                break;
+                            case 2:
+                                arr = p2.matriz();
+                                break;
+                            case 3:
+                                arr = p1.preguntaRespuesta();
+                                break;
+                        }
                         preguntaNiv1 = (String) arr[0][0];
                         respuestaNiv1 = (String) arr[0][1];
                         respuestaNiv2 = (String) arr[0][2];
@@ -624,7 +654,7 @@ public class Juego
                                 break;
                             }
                         }
-                        preguntaNivel1 = true;
+                        preguntasNiveles = true;
                     }
 
                     if (!tiempoContador.equals("00:00:00")) {
@@ -635,8 +665,17 @@ public class Juego
 
                         pregunta.beginRendering(1000, 800);
                         pregunta.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-                        pregunta.draw(preguntaNiv1, 10, 700);
-                        //pregunta.draw(preguntaNiv1, 300, 700);
+                        switch (bndKey) {
+                            case 1:
+                                pregunta.draw(preguntaNiv1, 10, 700);
+                                break;
+                            case 2:
+                                pregunta.draw(preguntaNiv1, 10, 700);
+                                break;
+                            case 3:
+                                pregunta.draw(preguntaNiv1, 300, 700);
+                                break;
+                        }
                         pregunta.endRendering();
 
                         seleccione.beginRendering(1000, 800);
@@ -649,18 +688,28 @@ public class Juego
                         respuesta1.draw(respuestaNiv1, 80, 170);
                         respuesta1.endRendering();
 
-                        switch (respuestaNiv1.length()) {
-                            case 6:
-                                letra = "  U";
-                                break;
-                            case 7:
-                                letra = "   U";
-                                break;
-                            case 8:
-                                letra = "   U";
-                                break;
-                            case 9:
+                        switch (bndKey) {
+                            case 1:
                                 letra = "    U";
+                                break;
+                            case 2:
+                                letra = "    U";
+                                break;
+                            case 3:
+                                switch (respuestaNiv1.length()) {
+                                    case 6:
+                                        letra = "  U";
+                                        break;
+                                    case 7:
+                                        letra = "   U";
+                                        break;
+                                    case 8:
+                                        letra = "   U";
+                                        break;
+                                    case 9:
+                                        letra = "    U";
+                                        break;
+                                }
                                 break;
                         }
 
@@ -673,19 +722,28 @@ public class Juego
                         respuesta2.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                         respuesta2.draw(respuestaNiv2, 420, 170);
                         respuesta2.endRendering();
-
-                        switch (respuestaNiv2.length()) {
-                            case 6:
-                                letra = "  I";
-                                break;
-                            case 7:
-                                letra = "   I";
-                                break;
-                            case 8:
-                                letra = "   I";
-                                break;
-                            case 9:
+                        switch (bndKey) {
+                            case 1:
                                 letra = "    I";
+                                break;
+                            case 2:
+                                letra = "    I";
+                                break;
+                            case 3:
+                                switch (respuestaNiv2.length()) {
+                                    case 6:
+                                        letra = "  I";
+                                        break;
+                                    case 7:
+                                        letra = "   I";
+                                        break;
+                                    case 8:
+                                        letra = "   I";
+                                        break;
+                                    case 9:
+                                        letra = "    I";
+                                        break;
+                                }
                                 break;
                         }
 
@@ -699,18 +757,28 @@ public class Juego
                         respuesta3.draw(respuestaNiv3, 760, 170);
                         respuesta3.endRendering();
 
-                        switch (respuestaNiv3.length()) {
-                            case 6:
-                                letra = "  O";
-                                break;
-                            case 7:
-                                letra = "   O";
-                                break;
-                            case 8:
-                                letra = "   O";
-                                break;
-                            case 9:
+                        switch (bndKey) {
+                            case 1:
                                 letra = "    O";
+                                break;
+                            case 2:
+                                letra = "    O";
+                                break;
+                            case 3:
+                                switch (respuestaNiv3.length()) {
+                                    case 6:
+                                        letra = "  O";
+                                        break;
+                                    case 7:
+                                        letra = "   O";
+                                        break;
+                                    case 8:
+                                        letra = "   O";
+                                        break;
+                                    case 9:
+                                        letra = "    O";
+                                        break;
+                                }
                                 break;
                         }
 
@@ -730,8 +798,17 @@ public class Juego
                             JOptionPane.showMessageDialog(null, "¡Respuesta incorrecta!\nLa respuesta " + (arr[0][respuestaCorrecta + 1]).toString().toLowerCase(), "Resultado", JOptionPane.INFORMATION_MESSAGE);
                         }
 
-                        Ventanas ventanaPerdio = new Ventanas("Nivel 1", 800, 400, false);
-                        ventanaPerdio.ventanaPerdio();
+                        if (bndKey == 3) {
+                            Ventanas ventanaPerdio = new Ventanas("Nivel 1", 800, 400, false);
+                            ventanaPerdio.ventanaPerdio();
+                        } else if (bndKey == 2) {
+                            Ventanas ventanaPerdio = new Ventanas("Nivel 2", 800, 400, false);
+                            ventanaPerdio.ventanaPerdio();
+                        } else if (bndKey == 1) {
+                            Ventanas ventanaPerdio = new Ventanas("Nivel 3", 800, 400, false);
+                            ventanaPerdio.ventanaPerdio();
+                        }
+
                     }
 
                     if (tiempoContador.equals("00:00.00")) {
@@ -741,7 +818,8 @@ public class Juego
 
             } else {
                 //Si es el fin del nivel
-                if (bndKey == 1) {
+                if (bndKey == 1 || bndKey == 2) //bndKey 2 es kingdice, pero no tiene caminar
+                {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.008f, -2.09f);
                     gl.glScalef(0.65f, 0.65f, 0.65f);
@@ -750,8 +828,7 @@ public class Juego
 
                     // Flush all drawing operations to the graphics card
                     gl.glFlush();
-                } else if (bndKey == 2 || bndKey == 3) //bndKey 2 es kingdice, pero no tiene caminar
-                {
+                } else if (bndKey == 3) {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.0f, -2.0f);
                     cuphead.draw_cuphead(gl, false, false, false, false, true, false, false, false, false);
@@ -763,8 +840,17 @@ public class Juego
 
                 if (!most) {
                     most = true;
-                    Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 1!", 800, 400, false);
-                    ventanaN1.ventanaFinNivel1_2();
+
+                    if (bndKey == 3) {
+                        Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 1!", 800, 400, false);
+                        ventanaN1.ventanaFinNivel1_2();
+                    } else if (bndKey == 2) {
+                        Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 2!", 800, 400, false);
+                        ventanaN1.ventanaFinNivel1_2();
+                    } else if (bndKey == 1) {
+                        /*Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 1!", 800, 400, false);
+                         ventanaN1.ventanaFinNivel1_2();*/
+                    }
                 }
             }
         }
@@ -816,22 +902,14 @@ public class Juego
         this.t = new Tiempo();
         this.mostrarVentanaPerder = false;
         this.contador = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 55));
-        //this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
-        this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
         this.seleccione = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 39));
-        //this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-        this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
-        //this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-        this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
-        //this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
-        this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
         this.tecla1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
         this.tecla2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
         this.tecla3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 36));
 
         //Creamos la preguntas y respuestas
         this.arr = null;
-        this.preguntaNivel1 = false;
+        this.preguntasNiveles = false;
         this.preguntaNiv1 = "";
         this.respuestaNiv1 = "";
         this.respuestaNiv2 = "";

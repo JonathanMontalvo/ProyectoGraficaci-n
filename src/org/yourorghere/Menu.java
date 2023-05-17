@@ -164,9 +164,19 @@ public class Menu
         frame.repaint();
     }
 
-    public void quitarParteMain(JFrame frame)
+    public void quitarParteMain(JFrame frame, int bndKey)
     {
-        frame.setTitle("Juego");
+        switch (bndKey) {
+            case 1:
+                frame.setTitle("Nivel 3");
+                break;
+            case 2:
+                frame.setTitle("Nivel 2");
+                break;
+            case 3:
+                frame.setTitle("Nivel 1");
+                break;
+        }
         frame.setJMenuBar(null);
         frame.revalidate();
         frame.repaint();
@@ -1395,7 +1405,7 @@ public class Menu
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 //Aqui agregue un false por que agregue que camine el csm
-                kd.draw_KingDice(gl,false,false, false, false, false, false, false, false);
+                kd.draw_KingDice(gl, false, false, false, false, false, false, false, false);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 gl.glTranslatef(5f, 0f, 0f);
@@ -1425,9 +1435,9 @@ public class Menu
                 gl.glPopMatrix();
                 gl.glFlush();
                 gl.glPushMatrix();
-                gl.glScalef(0.1f,0.1f,0.1f);
-                gl.glTranslatef(-47f,35.6f,20.0f);
-                kd.fondo(gl,glu,tAtrasP1Menu);
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(-47f, 35.6f, 20.0f);
+                kd.fondo(gl, glu, tAtrasP1Menu);
                 gl.glPopMatrix();
                 break;
             case 2:
@@ -1448,10 +1458,10 @@ public class Menu
                 kd.fondo(gl, glu, tTeclaZMenu);
                 gl.glPopMatrix();
                 gl.glFlush();
-                 gl.glPushMatrix();
-                gl.glScalef(0.1f,0.1f,0.1f);
-                gl.glTranslatef(-47f,35.6f,20.0f);
-                kd.fondo(gl,glu,tAtrasK2Menu);
+                gl.glPushMatrix();
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(-47f, 35.6f, 20.0f);
+                kd.fondo(gl, glu, tAtrasK2Menu);
                 gl.glPopMatrix();
                 break;
             case 3:
@@ -1474,9 +1484,9 @@ public class Menu
                 gl.glPopMatrix();
                 gl.glFlush();
                 gl.glPushMatrix();
-                gl.glScalef(0.1f,0.1f,0.1f);
-                gl.glTranslatef(-47f,35.6f,20.0f);
-                kd.fondo(gl,glu,tAtras2Menu);
+                gl.glScalef(0.1f, 0.1f, 0.1f);
+                gl.glTranslatef(-47f, 35.6f, 20.0f);
+                kd.fondo(gl, glu, tAtras2Menu);
                 gl.glPopMatrix();
                 break;
         }
@@ -1490,8 +1500,8 @@ public class Menu
             tituloPlay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
             tituloPlay.draw("Presiona \"P\" para jugar", 245, 670);
             tituloPlay.endRendering();
-            tituloNivel.beginRendering(1000,700);
-            tituloNivel.setColor(1.0f,1.0f,1.0f,1.0f);
+            tituloNivel.beginRendering(1000, 700);
+            tituloNivel.setColor(1.0f, 1.0f, 1.0f, 1.0f);
             tituloNivel.draw("Seleccionar nivel", 280, 540);
             tituloNivel.endRendering();
         }

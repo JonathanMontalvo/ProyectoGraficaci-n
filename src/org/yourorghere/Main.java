@@ -80,9 +80,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     //Banderas para menú y juegos
     private static boolean menuActivo = true;
-    private static boolean nivelUno = false;
-    private static boolean nivelDos = false;
-    private static boolean nivelTres = false;
+    private static boolean juegoActivo = false;
 
     public static int bnd = 1;
     private static int bndKey = 0;
@@ -115,7 +113,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         //Establecemos que texturas va a cargar
         if (menuActivo) {
             menu.texturasInit();
-        } else if (nivelUno) {
+        } else if (juegoActivo) {
             juego.texturasInit();
         }
 
@@ -141,7 +139,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
         if (menuActivo) {
             glu.gluPerspective(75.0f, h, 1.0, 20.0);
-        } else if (nivelUno) {
+        } else if (juegoActivo) {
             glu.gluPerspective(45.0f, h, 1.0, 20.0);
         }
 
@@ -161,7 +159,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         gl.glLoadIdentity();
         if (menuActivo) {
             menu.diplayTextura(gl, glu, X_POSITION, Y_POSITION, Z_POSITION, view_rotx, view_roty, zoom, bndKey, bnd, keys);
-        } else if (nivelUno) {
+        } else if (juegoActivo) {
             //System.out.println(": " + keys[32]);
             juego.displayJuego(gl, glu, zoom, abajoYarriba, izquierdaYderecha, X_POSITION, Y_POSITION, Z_POSITION, view_rotx, view_roty, bndKey, keys);
         }
@@ -317,18 +315,24 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 bnd = 7;
                 break;
             case 'Z':
-                bndKey = 1;
+                if (!juegoActivo) {
+                    bndKey = 1;
+                }
                 break;
             case 'X':
-                bndKey = 2;
+                if (!juegoActivo) {
+                    bndKey = 2;
+                }
                 break;
             case 'C':
-                bndKey = 3;
+                if (!juegoActivo) {
+                    bndKey = 3;
+                }
                 break;
             case 'P':
-                if (!nivelUno) {
+                if (!juegoActivo) {
                     if (bndKey == 1 || bndKey == 2 || bndKey == 3) {
-                        inicioNivel1();
+                        inicioNiveles();
                     } else {
                         JOptionPane.showMessageDialog(null, "Por favor seleccione un personaje primero",
                                 "Selección de personaje", JOptionPane.INFORMATION_MESSAGE);
@@ -388,7 +392,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
             reproducir(saltar);
         } else if (e.getKeyChar() == 'C' || e.getKeyChar() == 'c') {
             parar();
-           // reproducir(agacharse);
+            // reproducir(agacharse);
         } else if (e.getKeyChar() == 'E' || e.getKeyChar() == 'e') {
             parar();
             reproducir(apuntar);
@@ -491,12 +495,12 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         keys[17] = false;
     }
 
-    public static void inicioNivel1()
+    public static void inicioNiveles()
     {
         menuActivo = false;
-        nivelUno = true;
+        juegoActivo = true;
         frame.dispose();
-        menu.quitarParteMain(frame);
+        menu.quitarParteMain(frame, bndKey);
         frame.setVisible(true);
         desactivarTeclas();
     }
@@ -504,9 +508,7 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     public static void regresoMenu()
     {
         menuActivo = true;
-        nivelUno = false;
-        nivelDos = false;
-        nivelTres = false;
+        juegoActivo = false;
         frame.dispose();
         juego.reiniciarJuego();
         menu.cargarMenu(frame);
@@ -517,11 +519,27 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     public static void reiniciar()
     {
         menuActivo = false;
-        nivelUno = true;
+        juegoActivo = true;
         frame.dispose();
+        menu.quitarParteMain(frame, bndKey);
         juego.reiniciarJuego();
         frame.setVisible(true);
         desactivarTeclas();
+    }
+
+    public static int nivelActual()
+    {
+        return Main.bndKey;
+    }
+
+    public static void pasoNivel2()
+    {
+        Main.bndKey = 2;
+    }
+
+    public static void pasoNivel3()
+    {
+        Main.bndKey = 1;
     }
 
     public static void main(String[] args)
