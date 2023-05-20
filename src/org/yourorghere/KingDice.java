@@ -5,6 +5,7 @@ import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUquadric;
 import javax.swing.JOptionPane;
+import static org.yourorghere.Main.cambiarEspacio;
 
 /**
  *
@@ -51,6 +52,8 @@ public class KingDice {
     private static final float BOTTOM_BODY = 0.35f;
     private static final float BOTTOM_SHORT_LEGS = 0.1f;
 
+   private static boolean cam = false;
+    private static boolean salt = false;
     private static boolean pieDer = false;
     private static boolean pieIzq = false;
 //orden de los movimientos
@@ -63,8 +66,14 @@ public class KingDice {
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
         //Camina
+        //Cuphead only jumps once
+        if (KingDice.mvt >= 40 && brincar) {
+            cambiarEspacio(false);
+        }
         //Cuphead is walking
-        if (caminar && mvt % 8 + 4 > 7) {
+        if (caminar && mvt % 32 + 16 > 31) {
+            KingDice.pieDer = true;
+            KingDice.pieIzq = false;
             dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
             dibujar_Cuerpo(gl, glu);
             //brazo izquierdo atras derecho adelante            
@@ -103,7 +112,9 @@ public class KingDice {
             boxC(gl);
             gl.glPopMatrix();
             set_white_material(gl);
-        } else if (caminar && mvt % 8 + 4 <= 7) {
+        } else if (caminar &&  mvt % 32 + 16 <= 31) {
+            KingDice.pieDer = false;
+            KingDice.pieIzq = true;
             dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
             dibujar_Cuerpo(gl, glu);
             //brazo izquierdo atras derecho adelante            
@@ -142,14 +153,16 @@ public class KingDice {
             boxC(gl);
             gl.glPopMatrix();
             set_white_material(gl);
-        } else if (brincar && mvt % 20 + 10 > 20) {
-            gl.glTranslatef(0f, .5f, 0.0f);//(-izq+der,-abajo +arriba,-atras+enfrente)  
+        } else if (brincar &&  mvt % 80 + 40 <= 7) {
+            KingDice.pieDer = false;
+            KingDice.pieIzq = false;
+            gl.glTranslatef(0f, 1.5f, 0.0f);//(-izq+der,-abajo +arriba,-atras+enfrente)  
             //feliz, enojado, serio, sorpresa, triste, ginio, muerto, miedo
             dibujar_Cabeza(gl, glu, false, false, false, true, false, false, false, false);
             dibujar_Cuerpo(gl, glu);
             dibujar_Piernas(gl, glu, 'J', false);
             gl.glRotatef(240f, 1f, 0f, 0f);
-            gl.glTranslatef(0f, -3.3f, 0.9f);//(-Izq+Der,-atras+enfrente,-abajo +arriba,)
+            gl.glTranslatef(0f, -10.3f, 0.9f);//(-Izq+Der,-atras+enfrente,-abajo +arriba,)
             dibujar_Brazo_Derecho(gl, glu);
             dibujar_Brazo_Izquierdo(gl, glu);
         } else if (guinio) {//levanta mano izq y guiño            
@@ -226,11 +239,90 @@ public class KingDice {
             gl.glRotatef(120f, 0f, 0f, 1f);
             dibujar_Brazo_Derecho(gl, glu);
         } else {
-            dibujar_Cabeza(gl, glu, false, false, false, false, false, false, false, false);
+            if (mvt % 32 + 16 > 31)
+            {
+                      KingDice.pieDer = true;
+            KingDice.pieIzq = false;
+             dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
             dibujar_Cuerpo(gl, glu);
-            dibujar_Piernas(gl, glu, ' ', false);
-            dibujar_Brazo_Derecho(gl, glu);
+            //brazo izquierdo atras derecho adelante            
             dibujar_Brazo_Izquierdo(gl, glu);
+            gl.glPushMatrix();
+            gl.glTranslatef(0f, 1.33f, -1.35f);//(-Izq+Der,-atras+enfrente,-abajo +arriba,)
+            gl.glRotatef(60f, 1f, 0f, 0f);
+            dibujar_Brazo_Derecho(gl, glu);
+            gl.glPopMatrix();
+//pierna derecha atras izquierda adelante
+            gl.glPushMatrix();
+            gl.glTranslatef(0f, .5f, .2f);
+            gl.glRotatef(40f, 1f, 0f, 0f);
+            pierna_izquierda(gl, glu, true);
+            gl.glPopMatrix();
+//pierna izquierda atras derecha adelante
+            gl.glPushMatrix();
+            gl.glRotatef(340f, 1f, 0f, 0f);
+            pierna_derecha(gl, glu, true);
+            gl.glPopMatrix();
+            //ZAPATITOS
+            //Izquierdo
+            gl.glPushMatrix();
+            set_black_material(gl);
+            gl.glRotatef(340f, 1f, 0f, 0f);
+            gl.glTranslatef(.81f, -2.29f, .2f);
+            gl.glScalef(.61f, 0.2f, 0.9f);
+            boxC(gl);
+            gl.glPopMatrix();
+            //Derecha
+            gl.glPushMatrix();
+            set_black_material(gl);
+            gl.glRotatef(40f, 1f, 0f, 0f);
+            gl.glTranslatef(0.0999f, -1.8f, 0.0f); //+derecha,+arriba,+frente
+            gl.glScalef(.61f, 0.2f, 0.9f);
+            boxC(gl);
+            gl.glPopMatrix();
+            set_white_material(gl);   
+            }else if( mvt % 32 + 16 <= 31) {
+                KingDice.pieDer = false;
+            KingDice.pieIzq = true;
+            dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
+            dibujar_Cuerpo(gl, glu);
+            //brazo izquierdo atras derecho adelante            
+            dibujar_Brazo_Derecho(gl, glu);
+            gl.glPushMatrix();
+            gl.glTranslatef(0f, 1.33f, -1.35f);//(-Izq+Der,-atras+enfrente,-abajo +arriba,)
+            gl.glRotatef(60f, 1f, 0f, 0f);
+            dibujar_Brazo_Izquierdo(gl, glu);
+            gl.glPopMatrix();
+//pierna derecha atras izquierda adelante
+            gl.glPushMatrix();
+            gl.glTranslatef(0f, .5f, .2f);
+            gl.glRotatef(40f, 1f, 0f, 0f);
+            pierna_derecha(gl, glu, true);
+            gl.glPopMatrix();
+//pierna izquierda atras derecha adelante
+            gl.glPushMatrix();
+            gl.glRotatef(340f, 1f, 0f, 0f);
+            pierna_izquierda(gl, glu, true);
+            gl.glPopMatrix();
+            //ZAPATITOS
+            //Izquierdo
+            gl.glPushMatrix();
+            set_black_material(gl);
+            gl.glRotatef(40f, 1f, 0f, 0f);
+            gl.glTranslatef(.81f, -1.8f, 0.0f);
+            gl.glScalef(.61f, 0.2f, 0.9f);
+            boxC(gl);
+            gl.glPopMatrix();
+            //Derecha
+            gl.glPushMatrix();
+            set_black_material(gl);
+            gl.glRotatef(340f, 1f, 0f, 0f);
+            gl.glTranslatef(0.0999f, -2.29f, 0.2f); //+derecha,+arriba,+frente
+            gl.glScalef(.61f, 0.2f, 0.9f);
+            boxC(gl);
+            gl.glPopMatrix();
+            set_white_material(gl);
+            }
         }
         mvt++;
     }
@@ -1497,7 +1589,14 @@ public class KingDice {
         gl.glDisable(GL.GL_TEXTURE_2D);
         gl.glFlush();
     }
-
+    public void cambioInstruccion(boolean caminar, boolean saltar)
+    {
+        if (KingDice.cam != caminar || KingDice.salt != saltar) {
+            KingDice.cam = caminar;
+            KingDice.salt = saltar;
+            KingDice.mvt = 0;
+        }
+    }
     public boolean pieIzq() {
         return KingDice.pieIzq;
     }

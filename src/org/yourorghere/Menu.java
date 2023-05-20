@@ -1444,7 +1444,7 @@ public class Menu
                 gl.glPushMatrix();
                 //Agregue el caminar por ende hay que agregar una nueva key no lo agego pq no se cual estu logica para los movimientos
                 //en la clase KingDice esta el orden de lo que hace en la linea 57
-                //kd.draw_KingDice(gl, keys[' '], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], keys['J']);
+                kd.draw_KingDice(gl, keys['A'], keys['S'], keys['D'], keys['F'], keys['G'], keys['H'], false, false);
                 gl.glPopMatrix();
                 gl.glPushMatrix();
                 gl.glScalef(0.1f, 0.1f, 0.1f);

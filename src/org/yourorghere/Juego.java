@@ -127,23 +127,23 @@ public class Juego
             tPiso1 = TextureIO.newTexture(iPiso, true);
 
             //Escenario2
-            iAtras = new File("src/Fondos/minecraftLado.jpg");
+            iAtras = new File("src/Fondos/i1.jpg");
             tAtras2 = TextureIO.newTexture(iAtras, true);
-            iDerecha = new File("src/Fondos/minecraftLado.jpg");
+            iDerecha = new File("src/Fondos/i3.jpg");
             tDerecha2 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/minecraftLado.jpg");
+            iIzquierda = new File("src/Fondos/i5.jpg");
             TIzquierda2 = TextureIO.newTexture(iIzquierda, true);
-            iPiso = new File("src/Fondos/minecraftSuelo.jpg");
+            iPiso = new File("src/Fondos/i2.jpg");
             tPiso2 = TextureIO.newTexture(iPiso, true);
 
             //Escenario3
-            iAtras = new File("src/Fondos/feriaLados.jpg");
+            iAtras = new File("src/Fondos/minecraftLado.jpg");
             tAtras3 = TextureIO.newTexture(iAtras, true);
-            iDerecha = new File("src/Fondos/feriaLados.jpg");
+            iDerecha = new File("src/Fondos/minecraftLado.jpg");
             tDerecha3 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/feriaLados.jpg");
+            iIzquierda = new File("src/Fondos/minecraftLado.jpg");
             TIzquierda3 = TextureIO.newTexture(iIzquierda, true);
-            iPiso = new File("src/Fondos/suelo.jpg");
+            iPiso = new File("src/Fondos/minecraftSuelo.jpg");
             tPiso3 = TextureIO.newTexture(iPiso, true);
 
             //Escenario4
@@ -246,13 +246,13 @@ public class Juego
         gl.glTranslatef(0.0f, 4.0f, parte1);
         gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
         gl.glTranslatef(-((float) velocidadP1 / 10), 0.0f, 0.0f);
-        if (keys['2']) {
+        if (bndKey==1) {
             cuphead.fondo(gl, glu, tDerecha2);
             gl.glTranslatef(1.0f, 0.0f, 0.0f);
-        } else if (keys['3']) {
+        } else if (bndKey==2) {
             cuphead.fondo(gl, glu, tDerecha3);
-        } else if (keys['4']) {
-            cuphead.fondo(gl, glu, tDerecha4);
+        } else if (bndKey==3) {
+            cuphead.fondo(gl, glu, tDerecha1);
         } else if (keys['5']) {
             cuphead.fondo(gl, glu, tDerecha5);
         } else if (keys['6']) {
@@ -270,12 +270,12 @@ public class Juego
         gl.glTranslatef(0.0f, 4.0f, -1.0f);
         gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
         gl.glTranslatef(-12.0f + ((float) velocidadP2 / 10), 0.0f, 12.0f);
-        if (keys['2']) {
+        if (bndKey==1) {
             cuphead.fondo(gl, glu, tDerecha2);
-        } else if (keys['3']) {
+        } else if (bndKey==2) {
             cuphead.fondo(gl, glu, tDerecha3);
-        } else if (keys['4']) {
-            cuphead.fondo(gl, glu, tDerecha4);
+        } else if (bndKey==3) {
+            cuphead.fondo(gl, glu, tDerecha1);
         } else if (keys['5']) {
             cuphead.fondo(gl, glu, tDerecha5);
         } else if (keys['6']) {
@@ -293,12 +293,12 @@ public class Juego
         gl.glTranslatef(0.0f, 4.0f, parte1);
         gl.glRotatef(90, 0.0f, 1.0f, 0.0f);
         gl.glTranslatef(((float) velocidadP1 / 10), 0.0f, 0.0f);
-        if (keys['2']) {
+        if (bndKey==1) {
             cuphead.fondo(gl, glu, TIzquierda2);
-        } else if (keys['3']) {
+        } else if (bndKey==2) {
             cuphead.fondo(gl, glu, TIzquierda3);
-        } else if (keys['4']) {
-            cuphead.fondo(gl, glu, TIzquierda4);
+        } else if (bndKey==3) {
+            cuphead.fondo(gl, glu, TIzquierda1);
         } else if (keys['5']) {
             cuphead.fondo(gl, glu, TIzquierda5);
         } else if (keys['6']) {
@@ -316,12 +316,12 @@ public class Juego
         gl.glTranslatef(0.0f, 4.0f, -1.0f);
         gl.glRotatef(270, 0.0f, 1.0f, 0.0f);
         gl.glTranslatef(12.0f - ((float) velocidadP2 / 10), 0.0f, 12.0f);
-        if (keys['2']) {
+        if (bndKey==1) {
             cuphead.fondo(gl, glu, TIzquierda2);
-        } else if (keys['3']) {
+        } else if (bndKey==2) {
             cuphead.fondo(gl, glu, TIzquierda3);
-        } else if (keys['4']) {
-            cuphead.fondo(gl, glu, TIzquierda4);
+        } else if (bndKey==3) {
+            cuphead.fondo(gl, glu, TIzquierda1);
         } else if (keys['5']) {
             cuphead.fondo(gl, glu, TIzquierda5);
         } else if (keys['6']) {
@@ -339,12 +339,12 @@ public class Juego
         gl.glTranslatef(0.0f, 4.0f, parte1);
         gl.glRotatef(270, 1.0f, 0.0f, 0.0f);
         gl.glTranslatef(0.0f, ((float) velocidadP1 / 10), 0.0f);
-        if (keys['2']) {
+        if (bndKey==1) {
             cuphead.fondo(gl, glu, tPiso2);
-        } else if (keys['3']) {
+        } else if (bndKey==2) {
             cuphead.fondo(gl, glu, tPiso3);
-        } else if (keys['4']) {
-            cuphead.fondo(gl, glu, tPiso4);
+        } else if (bndKey==3) {
+            cuphead.fondo(gl, glu, tPiso1);
         } else if (keys['5']) {
             cuphead.fondo(gl, glu, tPiso5);
         } else if (keys['6']) {
@@ -362,12 +362,12 @@ public class Juego
         gl.glTranslatef(0.0f, 4.0f, -1.0f);
         gl.glRotatef(90, 1.0f, 0.0f, 0.0f);
         gl.glTranslatef(0.0f, 12.0f - ((float) velocidadP2 / 10), 12.0f);
-        if (keys['2']) {
+        if (bndKey==1) {
             cuphead.fondo(gl, glu, tPiso2);
-        } else if (keys['3']) {
+        } else if (bndKey==2) {
             cuphead.fondo(gl, glu, tPiso3);
-        } else if (keys['4']) {
-            cuphead.fondo(gl, glu, tPiso4);
+        } else if (bndKey==3) {
+            cuphead.fondo(gl, glu, tPiso1);
         } else if (keys['5']) {
             cuphead.fondo(gl, glu, tPiso5);
         } else if (keys['6']) {
@@ -383,12 +383,12 @@ public class Juego
         //Dibujamos la texturas de la casa
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 4.0f, -1.0f);
-        if (keys['2']) {
+        if (bndKey==1) {
             cuphead.fondo(gl, glu, tAtras2);
-        } else if (keys['3']) {
+        } else if (bndKey==2) {
             cuphead.fondo(gl, glu, tAtras3);
-        } else if (keys['4']) {
-            cuphead.fondo(gl, glu, tAtras4);
+        } else if (bndKey==3) {
+            cuphead.fondo(gl, glu, tAtras1);
         } else if (keys['5']) {
             cuphead.fondo(gl, glu, tAtras5);
         } else if (keys['6']) {
@@ -402,7 +402,7 @@ public class Juego
         gl.glFlush();
         //Es la parte del juego
         if (!colision) {
-            if (bndKey == 1 || bndKey == 2) //bndKey 2 es kingdice, pero no tiene caminar
+            if (bndKey == 1 ) //bndKey 2 es kingdice, pero no tiene caminar
             {
                 gl.glPushMatrix();
                 pingu.cambioInstruccion(keys['W'], keys[' ']);
@@ -416,6 +416,21 @@ public class Juego
 
                 pieIzquierdo = pingu.pieIzq();
                 pieDerecho = pingu.pieDer();
+            }
+            else if (bndKey ==2)
+            {
+                gl.glPushMatrix();
+                kingdice.cambioInstruccion(keys['W'], keys[' ']);
+                gl.glTranslatef(0.0f, 1.708f, -2.12f);
+                gl.glScalef(0.65f, 0.65f, 0.65f);
+                kingdice.draw_KingDice(gl, keys['W'], keys[' '], false, false, false, false, false, false);
+                gl.glPopMatrix();
+
+                // Flush all drawing operations to the graphics card
+                gl.glFlush();
+                
+                pieIzquierdo = kingdice.pieIzq();
+                pieDerecho = kingdice.pieDer();
             } else if (bndKey == 3) {
                 gl.glPushMatrix();
                 cuphead.cambioInstruccion(keys['W'], keys[' '], keys['C'], keys['E'], keys['B'], keys['Q'], keys['F']);
@@ -545,7 +560,7 @@ public class Juego
         } else {
             if (!fin) {
                 //Si hay colision
-                if (bndKey == 1 || bndKey == 2) //bndKey 2 es kingdice, pero no tiene caminar
+                if (bndKey == 1 ) //bndKey 2 es kingdice, pero no tiene caminar
                 {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.008f, -2.09f);
@@ -566,7 +581,29 @@ public class Juego
 
                     // Flush all drawing operations to the graphics card
                     gl.glFlush();
-                } else if (bndKey == 3) {
+                }else if (bndKey==2)
+                {
+                      gl.glPushMatrix();
+                    gl.glTranslatef(0.0f, 0.008f, -2.09f);
+                    if (keys['U'] || keys['u']) {
+                        gl.glTranslatef(0.0f, 0.0f, 0.0f);
+                        this.respuestaPlayer = 0;
+                    } else if (keys['I'] || keys['i']) {
+                        gl.glTranslatef(0.0f, 0.0f, 2.0f);
+                        this.respuestaPlayer = 1;
+                    } else if (keys['O'] || keys['o']) {
+                        gl.glTranslatef(0.0f, 0.0f, 3.6f);
+                        this.respuestaPlayer = 2;
+                    } else {
+                    }
+                    gl.glScalef(0.65f, 0.65f, 0.65f);
+                    kingdice.draw_KingDice(gl, false, false, false, false, false, false, true, false);
+                    gl.glPopMatrix();
+
+                    // Flush all drawing operations to the graphics card
+                    gl.glFlush();
+                    
+                }  else if (bndKey == 3) {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.0f, -2.0f);
                     if (keys['U'] || keys['u']) {
@@ -818,7 +855,7 @@ public class Juego
 
             } else {
                 //Si es el fin del nivel
-                if (bndKey == 1 || bndKey == 2) //bndKey 2 es kingdice, pero no tiene caminar
+                if (bndKey == 1 ) //bndKey 2 es kingdice, pero no tiene caminar
                 {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.008f, -2.09f);
@@ -828,12 +865,22 @@ public class Juego
 
                     // Flush all drawing operations to the graphics card
                     gl.glFlush();
+                    
                 } else if (bndKey == 3) {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.0f, -2.0f);
                     cuphead.draw_cuphead(gl, false, false, false, false, true, false, false, false, false);
                     gl.glPopMatrix();
 
+                    // Flush all drawing operations to the graphics card
+                    gl.glFlush();
+                }else if (bndKey==2)
+                {
+                    gl.glPushMatrix();
+                    gl.glTranslatef(0.0f, 0.008f, -2.09f);
+                    gl.glScalef(0.65f, 0.65f, 0.65f);
+                   kingdice.draw_KingDice(gl, false, false, false, false, false, false,false,false);
+                    gl.glPopMatrix();
                     // Flush all drawing operations to the graphics card
                     gl.glFlush();
                 }
