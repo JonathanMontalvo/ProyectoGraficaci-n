@@ -214,7 +214,7 @@ public class Juego
         //we initialize the fonts
         switch (bndKey) {
             case 1:
-                this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
+                this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 30));
                 this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
                 this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
                 this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
@@ -704,7 +704,8 @@ public class Juego
                         pregunta.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                         switch (bndKey) {
                             case 1:
-                                pregunta.draw(preguntaNiv1, 10, 700);
+                                 pregunta.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+                                pregunta.draw(preguntaNiv1, 15, 700);
                                 break;
                             case 2:
                                 pregunta.draw(preguntaNiv1, 10, 700);
