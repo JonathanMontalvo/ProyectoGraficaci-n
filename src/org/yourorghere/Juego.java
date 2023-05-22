@@ -166,26 +166,7 @@ public class Juego
             iPiso = new File("src/Fondos/sueloCiudad.jpg");
             tPiso5 = TextureIO.newTexture(iPiso, true);
 
-            //Escenario6
-            iAtras = new File("src/Fondos/atrasCarretera.jpg");
-            tAtras6 = TextureIO.newTexture(iAtras, true);
-            iDerecha = new File("src/Fondos/ladoCarretera.jpg");
-            tDerecha6 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/ladoCarretera.jpg");
-            TIzquierda6 = TextureIO.newTexture(iIzquierda, true);
-            iPiso = new File("src/Fondos/sueloCarretera.jpg");
             tPiso6 = TextureIO.newTexture(iPiso, true);
-
-            //Escenario7
-            iAtras = new File("src/Fondos/desiertoAtras.jpg");
-            tAtras7 = TextureIO.newTexture(iAtras, true);
-            iDerecha = new File("src/Fondos/desiertoLados.jpg");
-            tDerecha7 = TextureIO.newTexture(iDerecha, true);
-            iIzquierda = new File("src/Fondos/desiertoLados.jpg");
-            TIzquierda7 = TextureIO.newTexture(iIzquierda, true);
-            iPiso = new File("src/Fondos/desiertoSuelo.jpg");
-            tPiso7 = TextureIO.newTexture(iPiso, true);
-
         } catch (IOException iOE) {
             System.out.println("Error en carga de imagen en juego");
         }
@@ -221,9 +202,9 @@ public class Juego
                 break;
             case 2:
                 this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 28));
-                this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
-                this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
-                this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 24));
+                this.respuesta1 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 22));
+                this.respuesta2 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 22));
+                this.respuesta3 = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 22));
                 break;
             case 3:
                 this.pregunta = new TextRenderer(new Font("Comic Sans MS", Font.BOLD, 42));
@@ -253,13 +234,7 @@ public class Juego
             cuphead.fondo(gl, glu, tDerecha3);
         } else if (bndKey==3) {
             cuphead.fondo(gl, glu, tDerecha1);
-        } else if (keys['5']) {
-            cuphead.fondo(gl, glu, tDerecha5);
-        } else if (keys['6']) {
-            cuphead.fondo(gl, glu, tDerecha6);
-        } else if (keys['7']) {
-            cuphead.fondo(gl, glu, tDerecha7);
-        } else {
+        }  else {
             cuphead.fondo(gl, glu, tDerecha1);
         }
         gl.glPopMatrix();
@@ -276,13 +251,7 @@ public class Juego
             cuphead.fondo(gl, glu, tDerecha3);
         } else if (bndKey==3) {
             cuphead.fondo(gl, glu, tDerecha1);
-        } else if (keys['5']) {
-            cuphead.fondo(gl, glu, tDerecha5);
-        } else if (keys['6']) {
-            cuphead.fondo(gl, glu, tDerecha6);
-        } else if (keys['7']) {
-            cuphead.fondo(gl, glu, tDerecha7);
-        } else {
+        }else {
             cuphead.fondo(gl, glu, tDerecha1);
         }
         gl.glPopMatrix();
@@ -299,12 +268,6 @@ public class Juego
             cuphead.fondo(gl, glu, TIzquierda3);
         } else if (bndKey==3) {
             cuphead.fondo(gl, glu, TIzquierda1);
-        } else if (keys['5']) {
-            cuphead.fondo(gl, glu, TIzquierda5);
-        } else if (keys['6']) {
-            cuphead.fondo(gl, glu, TIzquierda6);
-        } else if (keys['7']) {
-            cuphead.fondo(gl, glu, TIzquierda7);
         } else {
             cuphead.fondo(gl, glu, TIzquierda1);
         }
@@ -322,12 +285,6 @@ public class Juego
             cuphead.fondo(gl, glu, TIzquierda3);
         } else if (bndKey==3) {
             cuphead.fondo(gl, glu, TIzquierda1);
-        } else if (keys['5']) {
-            cuphead.fondo(gl, glu, TIzquierda5);
-        } else if (keys['6']) {
-            cuphead.fondo(gl, glu, TIzquierda6);
-        } else if (keys['7']) {
-            cuphead.fondo(gl, glu, TIzquierda7);
         } else {
             cuphead.fondo(gl, glu, TIzquierda1);
         }
@@ -345,12 +302,6 @@ public class Juego
             cuphead.fondo(gl, glu, tPiso3);
         } else if (bndKey==3) {
             cuphead.fondo(gl, glu, tPiso1);
-        } else if (keys['5']) {
-            cuphead.fondo(gl, glu, tPiso5);
-        } else if (keys['6']) {
-            cuphead.fondo(gl, glu, tPiso6);
-        } else if (keys['7']) {
-            cuphead.fondo(gl, glu, tPiso7);
         } else {
             cuphead.fondo(gl, glu, tPiso1);
         }
@@ -368,12 +319,6 @@ public class Juego
             cuphead.fondo(gl, glu, tPiso3);
         } else if (bndKey==3) {
             cuphead.fondo(gl, glu, tPiso1);
-        } else if (keys['5']) {
-            cuphead.fondo(gl, glu, tPiso5);
-        } else if (keys['6']) {
-            cuphead.fondo(gl, glu, tPiso6);
-        } else if (keys['7']) {
-            cuphead.fondo(gl, glu, tPiso7);
         } else {
             cuphead.fondo(gl, glu, tPiso1);
         }
@@ -389,13 +334,7 @@ public class Juego
             cuphead.fondo(gl, glu, tAtras3);
         } else if (bndKey==3) {
             cuphead.fondo(gl, glu, tAtras1);
-        } else if (keys['5']) {
-            cuphead.fondo(gl, glu, tAtras5);
-        } else if (keys['6']) {
-            cuphead.fondo(gl, glu, tAtras6);
-        } else if (keys['7']) {
-            cuphead.fondo(gl, glu, tAtras7);
-        } else {
+        }  else {
             cuphead.fondo(gl, glu, tAtras1);
         }
         gl.glPopMatrix();
@@ -421,8 +360,8 @@ public class Juego
             {
                 gl.glPushMatrix();
                 kingdice.cambioInstruccion(keys['W'], keys[' ']);
-                gl.glTranslatef(0.0f, 1.708f, -2.12f);
-                gl.glScalef(0.65f, 0.65f, 0.65f);
+                gl.glTranslatef(0.0f, 0.808f, -2.12f);
+                gl.glScalef(0.45f, 0.45f, 0.45f);
                 kingdice.draw_KingDice(gl, keys['W'], keys[' '], false, false, false, false, false, false);
                 gl.glPopMatrix();
 
@@ -596,7 +535,7 @@ public class Juego
                         this.respuestaPlayer = 2;
                     } else {
                     }
-                    gl.glScalef(0.65f, 0.65f, 0.65f);
+                    gl.glScalef(0.45f, 0.45f, 0.45f);
                     kingdice.draw_KingDice(gl, false, false, false, false, false, false, true, false);
                     gl.glPopMatrix();
 
@@ -696,7 +635,12 @@ public class Juego
 
                     if (!tiempoContador.equals("00:00:00")) {
                         contador.beginRendering(1000, 800);
-                        contador.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        if (bndKey==1)
+                        {
+                             contador.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+                        }else{
+                             contador.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        }                       
                         contador.draw(tiempoContador, 400, 750);
                         contador.endRendering();
 
@@ -708,24 +652,43 @@ public class Juego
                                 pregunta.draw(preguntaNiv1, 15, 700);
                                 break;
                             case 2:
+                                pregunta.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                                 pregunta.draw(preguntaNiv1, 10, 700);
                                 break;
                             case 3:
+                                pregunta.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                                 pregunta.draw(preguntaNiv1, 300, 700);
                                 break;
                         }
                         pregunta.endRendering();
 
                         seleccione.beginRendering(1000, 800);
-                        seleccione.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        if (bndKey==1 || bndKey==2)
+                        {
+                            seleccione.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+                        }else {
+                                seleccione.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        }
                         seleccione.draw("Presione una tecla para elegir su respuesta", 90, 120);
                         seleccione.endRendering();
 
-                        respuesta1.beginRendering(1000, 800);
-                        respuesta1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                           switch(bndKey)
+                           {
+                               case 1:
+                                   respuesta1.beginRendering(1000, 800);
+                                   respuesta1.setColor(1.0f, 1.0f, 0.0f, 1.0f);
+                                   break;
+                               case 2:
+                                   respuesta1.beginRendering(1300, 800);
+                                   respuesta1.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+                                   break;
+                               case 3:
+                                   respuesta1.beginRendering(1000, 800);
+                                    respuesta1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                                   break;
+                           }
                         respuesta1.draw(respuestaNiv1, 80, 170);
                         respuesta1.endRendering();
-
                         switch (bndKey) {
                             case 1:
                                 letra = "    U";
@@ -752,12 +715,28 @@ public class Juego
                         }
 
                         tecla1.beginRendering(1000, 800);
+                        if (bndKey==1 || bndKey==2)
+                        {
+                        tecla1.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+                        }else
+                        {
                         tecla1.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        }
                         tecla1.draw(letra, 80, 70);
                         tecla1.endRendering();
-
                         respuesta2.beginRendering(1000, 800);
-                        respuesta2.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        switch(bndKey)
+                        {
+                            case 1:
+                                respuesta2.setColor(1.0f, 1.0f, 0.0f, 1.0f);
+                                break;
+                            case 2:
+                                respuesta2.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+                                break;
+                            case 3:
+                                respuesta2.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                                break;
+                        }
                         respuesta2.draw(respuestaNiv2, 420, 170);
                         respuesta2.endRendering();
                         switch (bndKey) {
@@ -786,12 +765,27 @@ public class Juego
                         }
 
                         tecla2.beginRendering(1000, 800);
-                        tecla2.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        if (bndKey==1 || bndKey==2)
+                        {
+                        tecla2.setColor(0.0f, 0.0f, 0.0f, 1.0f);    
+                        }else{
+                        tecla2.setColor(1.0f, 1.0f, 1.0f, 1.0f);    
+                        } 
                         tecla2.draw(letra, 420, 70);
                         tecla2.endRendering();
-
                         respuesta3.beginRendering(1000, 800);
-                        respuesta3.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        switch(bndKey)
+                        {
+                            case 1:
+                                respuesta3.setColor(1.0f, 1.0f, 0.0f, 1.0f);
+                                break;
+                            case 2:
+                                respuesta3.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+                                break;
+                            case 3:
+                                respuesta3.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                                break;
+                        }
                         respuesta3.draw(respuestaNiv3, 760, 170);
                         respuesta3.endRendering();
 
@@ -821,13 +815,17 @@ public class Juego
                         }
 
                         tecla3.beginRendering(1000, 800);
-                        tecla3.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+                        if (bndKey==1 || bndKey==2)
+                        {
+                         tecla3.setColor(0.0f, 0.0f, 0.0f, 1.0f);   
+                        }else 
+                        {
+                        tecla3.setColor(1.0f, 1.0f, 1.0f, 1.0f);    
+                        }
                         tecla3.draw(letra, 760, 70);
                         tecla3.endRendering();
                     }
-
                     if (mostrarVentanaPerder) {
-
                         finT = true;
                         //La respuesta correcta esta en el número de respuestaCorrecta(Inicia desde 0 y términa en 2)
                         if (respuestaCorrecta == respuestaPlayer) {
@@ -879,7 +877,7 @@ public class Juego
                 {
                     gl.glPushMatrix();
                     gl.glTranslatef(0.0f, 0.008f, -2.09f);
-                    gl.glScalef(0.65f, 0.65f, 0.65f);
+                    gl.glScalef(0.45f, 0.45f, 0.45f);
                    kingdice.draw_KingDice(gl, false, false, false, false, false, false,false,false);
                     gl.glPopMatrix();
                     // Flush all drawing operations to the graphics card
