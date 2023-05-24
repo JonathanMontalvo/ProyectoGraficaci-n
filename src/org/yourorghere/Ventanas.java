@@ -20,6 +20,7 @@ import static org.yourorghere.Main.reiniciar;
 import static org.yourorghere.Main.nivelActual;
 import static org.yourorghere.Main.pasoNivel2;
 import static org.yourorghere.Main.pasoNivel3;
+import static org.yourorghere.Main.musVic;
 
 /**
  *
@@ -70,7 +71,7 @@ public class Ventanas extends JFrame
         add(panelTitulo, "North");
     }
 
-    public void ventanaFinNivel1_2()
+    public void ventanaFinNivel_1_2_3()
     {
         // Crear el panel con GridBagLayout
         JPanel panel = new JPanel(new GridBagLayout());
@@ -99,13 +100,15 @@ public class Ventanas extends JFrame
         gbc.anchor = gbc.anchor = GridBagConstraints.NORTH;
         panel.add(label, gbc);
 
-        // Configurar el Botón 1 en la segunda fila
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 10, 10, 5);
-        gbc.anchor = GridBagConstraints.CENTER;
-        panel.add(boton1, gbc);
+        if (nivelActual() != 1) {
+            // Configurar el Botón 1 en la segunda fila
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            gbc.gridwidth = 1;
+            gbc.insets = new Insets(0, 10, 10, 5);
+            gbc.anchor = GridBagConstraints.CENTER;
+            panel.add(boton1, gbc);
+        }
 
         // Configurar el Botón 2 en la segunda fila
         gbc.gridx = 1;
@@ -119,31 +122,32 @@ public class Ventanas extends JFrame
 
         //Mostrar la ventana
         setVisible(true);
-
-        // Agregar listeners a los botones
-        boton1.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
+        musVic();
+        if (nivelActual() != 1) {
+            // Agregar listeners a los botones
+            boton1.addActionListener(new ActionListener()
             {
-                switch (nivelActual()) {
-                    case 2:
-                        pasoNivel3();
-                        reiniciar();
-                        dispose();
-                        break;
-                    case 3:
-                        pasoNivel2();
-                        reiniciar();
-                        dispose();
-                        break;
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    switch (nivelActual()) {
+                        case 2://Este es el nivel 2 y paso al 3
+                            pasoNivel3();
+                            reiniciar();
+                            dispose();
+                            break;
+                        case 3://Este es el nivel 1 y paso al 2
+                            pasoNivel2();
+                            reiniciar();
+                            dispose();
+                            break;
 
+                    }
+                    System.out.println("Cargando Nivel 2");
+                    dispose();
                 }
-                System.out.println("Cargando Nivel 2");
-                dispose();
-            }
-        });
-
+            });
+        }
         boton2.addActionListener(new ActionListener()
         {
             @Override

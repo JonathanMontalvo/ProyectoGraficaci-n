@@ -55,22 +55,12 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     //sound
     private static Clip clip;
-    private static final String normal = "src/Sonidos/normal.wav";
-    private static final String caminar = "src/Sonidos/caminar.wav";
-    private static final String saltar = "src/Sonidos/saltar.wav";
-    private static final String agacharse = "src/Sonidos/agacharse.wav";
-    private static final String apuntar = "src/Sonidos/knockout.wav";
-    private static final String bailar = "src/Sonidos/bailar.wav";
-    private static final String cintura = "src/Sonidos/cintura.wav";
-    private static final String cara = "src/Sonidos/cara.wav";
-    private static final String notnot = "src/Sonidos/Pingu Sound - Noot Noot.wav";
-    private static final String saltar2 = "src/Sonidos/Penguin - Sound Effect _ ProSounds.wav";
-    private static final String enojado = "src/Sonidos/Tom Screaming Sound Effect (From Tom and Jerry).wav";
-    private static final String guniar = "src/Sonidos/Bonitos y Gorditos.wav";
-    private static final String mrs = "src/Sonidos/mrbeast sound effect.wav";
-    private static final String mimido = "src/Sonidos/Pinche gato zzz.wav";
-    private static final String rola = "src/Sonidos/SE.wav";
-    private static final String rola2 = "src/Sonidos/SE.wav";
+    private static final String menu_musica = "src/Sonidos/1.wav";
+    private static final String cuphead_musica = "src/Sonidos/cuphead.wav";
+    private static final String kingdice_musica = "src/Sonidos/king.wav";
+    private static final String pingu_musica = "src/Sonidos/pin.wav";
+    private static final String pregunta_musica = "src/Sonidos/pregunta.wav";
+    private static final String victoria_musica = "src/Sonidos/victoria.wav";
 
     //Game
     private static final Juego juego = new Juego();
@@ -139,8 +129,11 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
         if (menuActivo) {
             glu.gluPerspective(75.0f, h, 1.0, 20.0);
+            parar();
+            reproducir(menu_musica);
         } else if (juegoActivo) {
             glu.gluPerspective(45.0f, h, 1.0, 20.0);
+
         }
 
         gl.glMatrixMode(GL.GL_MODELVIEW);
@@ -340,43 +333,16 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                 }
                 break;
         }
-        /*if (e.getKeyChar() == 'I' || e.getKeyChar() == 'i') {
-         zoom = -1.0f;
-         } else if (e.getKeyChar() == 'O' || e.getKeyChar() == 'o') {
-         zoom = 1.0f;
-         } else if (e.getKeyChar() == 'N' || e.getKeyChar() == 'n') {
-         zoom = 0.0f;
-         abajoYarriba = 0.0f;
-         izquierdaYderecha = 0.0f;
-         } else if (e.getKeyCode() == 37)//Izquierda 
-         {
-         izquierdaYderecha = 1.0f;
-         } else if (e.getKeyCode() == 38) //Arriba
-         {
-         abajoYarriba = 3.0f;
-         } else if (e.getKeyCode() == 39) //Derecha
-         {
-         izquierdaYderecha = -1.0f;
-         } else if (e.getKeyCode() == 40) //Abajo
-         {
-         abajoYarriba = 2.0f;
-         } else*/
         if (e.getKeyChar() == 'H' || e.getKeyChar() == 'h') {
-            JOptionPane.showMessageDialog(null, "Presiona \"W\" para caminar.\n"
-                    + "Presiona la \" Barra de Espacio\" para saltar.\n"
-                    + "Presiona \"C\" para agacharse.\n"
-                    + "Presiona \"E\" para apuntar.\n"
-                    + "Presiona \"B\" para bailar.\n"
-                    + "Presiona \"Q\" para poner las manos en la cintura.\n"
-                    + "Presiona \"F\" para poner la mano en la cara.\n"
-                    + "\nPresiona del \"1-7\" para cambiar de escenario\n"
-                    + "\nPresiona \"N\" para dejar la cámara normal.\n"
-                    + "Presiona \"I\" para hacer zoom in.\n"
-                    + "Presiona \"O\" para hacer zoom out.\n"
-                    + "Presiona \"Flecha Arriba\" para mover la cámara a arriba.\n"
-                    + "Presiona \"Flecha Abajo\" para mover la cámara a abajo.\n"
-                    + "Presiona \"Flecha Izquierda\" para mover la cámara a la izquierda.\n"
-                    + "Presiona \"Flecha Derecha\" para mover la cámara a la derecha.",
+            JOptionPane.showMessageDialog(null, "Presiona la \" Barra de Espacio\" para saltar.\n"
+                    + "Presiona \"Ctrl\" para agacharse.\n"
+                    + "Presiona \"U\" para elegir una respuesta.\n"
+                    + "Presiona \"I\" para elegir una respuesta.\n"
+                    + "Presiona \"O\" para elegir una respuestan"
+                    + "Presiona \"C\" para elegir el nivel 1.\n"
+                    + "Presiona \"X\" para elegir el nivel 2.\n"
+                    + "Presiona \"Z\" para elegir el nivel 3.\n"
+                    + "Presiona \"P\" para iniciar a jugar.\n",
                     "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
         } else if (e.getKeyChar() == 'A' || e.getKeyChar() == 'a') {
             JOptionPane.showMessageDialog(null, "Desarrollado por: \nHernandez Vazquez Bryan."
@@ -384,39 +350,12 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
                     + "\nSalinas Diaz Jose Guillermo.",
                     "Desarrollador", JOptionPane.INFORMATION_MESSAGE);
         }
-        if (e.getKeyChar() == 'W' || e.getKeyChar() == 'w') {
-            parar();
-            reproducir(caminar);
-        } else if (e.getKeyChar() == ' ') {
-            parar();
-            reproducir(saltar);
-        } else if (e.getKeyChar() == 'C' || e.getKeyChar() == 'c') {
-            parar();
-            // reproducir(agacharse);
-        } else if (e.getKeyChar() == 'E' || e.getKeyChar() == 'e') {
-            parar();
-            reproducir(apuntar);
-        } else if (e.getKeyChar() == 'B' || e.getKeyChar() == 'b') {
-            parar();
-            reproducir(bailar);
-        } else if (e.getKeyChar() == 'Q' || e.getKeyChar() == 'q') {
-            parar();
-            reproducir(cintura);
-        } else if (e.getKeyChar() == 'F' || e.getKeyChar() == 'f') {
-            parar();
-            reproducir(cara);
-        } else if (e.getKeyChar() == 'G' || e.getKeyChar() == 'g') {
-            parar();
-            reproducir(normal);
-        } else if (e.getKeyChar() == 'S' || e.getKeyChar() == 's') {
-            parar();
-        }
     }
 
     public static void jMISonidoEncendidoMouseClicked(ActionEvent e)
     {
         parar();
-        reproducir(agacharse);
+        reproducir(menu_musica);
     }
 
     public static void jMISonidoApagadoMouseClicked(ActionEvent e)
@@ -454,22 +393,15 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
 
     public static void jMInstruccionesMouseClicked(MouseEvent e)
     {
-        JOptionPane.showMessageDialog(null, "Presiona \"W\" para caminar.\n"
-                + "Presiona la \" Barra de Espacio\" para saltar.\n"
-                + "Presiona \"C\" para agacharse.\n"
-                + "Presiona \"E\" para apuntar.\n"
-                + "Presiona \"B\" para bailar.\n"
-                + "Presiona \"Q\" para poner las manos en la cintura.\n"
-                + "Presiona \"F\" para poner la mano en la cara.\n"
-                + "\nPresiona del \"1-7\" para cambiar de escenario\n"
-                + "\nPresiona \"N\" para dejar la camara normal.\n"
-                + "Presiona \"I\" para hacer zoom in.\n"
-                + "Presiona \"O\" para hacer zoom out.\n"
-                + "Presiona \"Flecha Arriba\" para mover la camara a arriba.\n"
-                + "Presiona \"Flecha Abajo\" para mover la camara a abajo.\n"
-                + "Presiona \"Flecha Izquierda\" para mover la camara a la izquierda.\n"
-                + "Presiona \"Flecha Derecha\" para mover la camara a la derecha.\n"
-                + "Para acercar o alejar la camara usa la RUEDITA del raton.",
+        JOptionPane.showMessageDialog(null, "Presiona la \" Barra de Espacio\" para saltar.\n"
+                + "Presiona \"Ctrl\" para agacharse.\n"
+                + "Presiona \"U\" para elegir una respuesta.\n"
+                + "Presiona \"I\" para elegir una respuesta.\n"
+                + "Presiona \"O\" para elegir una respuestan"
+                + "Presiona \"C\" para elegir el nivel 1.\n"
+                + "Presiona \"X\" para elegir el nivel 2.\n"
+                + "Presiona \"Z\" para elegir el nivel 3.\n"
+                + "Presiona \"P\" para iniciar a jugar.\n",
                 "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -503,10 +435,23 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         menu.quitarParteMain(frame, bndKey);
         frame.setVisible(true);
         desactivarTeclas();
+        parar();
+        switch (bndKey) {
+            case 1:
+                reproducir(pingu_musica);
+                break;
+            case 2:
+                reproducir(kingdice_musica);
+                break;
+            case 3:
+                reproducir(cuphead_musica);
+                break;
+        }
     }
 
     public static void regresoMenu()
     {
+        parar();
         menuActivo = true;
         juegoActivo = false;
         frame.dispose();
@@ -525,6 +470,18 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
         juego.reiniciarJuego();
         frame.setVisible(true);
         desactivarTeclas();
+        parar();
+        switch (bndKey) {
+            case 1:
+                reproducir(pingu_musica);
+                break;
+            case 2:
+                reproducir(kingdice_musica);
+                break;
+            case 3:
+                reproducir(cuphead_musica);
+                break;
+        }
     }
 
     public static int nivelActual()
@@ -541,7 +498,17 @@ public class Main implements GLEventListener, MouseListener, MouseMotionListener
     {
         Main.bndKey = 1;
     }
-
+    
+    public static void musVic(){
+        parar();
+        reproducir(victoria_musica);
+    }
+    
+    public static void musPregu(){
+        parar();
+        reproducir(pregunta_musica);
+    }
+    
     public static void main(String[] args)
     {
         frame = new JFrame("Menu");

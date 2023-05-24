@@ -889,13 +889,13 @@ public class Juego
 
                     if (bndKey == 3) {
                         Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 1!", 800, 400, false);
-                        ventanaN1.ventanaFinNivel1_2();
+                        ventanaN1.ventanaFinNivel_1_2_3();
                     } else if (bndKey == 2) {
                         Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 2!", 800, 400, false);
-                        ventanaN1.ventanaFinNivel1_2();
+                        ventanaN1.ventanaFinNivel_1_2_3();
                     } else if (bndKey == 1) {
-                        /*Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 1!", 800, 400, false);
-                         ventanaN1.ventanaFinNivel1_2();*/
+                        Ventanas ventanaN1 = new Ventanas("¡Felicidades termino el nivel 3!", 800, 400, false);
+                        ventanaN1.ventanaFinNivel_1_2_3();
                     }
                 }
             }

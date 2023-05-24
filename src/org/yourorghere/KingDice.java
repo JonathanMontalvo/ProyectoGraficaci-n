@@ -11,7 +11,8 @@ import static org.yourorghere.Main.cambiarEspacio;
  *
  * @author Guillermo Diaz
  */
-public class KingDice {
+public class KingDice
+{
 
     //precision and global variables
     private static final int SLICES = 40;
@@ -52,13 +53,15 @@ public class KingDice {
     private static final float BOTTOM_BODY = 0.35f;
     private static final float BOTTOM_SHORT_LEGS = 0.1f;
 
-   private static boolean cam = false;
+    private static boolean cam = false;
     private static boolean salt = false;
     private static boolean pieDer = false;
     private static boolean pieIzq = false;
 //orden de los movimientos
+
     public void draw_KingDice(GL gl, boolean caminar, boolean brincar, boolean guinio, boolean triste, boolean serio, boolean enojado, boolean muerto,
-            boolean feliz) {
+            boolean feliz)
+    {
         set_white_material(gl);
         GLU glu = new GLU();
         q = glu.gluNewQuadric();
@@ -67,11 +70,11 @@ public class KingDice {
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
         //Camina
         //Cuphead only jumps once
-        if (KingDice.mvt >= 40 && brincar) {
+        if (KingDice.mvt >= 20 && brincar) {
             cambiarEspacio(false);
         }
         //Cuphead is walking
-        if (caminar && mvt % 32 + 16 > 31) {
+        if (caminar && mvt % 12 + 6 > 11) {
             KingDice.pieDer = true;
             KingDice.pieIzq = false;
             dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
@@ -112,7 +115,7 @@ public class KingDice {
             boxC(gl);
             gl.glPopMatrix();
             set_white_material(gl);
-        } else if (caminar &&  mvt % 32 + 16 <= 31) {
+        } else if (caminar && mvt % 12 + 6 <= 11) {
             KingDice.pieDer = false;
             KingDice.pieIzq = true;
             dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
@@ -153,10 +156,10 @@ public class KingDice {
             boxC(gl);
             gl.glPopMatrix();
             set_white_material(gl);
-        } else if (brincar &&  mvt % 80 + 40 <= 7) {
+        } else if (brincar && mvt % 40 + 20 <= 39) {
             KingDice.pieDer = false;
             KingDice.pieIzq = false;
-            gl.glTranslatef(0f, 1.5f, 0.0f);//(-izq+der,-abajo +arriba,-atras+enfrente)  
+            gl.glTranslatef(0f, 2.5f, 0.0f);//(-izq+der,-abajo +arriba,-atras+enfrente)  
             //feliz, enojado, serio, sorpresa, triste, ginio, muerto, miedo
             dibujar_Cabeza(gl, glu, false, false, false, true, false, false, false, false);
             dibujar_Cuerpo(gl, glu);
@@ -239,96 +242,96 @@ public class KingDice {
             gl.glRotatef(120f, 0f, 0f, 1f);
             dibujar_Brazo_Derecho(gl, glu);
         } else {
-            if (mvt % 32 + 16 > 31)
-            {
-                      KingDice.pieDer = true;
-            KingDice.pieIzq = false;
-             dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
-            dibujar_Cuerpo(gl, glu);
-            //brazo izquierdo atras derecho adelante            
-            dibujar_Brazo_Izquierdo(gl, glu);
-            gl.glPushMatrix();
-            gl.glTranslatef(0f, 1.33f, -1.35f);//(-Izq+Der,-atras+enfrente,-abajo +arriba,)
-            gl.glRotatef(60f, 1f, 0f, 0f);
-            dibujar_Brazo_Derecho(gl, glu);
-            gl.glPopMatrix();
+            if (mvt % 12 + 6 > 11) {
+                KingDice.pieDer = true;
+                KingDice.pieIzq = false;
+                dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
+                dibujar_Cuerpo(gl, glu);
+                //brazo izquierdo atras derecho adelante            
+                dibujar_Brazo_Izquierdo(gl, glu);
+                gl.glPushMatrix();
+                gl.glTranslatef(0f, 1.33f, -1.35f);//(-Izq+Der,-atras+enfrente,-abajo +arriba,)
+                gl.glRotatef(60f, 1f, 0f, 0f);
+                dibujar_Brazo_Derecho(gl, glu);
+                gl.glPopMatrix();
 //pierna derecha atras izquierda adelante
-            gl.glPushMatrix();
-            gl.glTranslatef(0f, .5f, .2f);
-            gl.glRotatef(40f, 1f, 0f, 0f);
-            pierna_izquierda(gl, glu, true);
-            gl.glPopMatrix();
+                gl.glPushMatrix();
+                gl.glTranslatef(0f, .5f, .2f);
+                gl.glRotatef(40f, 1f, 0f, 0f);
+                pierna_izquierda(gl, glu, true);
+                gl.glPopMatrix();
 //pierna izquierda atras derecha adelante
-            gl.glPushMatrix();
-            gl.glRotatef(340f, 1f, 0f, 0f);
-            pierna_derecha(gl, glu, true);
-            gl.glPopMatrix();
+                gl.glPushMatrix();
+                gl.glRotatef(340f, 1f, 0f, 0f);
+                pierna_derecha(gl, glu, true);
+                gl.glPopMatrix();
             //ZAPATITOS
-            //Izquierdo
-            gl.glPushMatrix();
-            set_black_material(gl);
-            gl.glRotatef(340f, 1f, 0f, 0f);
-            gl.glTranslatef(.81f, -2.29f, .2f);
-            gl.glScalef(.61f, 0.2f, 0.9f);
-            boxC(gl);
-            gl.glPopMatrix();
-            //Derecha
-            gl.glPushMatrix();
-            set_black_material(gl);
-            gl.glRotatef(40f, 1f, 0f, 0f);
-            gl.glTranslatef(0.0999f, -1.8f, 0.0f); //+derecha,+arriba,+frente
-            gl.glScalef(.61f, 0.2f, 0.9f);
-            boxC(gl);
-            gl.glPopMatrix();
-            set_white_material(gl);   
-            }else if( mvt % 32 + 16 <= 31) {
+                //Izquierdo
+                gl.glPushMatrix();
+                set_black_material(gl);
+                gl.glRotatef(340f, 1f, 0f, 0f);
+                gl.glTranslatef(.81f, -2.29f, .2f);
+                gl.glScalef(.61f, 0.2f, 0.9f);
+                boxC(gl);
+                gl.glPopMatrix();
+                //Derecha
+                gl.glPushMatrix();
+                set_black_material(gl);
+                gl.glRotatef(40f, 1f, 0f, 0f);
+                gl.glTranslatef(0.0999f, -1.8f, 0.0f); //+derecha,+arriba,+frente
+                gl.glScalef(.61f, 0.2f, 0.9f);
+                boxC(gl);
+                gl.glPopMatrix();
+                set_white_material(gl);
+            } else if (mvt % 12 + 6 <= 11) {
                 KingDice.pieDer = false;
-            KingDice.pieIzq = true;
-            dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
-            dibujar_Cuerpo(gl, glu);
-            //brazo izquierdo atras derecho adelante            
-            dibujar_Brazo_Derecho(gl, glu);
-            gl.glPushMatrix();
-            gl.glTranslatef(0f, 1.33f, -1.35f);//(-Izq+Der,-atras+enfrente,-abajo +arriba,)
-            gl.glRotatef(60f, 1f, 0f, 0f);
-            dibujar_Brazo_Izquierdo(gl, glu);
-            gl.glPopMatrix();
+                KingDice.pieIzq = true;
+                dibujar_Cabeza(gl, glu, true, false, false, false, false, false, false, false);
+                dibujar_Cuerpo(gl, glu);
+                //brazo izquierdo atras derecho adelante            
+                dibujar_Brazo_Derecho(gl, glu);
+                gl.glPushMatrix();
+                gl.glTranslatef(0f, 1.33f, -1.35f);//(-Izq+Der,-atras+enfrente,-abajo +arriba,)
+                gl.glRotatef(60f, 1f, 0f, 0f);
+                dibujar_Brazo_Izquierdo(gl, glu);
+                gl.glPopMatrix();
 //pierna derecha atras izquierda adelante
-            gl.glPushMatrix();
-            gl.glTranslatef(0f, .5f, .2f);
-            gl.glRotatef(40f, 1f, 0f, 0f);
-            pierna_derecha(gl, glu, true);
-            gl.glPopMatrix();
+                gl.glPushMatrix();
+                gl.glTranslatef(0f, .5f, .2f);
+                gl.glRotatef(40f, 1f, 0f, 0f);
+                pierna_derecha(gl, glu, true);
+                gl.glPopMatrix();
 //pierna izquierda atras derecha adelante
-            gl.glPushMatrix();
-            gl.glRotatef(340f, 1f, 0f, 0f);
-            pierna_izquierda(gl, glu, true);
-            gl.glPopMatrix();
+                gl.glPushMatrix();
+                gl.glRotatef(340f, 1f, 0f, 0f);
+                pierna_izquierda(gl, glu, true);
+                gl.glPopMatrix();
             //ZAPATITOS
-            //Izquierdo
-            gl.glPushMatrix();
-            set_black_material(gl);
-            gl.glRotatef(40f, 1f, 0f, 0f);
-            gl.glTranslatef(.81f, -1.8f, 0.0f);
-            gl.glScalef(.61f, 0.2f, 0.9f);
-            boxC(gl);
-            gl.glPopMatrix();
-            //Derecha
-            gl.glPushMatrix();
-            set_black_material(gl);
-            gl.glRotatef(340f, 1f, 0f, 0f);
-            gl.glTranslatef(0.0999f, -2.29f, 0.2f); //+derecha,+arriba,+frente
-            gl.glScalef(.61f, 0.2f, 0.9f);
-            boxC(gl);
-            gl.glPopMatrix();
-            set_white_material(gl);
+                //Izquierdo
+                gl.glPushMatrix();
+                set_black_material(gl);
+                gl.glRotatef(40f, 1f, 0f, 0f);
+                gl.glTranslatef(.81f, -1.8f, 0.0f);
+                gl.glScalef(.61f, 0.2f, 0.9f);
+                boxC(gl);
+                gl.glPopMatrix();
+                //Derecha
+                gl.glPushMatrix();
+                set_black_material(gl);
+                gl.glRotatef(340f, 1f, 0f, 0f);
+                gl.glTranslatef(0.0999f, -2.29f, 0.2f); //+derecha,+arriba,+frente
+                gl.glScalef(.61f, 0.2f, 0.9f);
+                boxC(gl);
+                gl.glPopMatrix();
+                set_white_material(gl);
             }
         }
         mvt++;
     }
 
     public void dibujar_Cabeza(GL gl, GLU glu, boolean feliz, boolean enojado, boolean serio, boolean sorpresa, boolean triste,
-            boolean ginio, boolean muerto, boolean miedo) {
+            boolean ginio, boolean muerto, boolean miedo)
+    {
         set_white_head_material(gl);
         gl.glBegin(GL.GL_POLYGON);/* f1: front */
 
@@ -1158,7 +1161,8 @@ public class KingDice {
         glu.gluDisk(q, -0.12f, BOTTOM_WHITE_STRAW, SLICES, STACKS);
     }
 
-    public void dibujar_Brazo_Derecho(GL gl, GLU glu) {
+    public void dibujar_Brazo_Derecho(GL gl, GLU glu)
+    {
         //Creamos los hombro y el brazo
         set_purpura3_material(gl);
         gl.glPushMatrix();
@@ -1185,7 +1189,8 @@ public class KingDice {
         gl.glPopMatrix();
     }
 
-    public void dibujar_Brazo_Izquierdo(GL gl, GLU glu) {
+    public void dibujar_Brazo_Izquierdo(GL gl, GLU glu)
+    {
         //Creamos el hombro y el brazo
         set_purpura3_material(gl);
         gl.glPushMatrix();
@@ -1212,7 +1217,8 @@ public class KingDice {
         gl.glPopMatrix();
     }
 
-    public void draw_torus(GL gl, float R, float r, int N, int n) {
+    public void draw_torus(GL gl, float R, float r, int N, int n)
+    {
 
         int maxn = 1000;
         n = Math.min(n, maxn - 1);
@@ -1247,7 +1253,8 @@ public class KingDice {
         }
     }
 
-    public void boxC(GL gl) {
+    public void boxC(GL gl)
+    {
         gl.glBegin(GL.GL_POLYGON);/* f1: front */
 
         gl.glNormal3f(-1.0f, 0.0f, 0.0f);
@@ -1299,7 +1306,8 @@ public class KingDice {
 
     }
 
-    public void dibujar_Cuerpo(GL gl, GLU glu) {
+    public void dibujar_Cuerpo(GL gl, GLU glu)
+    {
         // Creamos el cuello
         set_purpura3_material(gl);
         gl.glPushMatrix();
@@ -1315,6 +1323,7 @@ public class KingDice {
         //Cuerpo
         gl.glTranslatef(-0.5f, -2f, 0f);//(H,V,f)
         gl.glBegin(GL.GL_POLYGON);/* f3:arriba */
+
         gl.glNormal3f(1.0f, 0.0f, 0.0f);
         gl.glVertex3f(1.5f, 1.0f, 0.0f);
         gl.glVertex3f(1.5f, 1.0f, 1.0f);
@@ -1324,6 +1333,7 @@ public class KingDice {
 
         gl.glTranslatef(0.0f, -1f, 0f);//(-H+,V,f)
         gl.glBegin(GL.GL_POLYGON);/* f4: frente */
+
         gl.glNormal3f(0.0f, 0.0f, 1.0f);
         gl.glVertex3f(1.5f, 2f, 1.0f);
         gl.glVertex3f(1.5f, 0.0f, 1.0f);
@@ -1332,6 +1342,7 @@ public class KingDice {
         gl.glEnd();
 
         gl.glBegin(GL.GL_POLYGON);/* f1: abajo */
+
         gl.glNormal3f(-1.0f, 0.0f, 0.0f);
         gl.glVertex3f(0.0f, 0.0f, 0.0f);
         gl.glVertex3f(0.0f, 0.0f, 1.0f);
@@ -1340,6 +1351,7 @@ public class KingDice {
         gl.glEnd();
 
         gl.glBegin(GL.GL_POLYGON);/* f2: atras */
+
         gl.glNormal3f(0.0f, 0.0f, -1.0f);
         gl.glVertex3f(0.0f, 0.0f, 0.0f);
         gl.glVertex3f(1.5f, 0.0f, 0.0f);
@@ -1349,6 +1361,7 @@ public class KingDice {
 
         gl.glTranslatef(0.0f, 0f, 0f);//(-H+,V,f)
         gl.glBegin(GL.GL_POLYGON);/* f5: left */
+
         gl.glNormal3f(0.0f, 1.0f, 0.0f);
         gl.glVertex3f(0.0f, 0.0f, 0.0f);
         gl.glVertex3f(0.0f, 2.0f, 0.0f);
@@ -1357,6 +1370,7 @@ public class KingDice {
         gl.glEnd();
 
         gl.glBegin(GL.GL_POLYGON);/* f6: right */
+
         gl.glNormal3f(0.0f, -1.0f, 0.0f);
         gl.glVertex3f(1.5f, 0.0f, 0.0f);
         gl.glVertex3f(1.5f, 0.0f, 1.0f);
@@ -1365,7 +1379,8 @@ public class KingDice {
         gl.glEnd();
     }
 
-    public void pierna_derecha(GL gl, GLU glu, boolean pd) {
+    public void pierna_derecha(GL gl, GLU glu, boolean pd)
+    {
         if (pd == true) {
             gl.glPushMatrix();
             set_purpuraF_material(gl);//Pierna derecha
@@ -1379,7 +1394,8 @@ public class KingDice {
         set_white_material(gl);
     }
 
-    public void pierna_izquierda(GL gl, GLU glu, boolean pi) {
+    public void pierna_izquierda(GL gl, GLU glu, boolean pi)
+    {
         set_purpuraF_material(gl);
         if (pi == true) {
             gl.glPushMatrix();
@@ -1393,7 +1409,8 @@ public class KingDice {
         }
     }
 
-    public void dibujar_Piernas(GL gl, GLU glu, char c, boolean izquierda) {
+    public void dibujar_Piernas(GL gl, GLU glu, char c, boolean izquierda)
+    {
         pierna_derecha(gl, glu, true);
         pierna_izquierda(gl, glu, true);
 //zapatos
@@ -1414,7 +1431,8 @@ public class KingDice {
         set_white_material(gl);
     }
 
-    public void set_skin_material(GL gl) {
+    public void set_skin_material(GL gl)
+    {
         float[] mat_ambient = {1.0f, 0.79f, 0.68f, 0.0f};
         float[] mat_diffuse = {0.59f, 0.44f, 0.41f, 0.0f};
         float shine = 128f;
@@ -1425,7 +1443,8 @@ public class KingDice {
 
     }
 
-    public void set_shirt_material(GL gl) {
+    public void set_shirt_material(GL gl)
+    {
         float mat_ambient[] = {0.5f, 0.45f, 0.3f, 1.0f};
         float[] mat_diffuse = {0.8f, 0.8f, 0.8f, 1.0f};
         float mat_specular[] = {0.4f, 0.3f, 0.2f, 1.0f};
@@ -1436,7 +1455,8 @@ public class KingDice {
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
 
-    public void set_red_material(GL gl) {
+    public void set_red_material(GL gl)
+    {
 
         float[] mat_ambient = {0.8f, 0.05f, 0.15f, 0.2f};
         float[] mat_diffuse = {0.4f, 0.4f, 0.4f, 1.0f};
@@ -1450,7 +1470,8 @@ public class KingDice {
 
     }
 
-    public void set_green_material(GL gl) {
+    public void set_green_material(GL gl)
+    {
 
         float[] mat_ambient = {0.5f, 0.7f, 0.25f, 0.2f};
         float[] mat_diffuse = {0.4f, 0.4f, 0.4f, 1.0f};
@@ -1464,7 +1485,8 @@ public class KingDice {
 
     }
 
-    public void set_purpura_material(GL gl) {
+    public void set_purpura_material(GL gl)
+    {
 
         float mat_ambient[] = {0.2f, 0.2f, 0.8f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -1478,7 +1500,8 @@ public class KingDice {
 
     }
 
-    public void set_purpura2_material(GL gl) {
+    public void set_purpura2_material(GL gl)
+    {
         float mat_ambient[] = {0.45f, 0.35f, 0.75f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
@@ -1489,7 +1512,8 @@ public class KingDice {
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
 
-    public void set_purpuraF_material(GL gl) {
+    public void set_purpuraF_material(GL gl)
+    {
         float mat_ambient[] = {0.50196078431f, 0.0f, 0.50196078431f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
@@ -1500,7 +1524,8 @@ public class KingDice {
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
 
-    public void set_purpura3_material(GL gl) {
+    public void set_purpura3_material(GL gl)
+    {
         float mat_ambient[] = {0.6f, 0.55f, 0.75f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
@@ -1511,7 +1536,8 @@ public class KingDice {
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
 
-    public void set_white_material(GL gl) {
+    public void set_white_material(GL gl)
+    {
 
         float mat_ambient[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -1525,7 +1551,8 @@ public class KingDice {
 
     }
 
-    public void set_blue_material(GL gl) {
+    public void set_blue_material(GL gl)
+    {
 
         float mat_ambient[] = {0.4f, 0.2f, 0.6f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -1539,7 +1566,8 @@ public class KingDice {
 
     }
 
-    public void set_white_head_material(GL gl) {
+    public void set_white_head_material(GL gl)
+    {
 
         float mat_ambient[] = {0.8f, 0.8f, 0.8f, 1.5f};
         float mat_diffuse[] = {0.8f, 0.8f, 0.8f, 1.5f};
@@ -1553,7 +1581,8 @@ public class KingDice {
 
     }
 
-    public void set_black_material(GL gl) {
+    public void set_black_material(GL gl)
+    {
 
         float mat_ambient[] = {0.0f, 0.0f, 0.0f, 1.0f};
         float mat_diffuse[] = {0.0f, 0.0f, 0.0f, 1.0f};
@@ -1567,7 +1596,8 @@ public class KingDice {
 
     }
 
-    public void fondo(GL gl, GLU glu, Texture t) {
+    public void fondo(GL gl, GLU glu, Texture t)
+    {
         int m = t.getTextureObject();
         gl.glEnable(GL.GL_TEXTURE_2D);
         gl.glBindTexture(GL.GL_TEXTURE_2D, m);
@@ -1589,6 +1619,7 @@ public class KingDice {
         gl.glDisable(GL.GL_TEXTURE_2D);
         gl.glFlush();
     }
+
     public void cambioInstruccion(boolean caminar, boolean saltar)
     {
         if (KingDice.cam != caminar || KingDice.salt != saltar) {
@@ -1597,11 +1628,14 @@ public class KingDice {
             KingDice.mvt = 0;
         }
     }
-    public boolean pieIzq() {
+
+    public boolean pieIzq()
+    {
         return KingDice.pieIzq;
     }
 
-    public boolean pieDer() {
+    public boolean pieDer()
+    {
         return KingDice.pieDer;
     }
 }

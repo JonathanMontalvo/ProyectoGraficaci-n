@@ -24,6 +24,7 @@ import static org.yourorghere.Juego.cajaCactus2;
 import static org.yourorghere.Juego.cajaCactus3;
 import static org.yourorghere.Juego.pieIzquierdo;
 import static org.yourorghere.Juego.pieDerecho;
+import static org.yourorghere.Main.musPregu;
 //import static org.yourorghere.Juego.;
 /**
  *
@@ -156,6 +157,7 @@ public class PartesJuego extends Thread
             velocidadP2 -= 1;
         }
         if (colision) {
+            musPregu();
             velocidadP1 -= 1;
             velocidadP2 -= 1;
             stop();
